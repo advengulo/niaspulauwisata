@@ -42,6 +42,7 @@ Route::resource( 'profile', 'ProfileController');
 Route::post( 'profile', 'ProfileController@update')->name('profile.update');
 Route::get( 'profileEdit', 'ProfileController@edit')->name('profile.edit');
 
+// route login 
 Route::post('/login/custom', [
   'uses' => 'LoginController@login',
   'as' => 'login.custom'
