@@ -33,14 +33,14 @@
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
               <figure>
-                <img src="{{ URL::asset($kuliner->kuliner_img) }}" class="img-fluid" alt="">
-                <a href="{{ URL::asset($kuliner->kuliner_img) }}" data-lightbox="portfolio" data-title="{{ $kuliner->artikel['artikel_title']}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
+                <img src="{{ URL::asset($kuliner->kuliner_gambar) }}" class="img-fluid" alt="">
+                <a href="{{ URL::asset($kuliner->kuliner_gambar) }}" data-lightbox="portfolio" data-title="{{ $kuliner->kuliner_name}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
                 <a href="{{ route('kulinerDetail', $kuliner) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
               </figure>
 
               <div class="portfolio-info">
-                <h4><a href="{{ route('kulinerDetail', $kuliner) }}">{{ $kuliner->artikel['artikel_title']}}</a></h4>
-                <p>{{ $kuliner->kuliner_lokasi}}</p>
+                <h4><a href="{{ route('kulinerDetail', $kuliner) }}">{{ $kuliner->kuliner_name }}</a></h4>
+                <p><span class="ion-ios-location"></span> {{ $kuliner->kuliner_lokasi}}</p>
               </div>
             </div>
           </div>

@@ -15,13 +15,13 @@ class CreateAcaradanfestivalsTable extends Migration
     {
         Schema::create('acaradanfestivals', function (Blueprint $table) {
           $table->increments('id');
-          $table->integer('artikels_id')->unsigned();
-          $table->string('acaradanfestival_img');
+          $table->string('acaradanfestival_name');
+          $table->integer('artikel_id')->unsigned();
           $table->string('acaradanfestival_lokasi');
           $table->date('acaradanfestival_tanggal');
           $table->timestamps();
 
-          $table->foreign('artikels_id')->references('id')->on('artikels')->onDelete('cascade');
+          $table->foreign('artikel_id')->references('id')->on('artikels')->onDelete('cascade');
         });
     }
 

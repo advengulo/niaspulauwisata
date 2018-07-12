@@ -6,10 +6,10 @@
       <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
           <div class="carousel-item active" style="height:50vh;">
-            <div class="carousel-background"><img src="{{ URL::asset('img/intro-carousel/sampulbudaya.jpg') }}" alt=""></div>
+            <div class="carousel-background"><img src="{{ URL::asset('img/intro/sampulwisata.jpg') }}" alt=""></div>
             <div class="carousel-container">
               <div class="carousel-content">
-                <h2>KEBUDAYAAN</h2>
+                <h2>WISATA</h2>
               </div>
             </div>
           </div>
@@ -32,23 +32,23 @@
         <div class="row portfolio-container">
 
           @foreach ($data as $wisata)
-          <div class="row portfolio-item">
-          <div class="col-md-5 filter-app wow fadeInUp">
+          <div class="row portfolio-item filter-app wow fadeInUp">
+          <div class="col-md-5">
             <div class="portfolio-wrap">
               <figure>
-                <img src="{{ URL::asset($wisata->wisata_img) }}" class="img-fluid" alt="">
-                <a href="{{ URL::asset($wisata->wisata_img) }}" data-lightbox="portfolio" data-title="{{ $wisata->artikel['artikel_title']}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
+                <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-fluid" alt="">
+                <a href="{{ URL::asset($wisata->wisata_gambar) }}" data-lightbox="portfolio" data-title="{{ $wisata->wisata_name}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
                 <a href="{{ route('wisataDetail', $wisata) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
               </figure>
               <div class="portfolio-info">
-                <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->artikel['artikel_title']}}</a></h4>
+                <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
               </div>
             </div>
           </div>
           <div class="col-md-7">
-            <p>{{ str_limit ($wisata->artikel['artikel_content'], 800, ' ...') }}  <a style="text-transform: none; font-size: 16px;" href="/wisata">Selengkapnya..</a></p>
+            <p>{{ str_limit ($wisata->artikel['artikel'], 800, ' ...') }}  <a href="{{ route('wisataDetail', $wisata) }}">Selengkapnya..</a></p>
           </div>
-        </div>
+          </div>
           @endforeach
         </div>
       </div>

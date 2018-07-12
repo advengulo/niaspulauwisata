@@ -33,14 +33,14 @@
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
               <figure>
-                <img src="{{ URL::asset($budaya->budaya_img) }}" class="img-fluid" alt="">
-                <a href="{{ URL::asset($budaya->budaya_img) }}" data-lightbox="portfolio" data-title="{{ $budaya->artikel['artikel_title']}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
+                <img src="{{ URL::asset($budaya->budaya_gambar) }}" class="img-fluid" alt="">
+                <a href="{{ URL::asset($budaya->budaya_gambar) }}" data-lightbox="portfolio" data-title="{{ $budaya->budaya_name}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
                 <a href="{{ route('budayaDetail', $budaya) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
               </figure>
 
               <div class="portfolio-info">
-                <h4><a href="{{ route('budayaDetail', $budaya) }}">{{ $budaya->artikel['artikel_title']}}</a></h4>
-                <p>{{ $budaya->budaya_lokasi}}</p>
+                <h4><a href="{{ route('budayaDetail', $budaya) }}">{{ $budaya->budaya_name}}</a></h4>
+                <p><span class="ion-ios-location"></span> {{ $budaya->budaya_lokasi}}</p>
               </div>
             </div>
           </div>

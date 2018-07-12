@@ -6,7 +6,7 @@
       <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
           <div class="carousel-item active" style="height:50vh;">
-            <div class="carousel-background"><img src="{{ URL::asset($wisata->wisata_img) }}" alt="">
+            <div class="carousel-background"><img src="{{ URL::asset($wisata->wisata_gambar) }}" alt="">
 
             </div>
           </div>
@@ -156,17 +156,23 @@
 	            </div>
             @endforeach
   	    </div>
-        <div class="panel-body has-feedback{{ $errors->has('isi_ulasan') ? ' has-error ' : ''}}">
-          <form method="post" action="{{ route('wisata.ulasan.store', $wisata) }}" class="form-horizontal">
-            {{ csrf_field() }}
-              <textarea name="isi_ulasan" id="" cols="30" rows="5" class="form-control" placeholder="Buat Ulasan..."></textarea>
+        <div class="panel-body has-feedback" {{ $errors->has('isi_ulasan') ? ' has-error ' : ''}}>
+            <form method="post" action="{{ route('wisata.ulasan.store', $wisata) }}" class="form-horizontal">
+            {{ csrf_field() }}            
+            <div class="row">
+            <div class="col-md-12">
+            <textarea name="isi_ulasan" id="" cols="30" rows="5" class="form-control" placeholder="Buat Ulasan..."></textarea>
                 @if($errors->has('isi_ulasan'))
                   <span class="help-block">
                     <p>{{ $errors->first('isi_ulasan') }}</p>
                   </span>
                 @endif
+            </div>
+            <div class="col-md-12">    
               <input type="submit" value="Komentar" class="btn btn-primary">
-          </form>
+            </div>
+            </div>
+        </form>
         </div>
   	</div>
   </div>

@@ -15,12 +15,13 @@ class CreateKulinersTable extends Migration
     {
         Schema::create('kuliners', function (Blueprint $table) {
           $table->increments('id');
-          $table->integer('artikels_id')->unsigned();
-          $table->string('kuliner_img');
+          $table->string('kuliner_name');
+          $table->integer('artikel_id')->unsigned();
+          $table->string('kuliner_gambar');
           $table->string('kuliner_lokasi');
           $table->timestamps();
 
-          $table->foreign('artikels_id')->references('id')->on('artikels')->onDelete('cascade');
+          $table->foreign('artikel_id')->references('id')->on('artikels')->onDelete('cascade');
         });
     }
 

@@ -11,6 +11,6 @@ class Budaya extends Model
 
   public function artikel()
   {
-    return $this->belongsTo('App\Artikel', 'artikels_id');
+    return $this->belongsTo('App\Artikel', 'artikel_id');
   }
 }
