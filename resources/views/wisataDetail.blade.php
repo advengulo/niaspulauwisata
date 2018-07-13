@@ -6,7 +6,7 @@
       <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
           <div class="carousel-item active" style="height:50vh;">
-            <div class="carousel-background"><img src="{{ URL::asset($wisata->wisata_gambar) }}" alt="">
+            <div class="carousel-background"><img src="{{ URL::asset($wisata->wisata_img) }}" alt="">
 
             </div>
           </div>
@@ -16,10 +16,10 @@
   <section id="about">
     <div class="container">
       <header class="section-header">
-        <h3>{{ $wisata->artikel['artikel_title']}}</h3>
+        <h3>{{ $wisata->wisata_name }}</h3>
         <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i>
       </header>
-      <p>{{ $wisata->artikel['artikel_content']}}</p>
+      <p>{{ $wisata->artikel['artikel']}}</p>
       <div class="col-md12">
         <video width="100%" height="300px" controls>
           <source src="movie.mp4" type="video/mp4">
@@ -156,28 +156,44 @@
 	            </div>
             @endforeach
   	    </div>
-        <div class="panel-body has-feedback" {{ $errors->has('isi_ulasan') ? ' has-error ' : ''}}>
-            <form method="post" action="{{ route('wisata.ulasan.store', $wisata) }}" class="form-horizontal">
-            {{ csrf_field() }}            
-            <div class="row">
-            <div class="col-md-12">
-            <textarea name="isi_ulasan" id="" cols="30" rows="5" class="form-control" placeholder="Buat Ulasan..."></textarea>
-                @if($errors->has('isi_ulasan'))
-                  <span class="help-block">
-                    <p>{{ $errors->first('isi_ulasan') }}</p>
-                  </span>
-                @endif
+        <div class="panel-body">
+
+          <button type="button" class="btn btn-primary fa fa-plus-circle" data-toggle="modal" data-target="#exampleModal"> Tambah Ulasan</button>
+          <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{{$wisata->wisata_name}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body has-feedback{{ $errors->has('isi_ulasan') ? ' has-error ' : ''}}">
+                  <form method="post" action="{{ route('wisata.ulasan.store', $wisata) }}" >
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label">Message:</label>
+                      <textarea name="isi_ulasan" class="form-control" id="message-text"></textarea>
+                      @if($errors->has('isi_ulasan'))
+                        <span class="help-block">
+                          <p>{{ $errors->first('isi_ulasan') }}</p>
+                        </span>
+                      @endif
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <input type="submit" value="Komentar" class="btn btn-primary">
+                    </div>
+                  </form>
+                </div>
+
+              </div>
             </div>
-            <div class="col-md-12">    
-              <input type="submit" value="Komentar" class="btn btn-primary">
-            </div>
-            </div>
-        </form>
+          </div>
         </div>
   	</div>
   </div>
   <script type="text/javascript">
   </script>
-
 
 @endsection

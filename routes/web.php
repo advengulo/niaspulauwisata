@@ -13,7 +13,7 @@
 
 Route::resource( '/', 'WelcomeController');
 Route::get('/wisata/{wisata}', 'WelcomeController@Show')->name('wisataDetail');
-Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@Tampil')->name('acaradanfestivalDetail');
+Route::post('/wisata/{wisata}/ulasan', 'WisataUlasanController@store')->name('wisata.ulasan.store')->middleware(['auth']);
 
 Auth::routes();
 
@@ -42,7 +42,7 @@ Route::resource( 'profile', 'ProfileController');
 Route::post( 'profile', 'ProfileController@update')->name('profile.update');
 Route::get( 'profileEdit', 'ProfileController@edit')->name('profile.edit');
 
-// route login 
+
 Route::post('/login/custom', [
   'uses' => 'LoginController@login',
   'as' => 'login.custom'
