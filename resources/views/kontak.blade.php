@@ -9,7 +9,7 @@
             <div class="carousel-background"><img src="{{ URL::asset('img/intro/sampulkontak.jpg') }}" alt=""></div>
             <div class="carousel-container">
               <div class="carousel-content">
-                <h2>KEBUDAYAAN</h2>
+                <h2>K O N T A K</h2>
               </div>
             </div>
           </div>

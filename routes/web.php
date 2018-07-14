@@ -11,6 +11,10 @@
 |
 */
 
+Route::resource( 'wisata', 'WisataController');
+Route::get('/wisata/{wisata}', 'WisataController@Show')->name('wisataDetail');
+Route::post('/wisata/{wisata}/ulasan', 'WisataUlasanController@store')->name('wisata.ulasan.store')->middleware(['auth']);
+
 Route::resource( '/', 'WelcomeController');
 Route::get('/wisata/{wisata}', 'WelcomeController@Show')->name('wisataDetail');
 Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@Tampil')->name('acaradanfestivalDetail');
@@ -20,10 +24,6 @@ Auth::routes();
 Route::get('/kamus', function () {
     return view('kamus');
 });
-Route::resource( 'wisata', 'WisataController');
-Route::get('/wisata/{wisata}', 'WisataController@Show')->name('wisataDetail');
-Route::post('/wisata/{wisata}/ulasan', 'WisataUlasanController@store')->name('wisata.ulasan.store');
-
 
 Route::resource( 'budaya', 'BudayaController');
 Route::get('/budaya/{budaya}', 'BudayaController@Show')->name('budayaDetail');
@@ -42,7 +42,7 @@ Route::resource( 'profile', 'ProfileController');
 Route::post( 'profile', 'ProfileController@update')->name('profile.update');
 Route::get( 'profileEdit', 'ProfileController@edit')->name('profile.edit');
 
-// route login 
+
 Route::post('/login/custom', [
   'uses' => 'LoginController@login',
   'as' => 'login.custom'

@@ -4,19 +4,19 @@
         <div class="row">
 
             <div class="col-lg-3 col-md-6 footer-info">
-            <h3>BizPage</h3>
+            <h2><a href="{{ url('/') }}" class="scrollto">{{ config('app.name', 'Nias PulauWisata') }}</a></h2>
             <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
             </div>
 
             <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
+            <h4>Link untuk lebih mudah</h4>
             <ul>
-                <li><i class="ion-ios-arrow-right"></i> <a href="#">Home</a></li>
-                <li><i class="ion-ios-arrow-right"></i> <a href="#">Budaya</a></li>
-                <li><i class="ion-ios-arrow-right"></i> <a href="#">Kamus</a></li>
+                <li><i class="ion-ios-arrow-right"></i> <a href="/">Home</a></li>
+                <li><i class="ion-ios-arrow-right"></i> <a href="/budaya">Budaya</a></li>
+                <li><i class="ion-ios-arrow-right"></i> <a href="/kamus">Kamus</a></li>
                 <li><i class="ion-ios-arrow-right"></i> <a href="/kuliner">Kuliner</a></li>
                 <li><i class="ion-ios-arrow-right"></i> <a href="/transportasi">Transportasi</a></li>
-                <li><i class="ion-ios-arrow-right"></i> <a href="#">Kontak</a></li>
+                <li><i class="ion-ios-arrow-right"></i> <a href="/kontak">Kontak</a></li>
             </ul>
             </div>
 
