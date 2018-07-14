@@ -54,7 +54,11 @@ class WisataController extends Controller
    */
   public function show(Wisata $wisata)
   {
-    Mapper::map(1.304203, 97.590803);
+    $latitude = DB::table('wisatas')->value('latitude');
+    $longtitude = DB::table('wisatas')->value('longtitude');
+
+    Mapper::map($latitude, $longtitude);
+
     return view('wisataDetail', compact('wisata'));
   }
 
