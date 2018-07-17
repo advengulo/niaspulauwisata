@@ -114,7 +114,7 @@
               <a href="{{ route('wisataDetail', $wisata) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
             </figure>
             <div class="portfolio-info">
-              <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->artikel['artikel_title']}}</a></h4>
+              <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
               <img src="{{ URL::asset('img/rating.png') }}" alt="">
             </div>
           </div>
