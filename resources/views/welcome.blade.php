@@ -14,18 +14,17 @@
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2>Pulau Asu</h2>
-                <a href="#featured-services" class="btn-get-started scrollto">Apakah Anda Memerlukan Rekomendasi Wisata?</a>
+                <button type="button" class="btn-get-started scrollto" data-toggle="modal" data-target="#rekomendasiModal" data-whatever="@mdo">Apakah Anda Memerlukan Rekomendasi Wisata?</button>
               </div>
             </div>
           </div>
-
 
         <div class="carousel-item">
           <div class="carousel-background"><img src="img/intro/2.jpg" alt=""></div>
           <div class="carousel-container">
             <div class="carousel-content">
               <h2>Hombo Batu</h2>
-              <a href="#featured-services" class="btn-get-started scrollto">Apakah Anda Memerlukan Rekomendasi Wisata?</a>
+              <button type="button" class="btn-get-started scrollto" data-toggle="modal" data-target="#rekomendasiModal" data-whatever="@mdo">Apakah Anda Memerlukan Rekomendasi Wisata?</button>
             </div>
           </div>
         </div>
@@ -35,7 +34,7 @@
           <div class="carousel-container">
             <div class="carousel-content">
               <h2>Pantai Sorake</h2>
-              <a href="#featured-services" class="btn-get-started scrollto">Apakah Anda Memerlukan Rekomendasi Wisata?</a>
+              <button type="button" class="btn-get-started scrollto" data-toggle="modal" data-target="#rekomendasiModal" data-whatever="@mdo">Apakah Anda Memerlukan Rekomendasi Wisata?</button>
             </div>
           </div>
         </div>
@@ -50,6 +49,45 @@
         <span class="carousel-control-next-icon ion-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
+
+      <!-- Modal Rekomendasi -->
+      <div class="modal" id="rekomendasiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="titleRekomendasi" id="exampleModalLabel">Rekomendasi Wisata..?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" method="post">
+                  {{ csrf_field() }}
+                  <div class="form-group">
+                      <label for="">Pilih Daerah</label>
+                      <select name="jenis_wisata_id" id="" class="formSelect">
+                              <option value=" "> Nias Barat </option>
+                              <option value=" "> Nias Selatan </option>
+                      </select>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="">Jenis Wisata</label>
+                      <select name="jenis_wisata_id" id="" class="formSelect">
+                              <option value=" "> Alam </option>
+                              <option value=" "> Sejarah </option>
+                      </select>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" style="margin-right:180px;">Cari</button>
+                  </div>
+                </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

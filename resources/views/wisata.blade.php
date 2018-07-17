@@ -37,7 +37,7 @@
             <div class="portfolio-wrap">
               <figure>
                 <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-fluid" alt="">
-                <a href="{{ URL::asset($wisata->wisata_gambar) }}" data-lightbox="portfolio" data-title="{{ $wisata->wisata_name}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
+                <a href="{{ URL::asset($wisata->wisata_gambar) }}" data-lightbox="portfolio" data-title="{{ $wisata->wisata_name }}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
                 <a href="{{ route('wisataDetail', $wisata) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
               </figure>
               <div class="portfolio-info">

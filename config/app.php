@@ -162,6 +162,7 @@ return [
         Cornford\Googlmapper\MapperServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
+        willvincent\Rateable\RateableServiceProvider::class,
 
     ],
 
