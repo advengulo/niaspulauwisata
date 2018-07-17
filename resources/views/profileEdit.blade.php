@@ -21,7 +21,7 @@
   <!--==========================
     Skills Section
   ============================-->
-<section id="facts"  class="wow fadeIn">
+<section id="portfolio"  class="wow fadeIn">
     <div class="container">
       <div class="panel-body">
         <form  method="post" action="/profile" enctype="multipart/form-data"> <!--//star form post-->
@@ -30,7 +30,7 @@
               <div class="about-col">
                 <div class="img">
                   <img src="{{ URL::asset(Auth::user()->avatar) }}" alt="" class="img-avatar">
-                  <input type="file" name="avatar">
+                  <input style="padding-top: 4%" type="file" name="avatar">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 </div>
               </div>
@@ -44,11 +44,14 @@
                   </tr>
                   <tr>
                     <td>Tempat / Tanggal Lahir </td>
-                    <td ><input type="text" class="form-control"  placeholder="{{ $user->profile['pro_tempatLahir']}}" name="" value="" style="width=12px;"></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td><input type="text" class="form-control"  placeholder="{{ $user->profile['pro_tglLahir']}}" name="" value=""></td>
+                    <td class="row">
+                            <div class="col-md-6">
+                              <input type="text" class="form-control"  placeholder="" name="ttl" value="{{ $user->profile['pro_tempatLahir']}}" style="width=12px;">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control"  placeholder="dd/mm/yyyy" name="" value="{{ $user->profile['pro_tglLahir']}}">
+                            </div>                    
+                    </td>
                   </tr>
                   <tr>
                     <td>Jenis Kelamin</td>
@@ -61,7 +64,7 @@
 
                   <tr>
                     <td>Email</td>
-                    <td><input type="text" class="form-control"  placeholder="{{ $user->email }}" name="title" value=""></td>
+                    <td><input type="text" class="form-control"  placeholder="" name="title" value="{{ $user->email }}"></td>
                   </tr>
                   <tr>
                     <td>Nomor Telepon / Hp</td>
@@ -69,15 +72,14 @@
                   </tr>
                 </tbody>
               </table>
-
-              <div class="form-group">
-                  <input type="submit" class="btn btn-primary" />
-              </div>
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-6">
+                <input type="submit" class="btn btn-primary" style="width:100%">
             </div>
             {{ csrf_field() }}
-
-        </div>
+          </div>
       </form> <!--end form post-->
       </div>
     </div>
