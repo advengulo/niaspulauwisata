@@ -46,13 +46,9 @@
               <div class="well well-sm">
                   <div class="row">
                       <div class="col-xs-12 col-md-6 text-center"> <!--class total rating-->
-                          <h1 class="rating-num">{{ $wisata->averageRating }}</h1>
+                          <h1 class="rating-num">{{ str_limit ($wisata->averageRating, 3,'') }}</h1>
                           <div class="rating">
-                              <span class="text-warning fa fa-star"><p>{{ $wisata->rating['rating'] }}</p></span>
-                              <span class="text-warning fa fa-star">
-                              <span class="text-warning fa fa-star">
-                              <span class="text-warning fa fa-star">
-                              <span class="text-warning fa fa-star">
+                              <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
                           </div>
                           <div>
                               <span class="text-warning fa fa-user"></span> 1,050,008 total
