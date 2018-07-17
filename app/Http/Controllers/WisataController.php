@@ -32,7 +32,7 @@ class WisataController extends Controller
    */
   public function create()
   {
-      
+
   }
 
   /**
@@ -54,15 +54,8 @@ class WisataController extends Controller
    */
   public function show(Wisata $wisata)
   {
-<<<<<<< HEAD
     Mapper::map($wisata->latitude, $wisata->longtitude, ['zoom' => 12]);
-=======
-    $latitude = DB::table('wisatas')->value('latitude');
-    $longtitude = DB::table('wisatas')->value('longtitude');
 
-    Mapper::map($latitude, $longtitude);
-
->>>>>>> 2b74654869797f642ccf70e78da165b99ccf0ff8
     return view('wisataDetail', compact('wisata'));
   }
 
