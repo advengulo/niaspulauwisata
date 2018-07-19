@@ -21,9 +21,10 @@
   <!--==========================
     Skills Section
   ============================-->
-<section id="facts"  class="wow fadeIn">
+<section id="portfolio"  class="wow fadeIn">
     <div class="container">
       <div class="panel-body">
+        
         <div class="row">
           <div class="col-md-3 wow fadeInUp">
             <div class="about-col" >
@@ -53,12 +54,12 @@
                 </tr>
                 <tr>
                   <td>Alamat</td>
-                  <td><textarea name="content" class="form-control">{{ $user->profile['pro_alamat']}}</textarea></td>
+                  <td>: {{ $user->profile['pro_alamat']}}</td>
                 </tr>
 
                 <tr>
                   <td>Email</td>
-                  <td><a href="{{ $user->email }}">: {{ $user->email }}</a></td>
+                  <td>: {{ $user->email }}</td>
                 </tr>
                 <tr>
                   <td>Nomor Telepon / Hp</td>
@@ -68,14 +69,16 @@
             </table>
 
           </div>
-
+          
         </div>
+        <div class="row">
+          <div class="col-md-2 col-md-offset-6">
+            <a href="/profileEdit" class="btn btn-primary" style="width:100%">Edit</a>
+          </div>
+        </div>
+      
       </div>
-      <div class="container"  style="text-align:center">
-        <a href="/profileEdit" class="btn btn-primary"style="width:100px;">Edit</a>
-      <div>
-
-    </div>
+  </div>   
 </section>
 
 @endsection
