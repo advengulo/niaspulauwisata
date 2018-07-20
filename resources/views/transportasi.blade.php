@@ -35,7 +35,7 @@
               <figure>
                 <img src="{{ URL::asset($transportasi->transportasi_gambar) }}" class="img-fluid" alt="">
                 <a href="{{ URL::asset($transportasi->transportasi_gambar) }}" data-lightbox="portfolio" data-title="{{ $transportasi->transportasi_name}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
-                <a data-toggle="modal" data-target="#exampleModalLong" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                <a href="" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
               </figure>
 
               <div class="portfolio-info">
@@ -52,26 +52,6 @@
               {{ $data->render() }}
             </div>
           </div>
-        </div>
-        <!-- Modal Transportasi-->
-        <div class="modal" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
         </div>
     </section><!-- #portfolio -->
   </main>

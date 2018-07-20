@@ -92,4 +92,3 @@ Route::middleware(['role', 'auth'])->group(function () {
       return view('dashboards.kamus');
   });
 });
-

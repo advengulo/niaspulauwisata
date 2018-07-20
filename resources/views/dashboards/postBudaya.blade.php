@@ -8,11 +8,11 @@
             <div class="page-header pull-left">
                 <div class="page-title">
                     Post Control</div>
-            </div>            
+            </div>
             <div class="clearfix"></div>
         </div>
         <!--END TITLE & BREADCRUMB PAGE-->
-                
+
         <!--BEGIN CONTENT-->
         <div class="page-content">
             <div id="tab-general">
@@ -24,17 +24,17 @@
                                 <li class="{{Request::is("dashboard/postbudaya")?'active':''}}"><a href="/dashboard/postbudaya">Budaya</a></li>
                                 <li class="{{Request::is("dashboard/posttransportasi")?'active':''}}"><a href="/dashboard/posttransportasi">Transportasi</a></li>
                             </ul>
-                            <div id="generalTabContent" class="tab-content responsive">                
+                            <div id="generalTabContent" class="tab-content responsive">
                                 <div id="budaya" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div id="area-chart-spline" style="width: 100%; height: 300px; display: none;"></div>                            
+                                            <div id="area-chart-spline" style="width: 100%; height: 300px; display: none;"></div>
                                             <div id="grid-layout-table-1" class="box jplist">
                                                 <div class="jplist-ios-button"><i class="fa fa-sort"></i>jPList Actions</div>
-                                                
+
                                                 <div class="jplist-panel box panel-top">
                                                     <button type="button" data-control-type="reset" data-control-name="reset" data-control-action="reset" class="jplist-reset-btn btn btn-default">Reset<i class="fa fa-share mls"></i></button>
-                                                    
+
                                                     <div data-control-type="drop-down" data-control-name="paging" data-control-action="paging" class="jplist-drop-down form-control">
                                                         <ul class="dropdown-menu">
                                                             <li><span data-number="3"> 3 per page</span></li>
@@ -71,7 +71,7 @@
                                                         <!--<item>1</item>-->
                                                         @foreach($dataBudayas as $budaya)
                                                             <tr class="tbl-item"><!--<img/>-->
-                                                                <td class="col-lg-1"><img src="/../img/{{ $budaya->budaya_gambar }}" style="width:120px; height:90px" alt="" title=""/></td>
+                                                                <td class="col-lg-1"><img src="{{ $budaya->budaya_gambar }}" style="width:120px; height:90px" alt="" title=""/></td>
                                                                 <!--<data></data>-->
                                                                 <td class="td-block"><p class="date">{{ $budaya->created_at }}</p>
 
@@ -129,13 +129,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> <!--END ARTIKEL TAB -->    
+                                </div> <!--END ARTIKEL TAB -->
                             </div> <!--END TAB CONTENT-->
-                        </div>                            
-                    </div>                            
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div> <!--END CONTENT-->                
+        </div> <!--END CONTENT-->
     </div> <!--END PAGE WRAPPER-->
-        
+
 @endsection
