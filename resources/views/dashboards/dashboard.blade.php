@@ -17,7 +17,7 @@
         <div class="page-content">
             <div id="tab-general">
                 <div id="sum_box" class="row mbl">
-                <a href="/dashboard/usercontrol">
+                <a href="/dashboard/userControl">
                     <div class="col-sm-6 col-md-3">
                         <div class="panel profit db mbm">
                             <div class="panel-body">

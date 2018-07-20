@@ -59,6 +59,7 @@ Route::middleware(['role', 'auth'])->group(function () {
   })->name('dashboard');
 
   Route::resource( '/dashboard/userControl', 'UserControlController');
+  Route::delete( '/dashboard/userControl/{id}/destroy', "UserControlController@destroy")->name('user.destroy');
 
   Route::get('/dashboard/makepost', 'MakePostController@create')->name('makePost.create');
   Route::post('/dashboard/makepost', 'MakePostController@store')->name('makePost.store');

@@ -7,7 +7,7 @@
         <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
             <div class="page-header pull-left">
                 <div class="page-title">
-                    Make Post</div>
+                    User Control </div>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -29,7 +29,10 @@
               <tbody>
                 @foreach ($data as $user)
                 <tr>
-                  <td>{{$user->id}}</td>
+                  @if ($user->admin==false)
+                  <td>
+                    {{$user->id}}</td>
+
                   <td> {{$user->name}}</td>
                   <td>
                     <img src="{{ URL::asset($user->avatar) }}" alt="" class="imgUserDashboard">
@@ -43,10 +46,21 @@
                   </td>
 
                   <td> {{$user->email}} </td>
-                  <td>
-                    <a onClick="" class="btn btn-info"><i class="fa fa-pencil"></i></a>
-                    <a onClick="" class="btn btn-danger"><i class="fa fa-close"></i></a>
+                  <td class="col-md-2">
+                    <div class="row">
+                      <div class="col-md-5">
+                        <button class="btn btn-info"> <i class="fa fa-pencil"></i> Edit </button>
+                      </div>
+                      <div class="col-md-4">
+                        <form action="{{ route('user.destroy', $user->id)}}" method="post">
+                          {{csrf_field()}}
+                          {{method_field('DELETE')}}
+                          <button type="submit" class="btn btn-danger"><i class="fa fa-close"></i> Hapus </button>
+                        </form>
+                      </div>
+                    </div>
                   </td>
+                  @endif
                 </tr>
                 @endforeach
               </tbody>
