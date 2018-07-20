@@ -27,7 +27,7 @@
                             <div id="wisata" class="tab-pane fade in active">
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <form action="{{ Route('makePost.store') }}" method="post">
+                                    <form action="{{ Route('makePost.store') }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="">Nama Wisata</label>
@@ -36,7 +36,8 @@
 
                                             <div class="form-group">
                                                 <label for="">Gambar Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_gambar">
+                                                <input type="file" name="wisata_gambar" id="wisata_gambar">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             </div>
 
                                             <div class="form-group">
@@ -66,7 +67,7 @@
                                                 <label for="">Jenis Wisata</label>
                                                 <select name="jenis_wisata_id" id="" class="form-control">
                                                     @foreach ($jeniswisatas as $Jeniswisata)
-                                                        <option value=" {{$Jeniswisata->id }}"> {{$Jeniswisata->jeniswisata_nama}} </option>
+                                                        <option value=" {{$Jeniswisata->id }}"> {{$Jeniswisata->jeniswisata_name}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -88,7 +89,7 @@
                             <div id="budaya" class="tab-pane fade">
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <form action="{{ Route('makePost.store') }}" method="post">
+                                    <form action="{{ Route('makePost.store') }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="">Nama Budaya</label>
@@ -97,7 +98,8 @@
 
                                             <div class="form-group">
                                                 <label for="">Gambar Budaya</label>
-                                                <input type="text" class="form-control" name="budaya_gambar">
+                                                <input type="file" name="budaya_gambar" id="budaya_gambar">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             </div>
 
                                             <div class="form-group">
@@ -121,7 +123,7 @@
                             <div id="transportasi" class="tab-pane fade">
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <form action="{{ Route('makePost.store') }}" method="post">
+                                    <form action="{{ Route('makePost.store') }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="">Nama Transportasi</label>
@@ -130,7 +132,8 @@
 
                                             <div class="form-group">
                                                 <label for="">Gambar Transportasi</label>
-                                                <input type="text" class="form-control" name="transportasi_gambar">
+                                                <input type="file" name="transportasi_gambar" id="transportasi_gambar">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             </div>
 
                                             <div class="form-group">
