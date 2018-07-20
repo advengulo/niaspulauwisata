@@ -94,4 +94,3 @@ Route::middleware(['role', 'auth'])->group(function () {
 
   
 });
-
