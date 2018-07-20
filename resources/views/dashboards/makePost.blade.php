@@ -66,7 +66,7 @@
                                                 <label for="">Jenis Wisata</label>
                                                 <select name="jenis_wisata_id" id="" class="form-control">
                                                     @foreach ($jeniswisatas as $Jeniswisata)
-                                                        <option value=" {{$Jeniswisata->id }}"> {{$Jeniswisata->jeniswisata_name}} </option>
+                                                        <option value=" {{$Jeniswisata->id }}"> {{$Jeniswisata->jeniswisata_nama}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>

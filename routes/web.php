@@ -64,4 +64,32 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::get('/dashboard/makepost', 'MakePostController@create')->name('makePost.create');
   Route::post('/dashboard/makepost', 'MakePostController@store')->name('makePost.store');
 
+  Route::get('/dashboard/postcontrol', 'PostController@index')->name('post.index');
+  Route::get('/dashboard/postcontrol/{wisata}', 'PostController@show')->name('post.show');
+  Route::get('/dashboard/postcontrol/{id}/edit', 'PostController@edit')->name('post.edit');
+  Route::patch('/dashboard/postcontrol/{id}/edit', 'PostController@update')->name('post.update');
+  Route::delete('/dashboard/postcontrol/{id}/destroy', 'PostController@destroy')->name('post.destroy');
+
+  Route::get('/dashboard/postbudaya', 'PostBudayaController@index')->name('postbudaya.index');
+  Route::get('/dashboard/postbudaya/{budaya}', 'PostBudayaController@show')->name('postbudaya.show');
+  Route::get('/dashboard/postbudaya/{id}/edit', 'PostBudayaController@edit')->name('postbudaya.edit');
+  Route::delete('/dashboard/postbudaya/{id}/destroy', 'PostBudayaController@destroy')->name('postbudaya.destroy');
+
+  Route::get('/dashboard/posttransportasi', 'PostTransportasiController@index')->name('posttransportasi.index');
+  Route::get('/dashboard/posttransportasi/{transportasi}', 'PostTransportasiController@show')->name('posttransportasi.show');
+  Route::get('/dashboard/posttransportasi/{id}/edit', 'PostTransportasiController@edit')->name('posttransportasi.edit');
+  Route::delete('/dashboard/posttransportasi/{id}/destroy', 'PostTransportasiController@destroy')->name('posttransportasi.destroy');
+
+  Route::get('/dashboard/adminsetting', function () {
+      return view('dashboards.adminsetting');
+  });
+
+  Route::get('/dashboard/inbox', function () {
+      return view('dashboards.inbox');
+  });
+
+  Route::get('/dashboard/kamus', function () {
+      return view('dashboards.kamus');
+  });
 });
+
