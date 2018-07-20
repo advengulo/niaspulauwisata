@@ -58,6 +58,8 @@ Route::middleware(['role', 'auth'])->group(function () {
     return view('dashboards.dashboard');
   })->name('dashboard');
 
+  Route::resource( '/dashboard/userControl', 'UserControlController');
+
   Route::get('/dashboard/makepost', 'MakePostController@create')->name('makePost.create');
   Route::post('/dashboard/makepost', 'MakePostController@store')->name('makePost.store');
 

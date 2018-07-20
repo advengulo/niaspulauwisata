@@ -15,6 +15,7 @@
 
 
    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--Loading bootstrap css-->
@@ -43,7 +44,7 @@
             <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
             <div class="navbar-header">
                 <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                <a id="logo" href="/dashboard" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">Admin</span><span style="display: none" class="logo-text-icon">µ</span></a></div>
+                <a id="logo" href="{{ url('/') }}" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">{{ config('app.name', 'Nias PulauWisata') }}</span><span style="display: none" class="logo-text-icon">µ</span></a></div>
             <div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
 
                 <form id="topbar-search" action="" method="" class="hidden-sm hidden-xs">
@@ -75,12 +76,12 @@
             <div class="sidebar-collapse menu-scroll">
                 <ul id="side-menu" class="nav">
 
-                     <div class="clearfix"></div>
+                    <div class="clearfix"></div>
                     <li class="{{Request::is("dashboard")?'active':''}}"><a href="/dashboard"><i class="fa fa-tachometer fa-fw">
                         <div class="icon-bg bg-orange"></div>
                     </i><span class="menu-title">Dashboard</span></a></li>
 
-                    <li class="{{Request::is("dashboard/usercontrol")?'active':''}}"><a href="/dashboard/usercontrol"><i class="fa fa-user fa-fw">
+                    <li class="{{Request::is("dashboard/userControl")?'active':''}}"><a href="/dashboard/userControl"><i class="fa fa-user fa-fw">
                         <div class="icon-bg bg-pink"></div>
                     </i><span class="menu-title">User Control</span></a>
 
