@@ -26,8 +26,8 @@ class CreateWisatasTable extends Migration
           $table->string('longtitude');
           $table->timestamps();
 
-          $table->foreign('artikel_id')->references('id')->on('artikels')->onDelete('cascade');
-          $table->foreign('wisata_jenis_id')->references('id')->on('jeniswisatas')->onDelete('cascade');
+          $table->foreign('artikel_id')->references('id')->on('artikels');
+          $table->foreign('wisata_jenis_id')->references('id')->on('jeniswisatas');
         });
     }
 

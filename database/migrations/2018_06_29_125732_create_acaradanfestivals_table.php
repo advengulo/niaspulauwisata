@@ -22,7 +22,7 @@ class CreateAcaradanfestivalsTable extends Migration
           $table->date('acaradanfestival_tanggal');
           $table->timestamps();
 
-          $table->foreign('artikel_id')->references('id')->on('artikels')->onDelete('cascade');
+          $table->foreign('artikel_id')->references('id')->on('artikels');
         });
     }
 

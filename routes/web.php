@@ -80,6 +80,10 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::get('/dashboard/posttransportasi/{id}/edit', 'PostTransportasiController@edit')->name('posttransportasi.edit');
   Route::delete('/dashboard/posttransportasi/{id}/destroy', 'PostTransportasiController@destroy')->name('posttransportasi.destroy');
 
+  Route::get('/dashboard/kamus', 'KamusController@index')->name('kamus.index');
+  Route::post('/dashboard/kamus', 'KamusController@store')->name('kamus.store');
+  Route::delete('/dashboard/kamus/{id}/destroy', 'KamusController@destroy')->name('kamus.destroy');
+
   Route::get('/dashboard/adminsetting', function () {
       return view('dashboards.adminsetting');
   });
@@ -88,8 +92,6 @@ Route::middleware(['role', 'auth'])->group(function () {
       return view('dashboards.inbox');
   });
 
-  Route::get('/dashboard/kamus', function () {
-      return view('dashboards.kamus');
-  });
+  
 });
 

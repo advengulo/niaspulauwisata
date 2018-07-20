@@ -21,7 +21,7 @@ class CreateTransportasisTable extends Migration
           $table->string('transportasi_jenis');
           $table->timestamps();
 
-          $table->foreign('artikel_id')->references('id')->on('artikels')->onDelete('cascade');
+          $table->foreign('artikel_id')->references('id')->on('artikels');
         });
     }
 

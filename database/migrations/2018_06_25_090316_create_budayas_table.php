@@ -21,7 +21,7 @@ class CreateBudayasTable extends Migration
           $table->string('budaya_lokasi');
           $table->timestamps();
 
-          $table->foreign('artikel_id')->references('id')->on('artikels')->onDelete('cascade');
+          $table->foreign('artikel_id')->references('id')->on('artikels');
         });
     }
 

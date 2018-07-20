@@ -46,12 +46,9 @@
                   </td>
 
                   <td> {{$user->email}} </td>
-                  <td class="col-md-2">
+                  <td class="col-md-1">
                     <div class="row">
                       <div class="col-md-5">
-                        <button class="btn btn-info"> <i class="fa fa-pencil"></i> Edit </button>
-                      </div>
-                      <div class="col-md-4">
                         <form action="{{ route('user.destroy', $user->id)}}" method="post">
                           {{csrf_field()}}
                           {{method_field('DELETE')}}
