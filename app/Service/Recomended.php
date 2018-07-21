@@ -105,7 +105,7 @@ class Recomended
         {
             $userId = $prepareData[$i]['userId'];
 
-            for($j=$i+1; $j<= count($prepareData) - 1; $j++)
+            for($j=0; $j<= count($prepareData) - 1; $j++)
             {
                 $nextUserId = $prepareData[$j]['userId'];
                 $tempResult = [];
@@ -133,21 +133,35 @@ class Recomended
 
                 $akarAKaliAkarB = $akarItemA * $akarItemB;
 
-                $hasil = array_sum($tempResult) / $akarAKaliAkarB;
+                try {
+                    $hasil = array_sum($tempResult) / $akarAKaliAkarB;
+
+                } catch(\Exception $e) {
+                    $hasil = 0;
+                }
 
                 $arrayResult[$userId][$nextUserId] = $hasil;
 
             }
         }
 
-        // dd($arrayResult);
         return $arrayResult;
+    }
+
+    private function calculatePearson(int $currentUserId, array $prepareData)
+    {
 
     }
 
+    /**
+     * User Based
+     *
+     * @return void
+     */
     public function predictRating()
     {
         $prepareData = [];
+        $pearson = $this->hitungPearson();
         foreach($this->data as $index => $data)
         {
             $prepareData[] = [
@@ -159,29 +173,85 @@ class Recomended
         $arrayResult = [];
 
         $rataWisata = $this->rataDariSetiapWisata();
+        $selisihRating = $this->selisihRating($rataWisata);
+
         for($i=0; $i<=count($prepareData) - 1; $i++)
         {
             $userId = $prepareData[$i]['userId'];
 
-            for($j=$i+1; $j<= count($prepareData) - 1; $j++)
+            for($j=0; $j<= count($prepareData) - 1; $j++)
             {
+                if ($j === $i) {
+                    continue;
+                }
                 $nextUserId = $prepareData[$j]['userId'];
-                $tempResult = [];
-                $itemA = [];
-                $itemB = [];
                 foreach ($prepareData[$i]['data'] as $index => $rating)
                 {
                     $nextRating = $prepareData[$j]['data'][$index] ?? null;
                     if (null === $nextRating) {
+                        
+                        $countPositive = collect($pearson[$nextUserId])->reject(function($item, $index) use($nextUserId) {
+                            return $item <= 0 || $index == $nextUserId;
+                        })->count();
 
-                        $ambil = $rataWisata[$nextUserId];
-                        // $prepareData[$j]['data'][$index] = 
-                        // dd($prepareData);
+                        $countNegative = collect($pearson[$nextUserId])->reject(function($item, $index) use($nextUserId) {
+                            return $item >= 0 || $index == $nextUserId;
+                        })->count();
+
+                        if ($countPositive >= 2) {
+                            $data  = $this->getTetangga($pearson[$nextUserId], function($item, $index) use($nextUserId) {
+                                return $item <= 0 || $index == $nextUserId;
+                            })->take(2)->toArray();
+                        } else {
+                            $data  = $this->getTetangga($pearson[$nextUserId], function($item, $index) use($nextUserId) {
+                                return $item >= 0 || $index == $nextUserId;
+                            })->take(2)->toArray();
+                        }
+
+                        $dataYangDiAmbil = [];
+                        foreach ($data as $indexDataUserId => $value)
+                        {
+                            if ($s = $selisihRating[$indexDataUserId][$index] ?? false) {
+                                $dataYangDiAmbil[$indexDataUserId] = $s;
+                            }
+                        }
+
+                        $hasilKali = 0;
+                        foreach ($data as $u => $v)
+                        {
+                            if ($datasu = $dataYangDiAmbil[$u] ?? false) {
+                                $hasilKali += ($data[$u] * $dataYangDiAmbil[$u]);
+                            }
+                        }
+
+                        // dump($userId);
+
+                        try {
+                            $finalResult = ($hasilKali / array_sum($data) + $rataWisata[$nextUserId]);
+                        } catch(\Exception $e) {
+                            $finalResult = 0;
+                        }
+                        $this->data[$nextUserId][$index] = $finalResult;
                     }
                 }
             }
         }
 
+        // dd($this->data);
+
+        foreach($this->data as $user => $val)
+        {
+            asort($this->data[$user]);
+        }
+
+        dd($this->data);
+        // $sor
+
+    }
+
+    private function getTetangga(array $data, $scope)
+    {
+        return collect($data)->reject($scope);
     }
 
     public function rataSelisihRating()
