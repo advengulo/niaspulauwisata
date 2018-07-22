@@ -52,13 +52,6 @@
                 </form>
 
                 <ul class="nav navbar navbar-top-links navbar-right mbn">
-                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-bell fa-fw"></i><span class="badge badge-green">3</span></a>
-
-                    </li>
-                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-envelope fa-fw"></i><span class="badge badge-orange">7</span></a>
-
-                    </li>
-
                     <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-user"></i>&nbsp;<span class="hidden-xs">Admin</span>&nbsp;<span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-user pull-right">
                             <li><a href="#"><i class="fa fa-key"></i>Log Out</a></li>
@@ -86,7 +79,7 @@
                     </i><span class="menu-title">User Control</span></a>
 
                     </li>
-                    <li class="{{Request::is("dashboard/postcontrol")?'active':''}}"><a href="/dashboard/postcontrol"><i class="fa fa-send-o fa-fw">
+                    <li class="{{Request::is("dashboard/postcontrol")?'active':'' || Request::is("dashboard/postbudaya")?'active':'' || Request::is("dashboard/posttransportasi")?'active':''}}"><a href="/dashboard/postcontrol"><i class="fa fa-send-o fa-fw">
                         <div class="icon-bg bg-green"></div>
                     </i><span class="menu-title">Post Control</span></a>
 

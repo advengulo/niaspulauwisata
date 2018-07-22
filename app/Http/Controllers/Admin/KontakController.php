@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Kontak;
 
 class KontakController extends Controller
 {
@@ -34,15 +35,13 @@ class KontakController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request)
-  {
-    $data = [
-    'name' => $request -> name,
-    'email' => $request -> email,
-    'topik' => $request -> topik,
-    'pesan' => $request -> pesan
-    ];
-
-     DB::table('kontaks')->insert($data);
+  {    
+    Kontak::create([
+        'name' => request('name'),
+        'email' => request('email'),
+        'topik' => request('topik'),
+        'pesan' => request('pesan')
+    ]);
 
      return redirect('kontak')->with(['success' => 'Pesan Berhasil Terkirim']);
   }

@@ -22,46 +22,27 @@
                             <div id="wisata" class="tab-pane fade in active">
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <form action="{{ Route('post.update', $dataWisatas) }}" method="post">
+                                    <form action="{{ Route('posttransportasi.udpate', $dataTransportasis) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('PATCH') }}
                                             <div class="form-group">
-                                                <label for="">Nama Wisata</label>
-                                            <input type="text" class="form-control" name="wisata_name" value="{{ $dataWisatas->wisata_name }}">
+                                                <label for="">Nama Transportasi</label>
+                                            <input type="text" class="form-control" name="transportasi_name" value="{{ $dataTransportasis->transportasi_name }}">
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="">Gambar Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_gambar" value="{{ $dataWisatas->wisata_gambar }}">
-                                            </div>
+                                                <label for="">Gambar Transportasi</label>
+                                                <input type="text" class="form-control" name="transportasi_gambar" value="{{ $dataTransportasis->transportasi_gambar }}">
+                                            </div>                                           
 
                                             <div class="form-group">
-                                                <label for="">Video Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_video" value="{{ $dataWisatas->wisata_video }}">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="">Rating Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_rating" value="{{ $dataWisatas->wisata_rating }}">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="">Lokasi Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_lokasi" value="{{ $dataWisatas->wisata_lokasi }}">
-                                            </div>
-                                            
-                                            <div class="form-group">
-                                                <label for="">Jenis Wisata</label>
-                                                <select name="jenis_wisata_id" id="" class="form-control">
-                                                    @foreach ($jeniswisatas as $Jeniswisata)
-                                                        <option value=" {{$Jeniswisata->id }}" selected> {{$Jeniswisata->jeniswisata_nama}} </option>
-                                                    @endforeach
-                                                </select>
+                                                <label for="">Jenis Transportasi</label>
+                                                <input type="text" class="form-control" name="transportasi_jenis" value="{{ $dataTransportasis->transportasi_jenis }}">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control"> {{ $dataWisatas->artikel['artikel'] }}</textarea>
+                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control"> {{ $dataTransportasis->artikel['artikel'] }}</textarea>
                                             </div>
 
                                             <div class="form-group">

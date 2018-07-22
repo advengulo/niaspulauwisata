@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +10,7 @@ use App\Artikel;
 use App\Budaya;
 use App\Transportasi;
 
-class PostController extends Controller
+class PostTransportasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $dataWisatas = Wisata::all();
+        $dataTransportasis = Transportasi::all();
 
-        return view('dashboards.postControl', compact('dataWisatas'));
+        return view('dashboards.postTransportasi', compact('dataTransportasis'));
     }
 
     /**
@@ -51,9 +51,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Wisata $wisata)
+    public function show(transportasi $transportasi)
     {
-        return view('dashboards.showWisata', compact('wisata'));
+        return view('dashboards.showTransportasi', compact('transportasi'));        
     }
 
     /**
@@ -64,10 +64,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $dataWisatas = Wisata::find($id);
-        $jeniswisatas = Jeniswisata::all();
+        $dataTransportasis = Transportasi::find($id);
 
-        return view('dashboards.editWisata', compact('dataWisatas', 'jeniswisatas'));
+        return view('dashboards.editTransportasi', compact('dataTransportasis'));
     }
 
     /**
@@ -79,23 +78,20 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataWisatas = Wisata::find($id);        
-        $dataWisatas->update([
-            'wisata_name' => request('wisata_name'),
-            'wisata_gambar' => request('wisata_gambar'),
-            'wisata_video' => request('wisata_video'),
-            'wisata_rating' => request('wisata_rating'),
-            'wisata_lokasi' => request('wisata_lokasi'),
-            'jenis_wisata_id' => request('jenis_wisata_id'),
+        $dataTransportasis = Transportasi::find($id);        
+        $dataTransportasis->update([
+            'transportasi_name' => request('transportasi_name'),
+            'transportasi_gambar' => request('transportasi_gambar'),
+            'transportasi_lokasi' => request('transportasi_lokasi'),
         ]);
         
-        $artikel_id = DB::table('wisatas')->where('id', $id)->value('artikel_id');
+        $artikel_id = DB::table('transportasis')->where('id', $id)->value('artikel_id');
         $artikel = Artikel::where('id', $artikel_id);
         $artikel->update([
             'artikel' => request('artikel'),
         ]);
 
-        return redirect()->route('post.index');
+        return redirect()->route('posttransportasi.index');
     }
 
     /**
@@ -106,13 +102,13 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $dataWisatas = Wisata::find($id);
-        $dataWisatas->delete();
+        $dataTransportasis = Transportasi::find($id);
+        $dataTransportasis->delete();
 
-        $artikel_id = DB::table('wisatas')->where('id', $id)->value('artikel_id');
+        $artikel_id = DB::table('transportasis')->where('id', $id)->value('artikel_id');
         $artikel = Artikel::where('id', $artikel_id);
         $artikel->delete();
 
-        return redirect()->back();
+        return redirect()->route('post.index');
     }
 }

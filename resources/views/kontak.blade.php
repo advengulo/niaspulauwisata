@@ -67,21 +67,21 @@
                   @endif
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                        <input type="string" class="form-control"  placeholder="Nama" name="name" data-msg="Please enter at least 4 chars">
+                        <input type="string" class="form-control"  placeholder="Nama" name="name" data-msg="Please enter at least 4 chars" required autofocus>
                         <div class="validation"></div>
                     </div>
                     <div class="form-group col-md-6">
-                        <input type="string" class="form-control"  placeholder="Email" name="email"data-msg="Please enter a valid email">
+                        <input type="string" class="form-control"  placeholder="Email" name="email"data-msg="Please enter a valid email" required autofocus>
                         <div class="validation"></div>
                     </div>
                   </div>
                     <div class="form-group">
-                        <input type="string" class="form-control"  placeholder="Topik" name="topik" data-msg="Please enter at least 8 chars of subject">
+                        <input type="string" class="form-control"  placeholder="Topik" name="topik" data-msg="Please enter at least 8 chars of subject" required autofocus>
                         <div class="validation"></div>
                     </div>
 
                   <div class="form-group">
-                      <textarea name="pesan" class="form-control" placeholder="Pesan" rows="5" data-msg="Sampaikan pesan anda disini"></textarea>
+                      <textarea name="pesan" class="form-control" placeholder="Pesan" rows="5" data-msg="Sampaikan pesan anda disini" required autofocus></textarea>
                       <div class="validation"></div>
                   </div>
                   <div class="form-group">

@@ -167,8 +167,8 @@
                       <input type="hidden" name="id" required="" value="{{ $wisata->id }}">
                     </div>
                     <div class="form-group">
-                      <label for="message-text" class="col-form-label">Message:</label>
-                      <textarea name="isi_ulasan" class="form-control" id="message-text"></textarea>
+                      <label for="message-text" class="col-form-label">Ulasan :</label>
+                      <textarea name="isi_ulasan" class="form-control" id="message-text" required autofocus></textarea>
                       @if($errors->has('isi_ulasan'))
                         <span class="help-block">
                           <p>{{ $errors->first('isi_ulasan') }}</p>
