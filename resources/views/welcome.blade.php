@@ -115,7 +115,9 @@
             </figure>
             <div class="portfolio-info">
               <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
-              <img src="{{ URL::asset('img/rating.png') }}" alt="">
+              <div class="rating">
+                  <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
+              </div>
             </div>
           </div>
         </div>
