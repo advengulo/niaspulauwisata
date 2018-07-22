@@ -25,9 +25,9 @@ class RecomendedController extends Controller
                 104 => 3,
             ],
             3 => [
-                // 101 => 4,
-                // 102 => null,
-                // 103 => 1,
+                101 => 4,
+                102 => 3,
+                103 => 1,
                 // 104 => 0,
             ],
             4 => [
@@ -48,6 +48,6 @@ class RecomendedController extends Controller
 
         $recomended = new Recomended($sampleData);
 
-        return $recomended->predictRating();
+        return $recomended->predictItemBased();
     }
 }

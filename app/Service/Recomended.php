@@ -152,6 +152,118 @@ class Recomended
     {
 
     }
+    public function predictItemBased()
+    {
+        $dataAwal = $this->data;
+        $cosine = $this->cosineItemBased();
+        // dump($cosine);
+
+        // dd($cosine);
+        foreach($dataAwal as $user => $r)
+        {
+            foreach($cosine as $itemIndex => $item)
+            {
+                $check = $dataAwal[$user][$itemIndex] ?? null;
+                // if ($user === 2 && $itemIndex === 104) {
+                //     dump($dataAwal[$user][$itemIndex]);
+                //     dd($check);
+                // }
+                if (null === $check) {
+                    $countPositive = collect($cosine[$itemIndex])->reject(function($item, $index) use($itemIndex) {
+                        return $item <= 0 || $index == $itemIndex;
+                    })->count();
+
+                    $countNegative = collect($cosine[$itemIndex])->reject(function($item, $index) use($itemIndex) {
+                        return $item >= 0 || $index == $itemIndex;
+                    })->count();
+
+                    if ($countPositive >= 2) {
+                        $data  = $this->getTetangga($cosine[$itemIndex], function($item, $index) use($itemIndex) {
+                            return $item <= 0 || $index == $itemIndex;
+                        })->take(2)->toArray();
+                    } else {
+                        $data  = $this->getTetangga($cosine[$itemIndex], function($item, $index) use($itemIndex) {
+                            return $item >= 0 || $index == $itemIndex;
+                        })->take(2)->toArray();
+                    }
+
+                    $dataYangDiAmbil = [];
+                    foreach ($data as $indexDataUserId => $value)
+                    {
+                        // dd($indexDataUserId);
+                        if ($s = $this->data[$user][$indexDataUserId] ?? false) {
+                            $dataYangDiAmbil[$indexDataUserId] = $s;
+                        }
+                    }
+
+                    $hasilKali = 0;
+                    foreach ($data as $u => $v)
+                    {
+                        if ($datasu = $dataYangDiAmbil[$u] ?? false) {
+                            $hasilKali += ($data[$u] * $dataYangDiAmbil[$u]);
+                        }
+                    }
+
+                    try {
+                        $finalResult = ($hasilKali / array_sum($data));
+                    } catch(\Exception $e) {
+                        $finalResult = 0;
+                    }
+                    $this->data[$user][$itemIndex] = $finalResult;
+                }
+            }
+        }
+        // dd($this->data);
+    }
+    public function cosineItemBased()
+    {
+        $rata = $this->rataDariSetiapWisata();
+        $selisihRating = $this->selisihRating($rata);
+
+        $prepareData = [];
+        $totalProduct = 5;
+        foreach($selisihRating as $index => $data)
+        {
+            foreach ($data as $iData => $v)
+            {
+                $prepareData[$iData][$index] = $v;
+            }
+        }
+
+        $listUser = collect($selisihRating)->keys();
+        $hasilArray = [];
+        $penyebutArray = [];
+        $h = [];
+        foreach ($prepareData as $index => $u)
+        {
+            foreach ($prepareData as $nIndex => $nU)
+            {
+                if ($index === $nIndex) {
+                    continue;
+                }
+                $hasil = 0;
+                $penyebut= 0;
+                $penyebut2= 0;
+                foreach ($listUser as $iUser => $uId)
+                {
+                    $nilaiPertama = $prepareData[$index][$uId] ?? null;
+                    $nilaiKedua = $prepareData[$nIndex][$uId] ?? null;
+                    if (null !== $nilaiPertama && null !== $nilaiKedua) {
+                        $hasil+= $nilaiPertama * $nilaiKedua;
+                        $penyebut += pow($nilaiPertama, 2);
+                        $penyebut2 += pow($nilaiKedua, 2);
+                    }
+
+                }
+                $penyebut = sqrt($penyebut);
+                $penyebut2 = sqrt($penyebut2);
+                $b = $penyebut * $penyebut2;
+                $hasilArray[$index][$nIndex] = $hasil / $b;
+            }
+        }
+        
+        return $hasilArray;
+    }
 
     /**
      * User Based
@@ -223,8 +335,6 @@ class Recomended
                                 $hasilKali += ($data[$u] * $dataYangDiAmbil[$u]);
                             }
                         }
-
-                        // dump($userId);
 
                         try {
                             $finalResult = ($hasilKali / array_sum($data) + $rataWisata[$nextUserId]);
