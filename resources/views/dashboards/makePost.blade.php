@@ -1,3 +1,12 @@
+<script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+<script>
+   var konten = document.getElementById("konten");
+     CKEDITOR.replace(konten,{
+     language:'en-gb'
+   });
+   CKEDITOR.config.allowedContent = true;
+</script>
+
 @extends('layouts.dashboardLayout')
 
 @section('content')
@@ -74,7 +83,9 @@
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control"></textarea>
+                                                <textarea name="artikel" id="wysiwyg" cols="30" rows="5" class="form-control" placeholder="Artikel"></textarea>
+                                                <textarea id="konten" class="form-control" name="konten" rows="10" cols="50"></textarea>
+
                                             </div>
 
                                             <div class="form-group">
@@ -143,6 +154,7 @@
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
+                                                <div class="summernote">summernote 2</div>
                                                 <textarea name="artikel" id="" cols="30" rows="5" class="form-control"></textarea>
                                             </div>
 
@@ -163,4 +175,10 @@
     </div>
     <!--END PAGE WRAPPER-->
 </div>
+@endsection
+
+@section('js')
+<script>
+  $('#wysiwyg').ckeditor();
+</script>
 @endsection
