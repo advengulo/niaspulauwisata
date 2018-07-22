@@ -36,6 +36,18 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * Mengembalikan string url ketika sudah login.
+     * Fungsin ini akan cek jika admin maka kembalikan url ke dashboard, 
+     * jika tidak kembalikan url ke halaman utama (root)
+     *
+     * @return void
+     */
+    public function redirectUrlAfterLogin()
+    {
+        return $this->admin ? route('dashboard') : route('index');
+    }
+
     public function profile()
     {
       return $this->hasOne(Profile::class);
