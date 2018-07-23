@@ -86,27 +86,27 @@
 
                                                 <div class="box text-shadow">
                                                     <table class="demo-tbl">
-                                                        <!--<item>1</item>-->
-                                                        @foreach($dataBudayas as $budaya)
+                                                        <!--<item>1</item>--> 
+                                                        @foreach($dataKuliners as $kuliner)
                                                             <tr class="tbl-item"><!--<img/>-->
-                                                                <td class="col-lg-1"><img src="{{ $budaya->budaya_gambar }}" style="width:120px; height:90px" alt="" title=""/></td>
+                                                                <td class="col-lg-1"><img src="{{ $kuliner->kuliner_gambar }}" style="width:120px; height:90px" alt="" title=""/></td>
                                                                 <!--<data></data>-->
-                                                                <td class="td-block"><p class="date">{{ $budaya->created_at }}</p>
+                                                                <td class="td-block"><p class="date">{{ $kuliner->created_at }}</p>
 
-                                                                    <a href="{{ route('postbudaya.show', $budaya->id)}}"> <p class="title">{{$budaya->budaya_name}}</p> </a>
+                                                                    <a href="{{ route('postkuliner.show', $kuliner->id)}}"> <p class="title">{{$kuliner->kuliner_name}}</p> </a>
 
-                                                                    <p class="desc" align="justify">{{  str_limit($budaya->artikel['artikel'], 305, ' ....')}}</p>
+                                                                    <p class="desc" align="justify">{{  str_limit($kuliner->artikel['artikel'], 305, ' ....')}}</p>
                                                                     <p class="like"></p></td>
                                                                 <td class="col-md-1">
                                                                     <div class="row">
                                                                         <div class="col-md-8" style="margin:5px 0 10px 0;">
-                                                                            <a href="{{ route('postbudaya.edit', $budaya->id)}}" class="btn btn-primary">
+                                                                            <a href="{{ route('postkuliner.edit', $kuliner->id)}}" class="btn btn-primary">
                                                                                 <span class="fa fa-edit fa-fw" aria-hidden="true"></span>
                                                                                 <span><strong>Edit &nbsp; &nbsp;&nbsp;</strong></span>
                                                                             </a>
                                                                         </div>
                                                                         <div class="col-md-8" style="margin-top:4px;">
-                                                                            <form class="" action="{{ route('postbudaya.destroy', $budaya->id) }}" method="post" >
+                                                                            <form class="" action="{{ route('postkuliner.destroy', $kuliner->id) }}" method="post" >
                                                                                 {{ csrf_field() }}
                                                                                 {{ method_field('DELETE') }}
                                                                                 <button type="submit" class="btn btn-danger"> <span class="fa fa-remove fa-fw" aria-hidden="true"></span> <strong>Delete</strong> </button>

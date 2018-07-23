@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Wisata;
-use App\Jeniswisata;
+use App\Acaradanfestival;
 use App\Artikel;
-use App\Budaya;
-use App\Transportasi;
 
-class PostTransportasiController extends Controller
+class PostAcaradanfestivalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +17,9 @@ class PostTransportasiController extends Controller
      */
     public function index()
     {
-        $dataTransportasis = Transportasi::all();
+        $dataAcaradanfestivals = Acaradanfestival::all();
 
-        return view('dashboards.postTransportasi', compact('dataTransportasis'));
+        return view('dashboards.postAcaradanfestival', compact('dataAcaradanfestivals'));
     }
 
     /**
@@ -51,9 +49,9 @@ class PostTransportasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(transportasi $transportasi)
+    public function show($id)
     {
-        return view('dashboards.showTransportasi', compact('transportasi'));        
+        //
     }
 
     /**
@@ -64,9 +62,9 @@ class PostTransportasiController extends Controller
      */
     public function edit($id)
     {
-        $dataTransportasis = Transportasi::find($id);
+        $dataAcaradanfestivals = Acaradanfestival::find($id);
 
-        return view('dashboards.editTransportasi', compact('dataTransportasis'));
+        return view('dashboards.editAcaradanfestival', compact('dataAcaradanfestival'));
     }
 
     /**
@@ -78,20 +76,20 @@ class PostTransportasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataTransportasis = Transportasi::find($id);        
-        $dataTransportasis->update([
-            'transportasi_name' => request('transportasi_name'),
-            'transportasi_gambar' => request('transportasi_gambar'),
-            'transportasi_lokasi' => request('transportasi_lokasi'),
+        $dataAcaradanfestivals = Acaradanfestivals::find($id);        
+        $dataAcaradanfestivals->update([
+            'acaradanfestival_name' => request('acaradanfestival_name'),
+            'acaradanfestival_gambar' => request('acaradanfestival_gambar'),
+            'acaradanfestival_lokasi' => request('acaradanfestival_lokasi'),
         ]);
         
-        $artikel_id = DB::table('transportasis')->where('id', $id)->value('artikel_id');
+        $artikel_id = DB::table('acaradanfestivals')->where('id', $id)->value('artikel_id');
         $artikel = Artikel::where('id', $artikel_id);
         $artikel->update([
             'artikel' => request('artikel'),
         ]);
 
-        return redirect('dashboard/posttransportasi')->with(['update' => 'Data Transportasi Telah Diedit']);        
+        return redirect('dashboard/postacaradanfestivals')->with(['update' => 'Data Acara dan Festivals Telah Diedit']);
     }
 
     /**
@@ -102,13 +100,13 @@ class PostTransportasiController extends Controller
      */
     public function destroy($id)
     {
-        $dataTransportasis = Transportasi::find($id);
-        $dataTransportasis->delete();
+        $dataAcaradanfestivals = Acaradanfestival::find($id);
+        $dataAcaradanfestivals->delete();
 
-        $artikel_id = DB::table('transportasis')->where('id', $id)->value('artikel_id');
+        $artikel_id = DB::table('acaradanfestivals')->where('id', $id)->value('artikel_id');
         $artikel = Artikel::where('id', $artikel_id);
         $artikel->delete();
 
-        return back()->with(['delete' => 'Data Transportasi Telah Dihapus']);        
+        return back()->with(['delete' => 'Data Acara dan Festival Telah Dihapus']);
     }
 }

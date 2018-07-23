@@ -91,7 +91,7 @@ class PostBudayaController extends Controller
             'artikel' => request('artikel'),
         ]);
 
-        return redirect()->route('postbudaya.index');
+        return redirect('dashboard/postbudaya')->with(['update' => 'Data Budaya Telah Diedit']);        
     }
 
     /**
@@ -109,6 +109,6 @@ class PostBudayaController extends Controller
         $artikel = Artikel::where('id', $artikel_id);
         $artikel->delete();
 
-        return redirect()->route('post.index');
+        return back()->with(['delete' => 'Data Budaya Telah Dihapus']);
     }
 }

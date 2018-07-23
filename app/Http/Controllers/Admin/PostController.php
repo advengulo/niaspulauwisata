@@ -95,7 +95,7 @@ class PostController extends Controller
             'artikel' => request('artikel'),
         ]);
 
-        return redirect()->route('post.index');
+        return redirect('dashboard/postcontrol')->with(['update' => 'Data Wisata Telah Diedit']);
     }
 
     /**
@@ -113,6 +113,6 @@ class PostController extends Controller
         $artikel = Artikel::where('id', $artikel_id);
         $artikel->delete();
 
-        return redirect()->back();
+        return back()->with(['delete' => 'Data Wisata Telah Dihapus']);
     }
 }

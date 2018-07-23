@@ -8,6 +8,8 @@ use App\Jeniswisata;
 use App\Artikel;
 use App\Budaya;
 use App\Transportasi;
+use App\Kuliner;
+use App\Acaradanfestival;   
 use Image;
 
 class MakePostController extends Controller
@@ -42,7 +44,7 @@ class MakePostController extends Controller
      */
     public function store(Request $request)
     {
-        if(request('budaya_name') == null && request('transportasi_name') == null){
+        if(request('wisata_name') != null){
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
             ]);
@@ -59,11 +61,12 @@ class MakePostController extends Controller
                 'wisata_video' => request('wisata_video'),
                 'wisata_rating' => request('wisata_rating'),
                 'wisata_lokasi' => request('wisata_lokasi'),
-                'jenis_wisata_id' => request('jenis_wisata_id'),
+                'wisata_jenis_id' => request('wisata_jenis_id'),
                 'latitude' => request('latitude'),
                 'longtitude' => request('longtitude')
             ]);
-        } elseif(request('wisata_name') == null && request('transportasi_name') == null){
+            return redirect('dashboard/postcontrol')->with(['success' => 'Data Wisata Berhasil Ditambahkan']);
+        } elseif(request('budaya_name') != null) {
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
             ]);
@@ -79,7 +82,39 @@ class MakePostController extends Controller
                 'budaya_gambar' => '/img/img-budaya/'.$filename,
                 'budaya_lokasi' => request('budaya_lokasi')
             ]);
-        } else{
+            return redirect('dashboard/postbudaya')->with(['success' => 'Data Budaya Berhasil Ditambahkan']);
+        } elseif(request('kuliner_name') != null){
+            $artikel = Artikel::create([
+                'artikel' => request('artikel')
+            ]);
+            if($request->hasFile('kuliner_gambar')){
+                $kuliner_gambar = $request->file('kuliner_gambar');
+                $filename = time() . '.' . $kuliner_gambar->getClientOriginalExtension();
+                Image::make($kuliner_gambar)->resize(850, 637)->save( public_path('/img/img-kuliner/' . $filename) );
+            }
+            Kuliner::create([
+                'kuliner_name' => request('kuliner_name'),
+                'artikel_id' => $artikel->id,
+                'kuliner_gambar' => '/img/img-kuliner/'.$filename,
+                'kuliner_lokasi' => request('kuliner_lokasi')
+            ]);
+            return redirect('dashboard/postkuliner')->with(['success' => 'Data Kuliner Berhasil Ditambahkan']);
+        } elseif(request('acaradanfestival_name') !=null){
+            $artikel = Artikel::create([
+                'artikel' => request('artikel')
+            ]);
+            if($request->hasFile('acaradanfestival_gambar')){
+                $acaradanfestival_gambar = $request->file('acaradanfestival_gambar');
+                $filename = time() . '.' . $acaradanfestival_gambar->getClientOriginalExtension();
+                Image::make($acaradanfestival_gambar)->resize(850, 637)->save( public_path('/img/img-acaradanfestival/' . $filename) );
+            }
+            Acaradanfestival::create([
+                'acaradanfestival_name' => request('acaradanfestival_name'),
+                'artikel_id' => $artikel->id,
+                'acaradanfestival_gambar' => '/img/img-acaradanfestival/'.$filename,
+            ]);
+            return redirect('dashboard/postacaradanfestival')->with(['success' => 'Data Acara dan Festival Berhasil Ditambahkan']);
+        }else{
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
             ]);
@@ -95,8 +130,8 @@ class MakePostController extends Controller
                 'transportasi_gambar' => '/img/img-transportasi/'.$filename,
                 'transportasi_jenis' => request('transportasi_jenis')
             ]);
+            return redirect('dashboard/posttransportasi')->with(['success' => 'Data Transportasi Berhasil Ditambahkan']);
         }
-        return redirect()->back();
     }
 
     /**

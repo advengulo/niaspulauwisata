@@ -85,6 +85,18 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::patch('/dashboard/posttransportasi/{id}/update', 'Admin\PostTransportasiController@update')->name('posttransportasi.udpate');
   Route::delete('/dashboard/posttransportasi/{id}/destroy', 'Admin\PostTransportasiController@destroy')->name('posttransportasi.destroy');
 
+  Route::get('/dashboard/postkuliner', 'Admin\PostKulinerController@index')->name('postkuliner.index');
+  Route::get('/dashboard/postkuliner/{kuliner}', 'Admin\PostKulinerController@show')->name('postkuliner.show');
+  Route::get('/dashboard/postkuliner/{id}/edit', 'Admin\PostKulinerController@edit')->name('postkuliner.edit');
+  Route::patch('/dashboard/postkuliner/{id}/update', 'Admin\PostKulinerController@update')->name('postkuliner.update');
+  Route::delete('/dashboard/postkuliner/{id}/destroy', 'Admin\PostKulinerController@destroy')->name('postkuliner.destroy');
+
+  Route::get('/dashboard/postacaradanfestival', 'Admin\PostAcaradanfestivalController@index')->name('postacaradanfestival.index');
+  Route::get('/dashboard/postacaradanvestival/{acaradanvestival}', 'Admin\PostAcaradanfestivalController@show')->name('postacaradanfestival.show');
+  Route::get('/dashboard/postacaradanvestival/{id}/edit', 'Admin\PostAcaradanfestivalController@edit')->name('postacaradanfestival.edit');
+  Route::patch('/dashboard/postacaradanvestival/{id}/update', 'Admin\PostAcaradanfestivalController@update')->name('postacaradanfestival.update');
+  Route::delete('/dashboard/postacaradanvestival/{id}/destroy', 'Admin\PostAcaradanfestivalController@destroy')->name('postacaradanfestival.destroy');  
+
   Route::get('/dashboard/kamus', 'Admin\KamusController@index')->name('kamus.index');
   Route::post('/dashboard/kamus', 'Admin\KamusController@store')->name('kamus.store');
   Route::delete('/dashboard/kamus/{id}/destroy', 'Admin\KamusController@destroy')->name('kamus.destroy');
@@ -94,6 +106,4 @@ Route::middleware(['role', 'auth'])->group(function () {
   });
 
   Route::get('/dashboard/inbox', 'Admin\InboxController@index')->name('inbox.index');
-
-  
 });

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kuliner extends Model
 {
-  protected $fillable = ['kuliner_img', 'kuliner_lokasi'];
+  protected $fillable = ['kuliner_name','artikel_id','kuliner_gambar', 'kuliner_lokasi'];
 
   public function artikel()
   {

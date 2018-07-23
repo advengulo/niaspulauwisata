@@ -79,7 +79,7 @@
                     </i><span class="menu-title">User Control</span></a>
 
                     </li>
-                    <li class="{{Request::is("dashboard/postcontrol")?'active':'' || Request::is("dashboard/postbudaya")?'active':'' || Request::is("dashboard/posttransportasi")?'active':''}}"><a href="/dashboard/postcontrol"><i class="fa fa-send-o fa-fw">
+                    <li class="{{Request::is("dashboard/postcontrol")?'active':'' || Request::is("dashboard/postbudaya")?'active':'' || Request::is("dashboard/posttransportasi")?'active':'' || Request::is("dashboard/postkuliner")?'active':'' || Request::is("dashboard/postacaradanfestival")?'active':''}}"><a href="/dashboard/postcontrol"><i class="fa fa-send-o fa-fw">
                         <div class="icon-bg bg-green"></div>
                     </i><span class="menu-title">Post Control</span></a>
 

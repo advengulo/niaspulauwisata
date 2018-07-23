@@ -16,13 +16,31 @@
         <!--BEGIN CONTENT-->
         <div class="page-content">
             <div id="tab-general">
-                <div class="row mbl">
-                    <div class="col-lg-12">
+                <div class="row mbl">                        
+                    <div class="col-lg-12">                            
                         <div class="col-lg-12">
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @elseif ($message = Session::get('delete'))
+                                <div class="alert alert-danger alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @elseif ($message = Session::get('update'))
+                                <div class="alert alert-info alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif  
                             <ul id="generalTab" class="nav nav-tabs responsive">
                                 <li class="{{Request::is("dashboard/postcontrol")?'active':''}}"><a href="/dashboard/postcontrol">Wisata</a></li>
                                 <li class="{{Request::is("dashboard/postbudaya")?'active':''}}"><a href="/dashboard/postbudaya">Budaya</a></li>
                                 <li class="{{Request::is("dashboard/posttransportasi")?'active':''}}"><a href="/dashboard/posttransportasi">Transportasi</a></li>
+                                <li class="{{Request::is("dashboard/postkuliner")?'active':''}}"><a href="/dashboard/postkuliner">Kuliner</a></li>
+                                <li class="{{Request::is("dashboard/postacaradanfestival")?'active':''}}"><a href="/dashboard/postacaradanfestival">Acara Dan Festival</a></li>
                             </ul>
                             <div id="generalTabContent" class="tab-content responsive">
                                 <div id="wisata" class="tab-pane fade in active">
@@ -66,7 +84,10 @@
                                                     <div data-control-type="pagination" data-control-name="paging" data-control-action="paging" class="jplist-pagination"></div>
                                                 </div>
 
+                                                
+
                                                 <div class="box text-shadow">
+                                                        
                                                     <table class="demo-tbl">
                                                         <!--<item>1</item>-->
                                                         @foreach($dataWisatas as $wisata)
