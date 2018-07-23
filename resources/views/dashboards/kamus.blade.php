@@ -31,10 +31,10 @@
                                                 <form action="{{ Route('kamus.store') }}" method="POST">                                                    
                                                 {{ csrf_field() }}
                                                     <div class="col-md-4">
-                                                        <input type="text" class="form-control" placeholder="Nias" name="nias">
+                                                        <input type="text" class="form-control" placeholder="Nias" name="nias" required autofocus>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <input type="text" class="form-control" placeholder="Indonesia" name="indonesia">
+                                                        <input type="text" class="form-control" placeholder="Indonesia" name="indonesia" required autofocus>
                                                     </div>
                                                     <div class="col-md-1">
                                                         <input type="submit" class="btn btn-primary" value="ADD">
@@ -94,7 +94,7 @@
                                                             </tr>
                                                             @foreach($dataKamus as $kamus)
                                                             <tr class="tbl-item"><!--<img/>-->
-                                                                <td>{{ $kamus->id }}</td>
+                                                                <td>{{ $kamus->id }}</td> 
                                                                 <!--<data></data>-->
                                                                 <td class="td-block">
                                                                     <p class="title"  style="color:black; font-size:14px; font-weight: normal;">{{$kamus->nias}}</p>
@@ -116,7 +116,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                            </tr>
+                                                            </tr>                                                          
                                                             @endforeach
                                                     </table>
                                                         </div>
@@ -145,7 +145,7 @@
                                                             <li><span data-path=".date" data-order="desc" data-type="datetime">Date desc</span></li>
                                                         </ul>
                                                     </div>
-                                                    <div data-type="{start} - {end} of {all}" data-control-type="pagination-info" data-control-name="paging" data-control-action="paging" class="jplist-label btn btn-default"></div>
+                                                    <div data-type="{start} - {end} of {all} total data" data-control-type="pagination-info" data-control-name="paging" data-control-action="paging" class="jplist-label btn btn-default"></div>
                                                     <div data-control-type="pagination" data-control-name="paging" data-control-action="paging" data-control-animate-to-top="true" class="jplist-pagination"></div>
                                                 </div>
                                             </div>

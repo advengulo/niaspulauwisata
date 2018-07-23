@@ -40,36 +40,36 @@
                                         {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="">Nama Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_name">
+                                                <input type="text" class="form-control" name="wisata_name" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Gambar Wisata</label>
-                                                <input type="file" name="wisata_gambar" id="wisata_gambar">
+                                                <input type="file" name="wisata_gambar" id="wisata_gambar" required>
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Video Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_video">
+                                                <input type="text" class="form-control" name="wisata_video" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Rating Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_rating">
+                                                <input type="text" class="form-control" name="wisata_rating" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Lokasi Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_lokasi">
+                                                <input type="text" class="form-control" name="wisata_lokasi" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Latitude</label>
-                                                <input type="text" class="form-control" name="latitude">
+                                                <input type="text" class="form-control" name="latitude" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Longtitude</label>
-                                                <input type="text" class="form-control" name="longtitude">
+                                                <input type="text" class="form-control" name="longtitude" required>
                                             </div>
 
                                             <div class="form-group">
@@ -83,8 +83,7 @@
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="wysiwyg" cols="30" rows="5" class="form-control" placeholder="Artikel"></textarea>
-                                                <textarea id="konten" class="form-control" name="konten" rows="10" cols="50"></textarea>
+                                                <textarea name="artikel" id="wysiwyg" cols="30" rows="5" class="form-control" placeholder="Artikel" required></textarea>
 
                                             </div>
 
@@ -104,23 +103,23 @@
                                         {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="">Nama Budaya</label>
-                                                <input type="text" class="form-control" name="budaya_name">
+                                                <input type="text" class="form-control" name="budaya_name" required autofocus>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Gambar Budaya</label>
-                                                <input type="file" name="budaya_gambar" id="budaya_gambar">
+                                                <input type="file" name="budaya_gambar" id="budaya_gambar" required autofocus>
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Lokasi Budaya</label>
-                                                <input type="text" class="form-control" name="budaya_lokasi">
+                                                <input type="text" class="form-control" name="budaya_lokasi" required autofocus>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control"></textarea>
+                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required autofocus></textarea>
                                             </div>
 
                                             <div class="form-group">
@@ -138,24 +137,24 @@
                                         {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="">Nama Transportasi</label>
-                                                <input type="text" class="form-control" name="transportasi_name">
+                                                <input type="text" class="form-control" name="transportasi_name" required autofocus>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Gambar Transportasi</label>
-                                                <input type="file" name="transportasi_gambar" id="transportasi_gambar">
+                                                <input type="file" name="transportasi_gambar" id="transportasi_gambar" required autofocus>
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Jenis Transportasi</label>
-                                                <input type="text" class="form-control" name="transportasi_jenis">
+                                                <input type="text" class="form-control" name="transportasi_jenis" required autofocus>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
                                                 <div class="summernote">summernote 2</div>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control"></textarea>
+                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required autofocus></textarea>
                                             </div>
 
                                             <div class="form-group">

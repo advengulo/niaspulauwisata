@@ -14,7 +14,7 @@
                             <table class="demo-tbl">
                                 <!--<item>1</item>-->
                                     <tr class="tbl-item"><!--<img/>-->
-                                        <td class="col-lg-1"><img src="/../img/{{ $budaya->budaya_gambar }}" style="width:120px; height:90px" alt="" title=""/></td>
+                                        <td class="col-lg-1"><img src="{{ $budaya->budaya_gambar }}" style="width:120px; height:90px" alt="" title=""/></td>
                                         <!--<data></data>-->
                                         <td class="td-block"><p class="date">{{ $budaya->created_at }}</p>
 

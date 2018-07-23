@@ -1,16 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Wisata;
-use App\Jeniswisata;
-use App\Artikel;
-use App\Budaya;
-use App\Transportasi;
+use App\Kontak;
 
-class PostBudayaController extends Controller
+class InboxController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +15,10 @@ class PostBudayaController extends Controller
      */
     public function index()
     {
-        $dataBudayas = Budaya::all();
+        $datas = Kontak::all();
 
-        return view('dashboards.postBudaya', compact('dataBudayas'));
+        return view('dashboards.inbox', compact('datas'));
+
     }
 
     /**
@@ -53,7 +50,7 @@ class PostBudayaController extends Controller
      */
     public function show($id)
     {
-        return view('dashboards.showBudaya', compact('budaya'));
+        //
     }
 
     /**
@@ -64,9 +61,7 @@ class PostBudayaController extends Controller
      */
     public function edit($id)
     {
-        $dataBudayas = Budaya::find($id);
-
-        return view('dashboards.editBudaya', compact('dataBudayas'));
+        //
     }
 
     /**
@@ -78,20 +73,7 @@ class PostBudayaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataBudayas = Budaya::find($id);        
-        $dataBudayas->update([
-            'budaya_name' => request('budaya_name'),
-            'budaya_gambar' => request('budaya_gambar'),
-            'budaya_lokasi' => request('budaya_lokasi'),
-        ]);
-        
-        $artikel_id = DB::table('budayas')->where('id', $id)->value('artikel_id');
-        $artikel = Artikel::where('id', $artikel_id);
-        $artikel->update([
-            'artikel' => request('artikel'),
-        ]);
-
-        return redirect()->route('post.index');
+        //
     }
 
     /**
@@ -102,13 +84,6 @@ class PostBudayaController extends Controller
      */
     public function destroy($id)
     {
-        $dataBudayas = Budaya::find($id);
-        $dataBudayas->delete();
-
-        $artikel_id = DB::table('budayas')->where('id', $id)->value('artikel_id');
-        $artikel = Artikel::where('id', $artikel_id);
-        $artikel->delete();
-
-        return redirect()->route('post.index');
+        //
     }
 }

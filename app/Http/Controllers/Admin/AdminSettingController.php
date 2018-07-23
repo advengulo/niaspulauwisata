@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Kamus;
 
-class KamusController extends Controller
+class AdminSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +13,7 @@ class KamusController extends Controller
      */
     public function index()
     {
-        $dataKamus = Kamus::all();
-
-        return view('dashboards.kamus', compact('dataKamus'));
+        //
     }
 
     /**
@@ -38,21 +34,16 @@ class KamusController extends Controller
      */
     public function store(Request $request)
     {
-        $kamus = Kamus::create([
-            'nias' => request('nias'),
-            'indonesia' => request('indonesia')
-        ]);
-
-        return redirect()->back();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Kamus  $kamus
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Kamus $kamus)
+    public function show($id)
     {
         //
     }
@@ -60,10 +51,10 @@ class KamusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Kamus  $kamus
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kamus $kamus)
+    public function edit($id)
     {
         //
     }
@@ -72,10 +63,10 @@ class KamusController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Kamus  $kamus
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kamus $kamus)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -83,14 +74,11 @@ class KamusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Kamus  $kamus
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $dataKamus = Kamus::find($id);
-        $dataKamus->delete();
-
-        return redirect()->back();
+        //
     }
 }

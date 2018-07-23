@@ -8,7 +8,7 @@
             <legend style="font-size: 18px;"> Register </legend>
             <div class="row">
                 <div class="col-md-2"></div>
-                <div class="col-md-8"">
+                <div class="col-md-8">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 

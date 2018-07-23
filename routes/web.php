@@ -61,39 +61,39 @@ Route::middleware(['role', 'auth'])->group(function () {
     return view('dashboards.dashboard');
   })->name('dashboard');
 
-  Route::resource( '/dashboard/userControl', 'UserControlController');
+  Route::resource( '/dashboard/userControl', 'Admin\UserControlController');
   Route::delete( '/dashboard/userControl/{id}/destroy', "UserControlController@destroy")->name('user.destroy');
 
-  Route::get('/dashboard/makepost', 'MakePostController@create')->name('makePost.create');
-  Route::post('/dashboard/makepost', 'MakePostController@store')->name('makePost.store');
+  Route::get('/dashboard/makepost', 'Admin\MakePostController@create')->name('makePost.create');
+  Route::post('/dashboard/makepost', 'Admin\MakePostController@store')->name('makePost.store');
 
-  Route::get('/dashboard/postcontrol', 'PostController@index')->name('post.index');
-  Route::get('/dashboard/postcontrol/{wisata}', 'PostController@show')->name('post.show');
-  Route::get('/dashboard/postcontrol/{id}/edit', 'PostController@edit')->name('post.edit');
-  Route::patch('/dashboard/postcontrol/{id}/edit', 'PostController@update')->name('post.update');
-  Route::delete('/dashboard/postcontrol/{id}/destroy', 'PostController@destroy')->name('post.destroy');
+  Route::get('/dashboard/postcontrol', 'Admin\PostController@index')->name('post.index');
+  Route::get('/dashboard/postcontrol/{wisata}', 'Admin\PostController@show')->name('post.show');
+  Route::get('/dashboard/postcontrol/{id}/edit', 'Admin\PostController@edit')->name('post.edit');
+  Route::patch('/dashboard/postcontrol/{id}/edit', 'Admin\PostController@update')->name('post.update');
+  Route::delete('/dashboard/postcontrol/{id}/destroy', 'Admin\PostController@destroy')->name('post.destroy');
 
-  Route::get('/dashboard/postbudaya', 'PostBudayaController@index')->name('postbudaya.index');
-  Route::get('/dashboard/postbudaya/{budaya}', 'PostBudayaController@show')->name('postbudaya.show');
-  Route::get('/dashboard/postbudaya/{id}/edit', 'PostBudayaController@edit')->name('postbudaya.edit');
-  Route::delete('/dashboard/postbudaya/{id}/destroy', 'PostBudayaController@destroy')->name('postbudaya.destroy');
+  Route::get('/dashboard/postbudaya', 'Admin\PostBudayaController@index')->name('postbudaya.index');
+  Route::get('/dashboard/postbudaya/{budaya}', 'Admin\PostBudayaController@show')->name('postbudaya.show');
+  Route::get('/dashboard/postbudaya/{id}/edit', 'Admin\PostBudayaController@edit')->name('postbudaya.edit');
+  Route::patch('/dashboard/postbudaya/{id}/update', 'Admin\PostBudayaController@update')->name('postbudaya.update');
+  Route::delete('/dashboard/postbudaya/{id}/destroy', 'Admin\PostBudayaController@destroy')->name('postbudaya.destroy');
 
-  Route::get('/dashboard/posttransportasi', 'PostTransportasiController@index')->name('posttransportasi.index');
-  Route::get('/dashboard/posttransportasi/{transportasi}', 'PostTransportasiController@show')->name('posttransportasi.show');
-  Route::get('/dashboard/posttransportasi/{id}/edit', 'PostTransportasiController@edit')->name('posttransportasi.edit');
-  Route::delete('/dashboard/posttransportasi/{id}/destroy', 'PostTransportasiController@destroy')->name('posttransportasi.destroy');
+  Route::get('/dashboard/posttransportasi', 'Admin\PostTransportasiController@index')->name('posttransportasi.index');
+  Route::get('/dashboard/posttransportasi/{transportasi}', 'Admin\PostTransportasiController@show')->name('posttransportasi.show');
+  Route::get('/dashboard/posttransportasi/{id}/edit', 'Admin\PostTransportasiController@edit')->name('posttransportasi.edit');
+  Route::patch('/dashboard/posttransportasi/{id}/update', 'Admin\PostTransportasiController@update')->name('posttransportasi.udpate');
+  Route::delete('/dashboard/posttransportasi/{id}/destroy', 'Admin\PostTransportasiController@destroy')->name('posttransportasi.destroy');
 
-  Route::get('/dashboard/kamus', 'KamusController@index')->name('kamus.index');
-  Route::post('/dashboard/kamus', 'KamusController@store')->name('kamus.store');
-  Route::delete('/dashboard/kamus/{id}/destroy', 'KamusController@destroy')->name('kamus.destroy');
+  Route::get('/dashboard/kamus', 'Admin\KamusController@index')->name('kamus.index');
+  Route::post('/dashboard/kamus', 'Admin\KamusController@store')->name('kamus.store');
+  Route::delete('/dashboard/kamus/{id}/destroy', 'Admin\KamusController@destroy')->name('kamus.destroy');
 
-  Route::get('/dashboard/adminsetting', function () {
+  Route::get('/dashboard/adminsetting', function () { 
       return view('dashboards.adminsetting');
   });
 
-  Route::get('/dashboard/inbox', function () {
-      return view('dashboards.inbox');
-  });
+  Route::get('/dashboard/inbox', 'Admin\InboxController@index')->name('inbox.index');
 
   
 });
