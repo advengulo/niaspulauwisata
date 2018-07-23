@@ -241,7 +241,8 @@
 @endsection
 
 @section('js')
+<script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
 <script>
-  $('#wysiwyg').ckeditor();
+    $('#wysiwyg').ckeditor();
 </script>
 @endsection

@@ -108,9 +108,4 @@ Route::middleware(['role', 'auth'])->group(function () {
   });
 
   Route::get('/dashboard/inbox', 'Admin\InboxController@index')->name('inbox.index');
-<<<<<<< HEAD
-
-
-=======
->>>>>>> c5bf554c784e8154ff570902c7598152bc0eda9e
 });
