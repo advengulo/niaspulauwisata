@@ -83,7 +83,7 @@ class PostKulinerController extends Controller
             'kuliner_lokasi' => request('kuliner_lokasi'),
         ]);
         
-        $artikel_id = DB::table('kuliner')->where('id', $id)->value('artikel_id');
+        $artikel_id = DB::table('kuliners')->where('id', $id)->value('artikel_id');
         $artikel = Artikel::where('id', $artikel_id);
         $artikel->update([
             'artikel' => request('artikel'),

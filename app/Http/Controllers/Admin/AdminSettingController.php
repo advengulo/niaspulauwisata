@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\User;
 
 class AdminSettingController extends Controller
 {
@@ -13,7 +16,9 @@ class AdminSettingController extends Controller
      */
     public function index()
     {
-        //
+        $dataAdmin = User::all();
+
+        return view('dashboards.adminSetting', compact('dataAdmin'));
     }
 
     /**
