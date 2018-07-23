@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     /**
      * Mengembalikan string url ketika sudah login.
-     * Fungsin ini akan cek jika admin maka kembalikan url ke dashboard, 
+     * Fungsin ini akan cek jika admin maka kembalikan url ke dashboard,
      * jika tidak kembalikan url ke halaman utama (root)
      *
      * @return void
@@ -51,5 +51,10 @@ class User extends Authenticatable
     public function profile()
     {
       return $this->hasOne(Profile::class);
+    }
+
+    public function gallery()
+    {
+      return $this->hasOne(Gallery::class);
     }
 }

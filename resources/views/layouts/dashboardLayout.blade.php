@@ -174,5 +174,6 @@
                     ga('create', 'UA-145464-12', 'auto');
                     ga('send', 'pageview');
             </script>
+            @yield('js')
             </body>
             </html>
