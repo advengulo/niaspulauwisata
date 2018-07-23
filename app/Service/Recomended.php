@@ -32,7 +32,7 @@ class Recomended
         $items = $data->map(function($item) {
             return collect($item)->avg();
         })->toArray();
-        
+
 
         return $items;
     }
@@ -120,7 +120,7 @@ class Recomended
                         // $itemA =
                         $akarDariSelisihRatingA = $this->selisihRating($rataWisata)[$userId];
                         $akarDariSelisihRatingB = $this->selisihRating($rataWisata)[$nextUserId];
-                        
+
                         $itemA[] = $akarDariSelisihRatingA[$index] ** 2;
                         $itemB[] = $akarDariSelisihRatingB[$index] ** 2;
                         $tempResult[$index] = $result;
@@ -261,7 +261,7 @@ class Recomended
                 $hasilArray[$index][$nIndex] = $hasil / $b;
             }
         }
-        
+
         return $hasilArray;
     }
 
@@ -301,7 +301,7 @@ class Recomended
                 {
                     $nextRating = $prepareData[$j]['data'][$index] ?? null;
                     if (null === $nextRating) {
-                        
+
                         $countPositive = collect($pearson[$nextUserId])->reject(function($item, $index) use($nextUserId) {
                             return $item <= 0 || $index == $nextUserId;
                         })->count();
