@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Wisata;
-use App\Jeniswisata;
+use App\JenisWisata;
 use App\Artikel;
 use App\Budaya;
 use App\Transportasi;
@@ -31,7 +31,9 @@ class MakePostController extends Controller
      */
     public function create()
     {
-        $jeniswisatas = Jeniswisata::all();
+        $jeniswisatas = JenisWisata::all();
+        // dd($jeniswisatas);
+        // return $jeniswisatas;
 
         return view('dashboards.makePost', compact('jeniswisatas'));
     }

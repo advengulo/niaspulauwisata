@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Wisata;
-use App\Jeniswisata;
+use App\JenisWisata;
 use App\Artikel;
 use App\Budaya;
 use App\Transportasi;
@@ -65,7 +65,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $dataWisatas = Wisata::find($id);
-        $jeniswisatas = Jeniswisata::all();
+        $jeniswisatas = JenisWisata::all();
 
         return view('dashboards.editWisata', compact('dataWisatas', 'jeniswisatas'));
     }

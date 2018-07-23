@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Wisata;
-use App\Jeniswisata;
+use App\JenisWisata;
 use App\Artikel;
 use App\Budaya;
 use App\Transportasi;
