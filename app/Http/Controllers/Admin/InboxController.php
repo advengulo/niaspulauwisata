@@ -3,8 +3,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Kontak;
+use Illuminate\Http\Request;
 
 class InboxController extends Controller
 {
@@ -18,7 +18,6 @@ class InboxController extends Controller
         $datas = Kontak::all();
 
         return view('dashboards.inbox', compact('datas'));
-
     }
 
     /**

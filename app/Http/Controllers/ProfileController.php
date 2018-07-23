@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
 use Image;
 
 class ProfileController extends Controller
@@ -15,7 +15,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile', array('user' => Auth::user()) );
+        return view('profile', ['user' => Auth::user()]);
     }
 
     /**
@@ -58,7 +58,7 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        return view('profileEdit', array('user' => Auth::user()));
+        return view('profileEdit', ['user' => Auth::user()]);
     }
 
     /**
@@ -70,18 +70,18 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-      // Handle the user upload of avatar
+        // Handle the user upload of avatar
 
-      // Handle the user upload of avatar
-      if($request->hasFile('avatar')){
-        $avatar = $request->file('avatar');
-        $filename = time() . '.' . $avatar->getClientOriginalExtension();
-        Image::make($avatar)->resize(300, 300)->save( public_path('/img/profile/avatar/' . $filename) );
-        $user = Auth::user();
-        $user->avatar = '/img/profile/avatar/'.$filename;
-        $user->save();
-      }
-        return view('profile', array('user' => Auth::user()) );
+        // Handle the user upload of avatar
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save(public_path('/img/profile/avatar/' . $filename));
+            $user = Auth::user();
+            $user->avatar = '/img/profile/avatar/'.$filename;
+            $user->save();
+        }
+        return view('profile', ['user' => Auth::user()]);
     }
 
     /**

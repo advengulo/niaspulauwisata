@@ -16,6 +16,8 @@ Route::get('recomended', [
   'uses' => 'RecomendedController@index',
 ]);
 
+Route::resource('/recomendation', 'RecomendationController');
+
 Route::get('/wisata/{wisata}', 'WelcomeController@Show')->name('wisataDetail');
 Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@Tampil')->name('acaradanfestivalDetail');
 
@@ -59,9 +61,8 @@ Route::get('/home', function(){
 
 //group untuk membuat dashboard hanya bisa di akses oleh admin.
 Route::middleware(['role', 'auth'])->group(function () {
-  Route::get('/dashboard', function(){
-    return view('dashboards.dashboard');
-  })->name('dashboard');
+  Route::view('/dashboard', 'dashboards.dashboard')
+    ->name('dashboard');
 
   Route::resource( '/dashboard/userControl', 'Admin\UserControlController');
   Route::delete( '/dashboard/userControl/{id}/destroy', "UserControlController@destroy")->name('user.destroy');

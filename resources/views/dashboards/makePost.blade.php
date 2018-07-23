@@ -1,12 +1,3 @@
-<script src="{{asset('ckeditor/ckeditor.js')}}"></script>
-<script>
-   var konten = document.getElementById("konten");
-     CKEDITOR.replace(konten,{
-     language:'en-gb'
-   });
-   CKEDITOR.config.allowedContent = true;
-</script>
-
 @extends('layouts.dashboardLayout')
 
 @section('content')
@@ -47,7 +38,7 @@
 
                                             <div class="form-group">
                                                 <label for="">Gambar Wisata</label>
-                                                <input type="file" name="wisata_gambar" id="wisata_gambar" required>
+                                                <input type="file" name="wisata_gambar" id="wisata_gambar" accept="image/*" required>
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             </div>
 
@@ -77,8 +68,8 @@
                                             <div class="form-group">
                                                 <label for="">Jenis Wisata</label>
                                                 <select name="wisata_jenis_id" id="" class="form-control">
-                                                    @foreach ($jeniswisatas as $Jeniswisata)
-                                                        <option value="{{ $Jeniswisata->id }}"> {{$Jeniswisata->jeniswisata_nama}} </option>
+                                                    @foreach ($jeniswisatas as $jeniswisata)
+                                                        <option value="{{ $jeniswisata->id }}"> {{$jeniswisata->jeniswisata_name}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -241,7 +232,8 @@
 @endsection
 
 @section('js')
+<script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
 <script>
-  $('#wysiwyg').ckeditor();
+    $('#wysiwyg').ckeditor();
 </script>
 @endsection

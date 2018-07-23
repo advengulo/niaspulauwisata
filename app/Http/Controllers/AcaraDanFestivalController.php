@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Acaradanfestival;
 use App\Artikel;
+use Illuminate\Http\Request;
 
 class AcaraDanFestivalController extends Controller
 {
@@ -15,8 +15,8 @@ class AcaraDanFestivalController extends Controller
      */
     public function index()
     {
-      $dataAcaradanFestival = Acaradanfestival::latest()->paginate(ENV('PER_PAGE'));
-      return view('acaradanfestival',['dataAcaradanFestival' => $dataAcaradanFestival ]);
+        $dataAcaradanFestival = Acaradanfestival::latest()->paginate(ENV('PER_PAGE'));
+        return view('acaradanfestival', ['dataAcaradanFestival' => $dataAcaradanFestival ]);
     }
 
     /**
@@ -46,12 +46,12 @@ class AcaraDanFestivalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function show(AcaradanFestival $acaradanfestival)
-     {
+    public function show(AcaradanFestival $acaradanfestival)
+    {
         $data = Acaradanfestival::latest()->paginate(10);
 
-       return view('acaradanfestivalDetail', ['acaradanfestival' => $acaradanfestival ], ['data' => $data ]);
-     }
+        return view('acaradanfestivalDetail', ['acaradanfestival' => $acaradanfestival ], ['data' => $data ]);
+    }
 
     /**
      * Show the form for editing the specified resource.

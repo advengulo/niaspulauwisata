@@ -127,10 +127,5 @@
   <script src="{{ URL::asset('lib/touchSwipe/jquery.touchSwipe.min.js') }}"></script>
   <!-- Contact Form JavaScript File -->
   <script src="{{ URL::asset('contactform/contactform.js') }}"></script>
-  <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
-<!-- {{ asset('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') }} -->
-  <!-- Template Main Javascript File -->
-  <script src="{{ URL::asset('js/main.js') }}"></script>
-    @yield('js')
 </body>
 </html>
