@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 
 @section('content')
-<section id="intro" style="height:50vh;">
+  <!-- Header Wisata  -->
+  <section id="intro" style="height:50vh;">
     <div class="intro-container">
       <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
@@ -10,8 +11,9 @@
             </div>
           </div>
         </div>
-  </section><!-- #intro -->
+  </section><!-- #End Header Wisata -->
 
+  <!-- Content Wisata   -->
   <section id="about">
     <div class="container">
       <header class="section-header">
@@ -32,16 +34,115 @@
         {!! Mapper::render() !!}
       </div>
     </div>
-  </section><!-- #about -->
+  </section><!-- #End Content Wisata -->
+  <!-- Gallery -->
   <div class="container">
-  </div>
-
-  <div class="container">
-
-  	<div class="card">
-    
+    <div class="container">
       <div class="row">
-          <div class="col-xs-12 col-md-12">
+        <header class="section-header">
+          <h2>Gallery</h2>
+        </header>
+        <div class="row">
+          @foreach ($wisata->gallery()->get() as $gallery)
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+              <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{$wisata->wisata_name}}"
+                 data-image="{{ URL::asset($gallery->gallery_gambar) }}"
+                 data-target="#image-gallery">
+                  <img class="img-thumbnail"
+                       src="{{ URL::asset($gallery->gallery_gambar) }}"
+                       alt="Another alt text">
+              </a>
+            </div>
+            @endforeach
+            <form method="post" action="{{ route('ulasan.tambahGallery', $wisata) }}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="form-group">
+             <table class="table">
+              <tr>
+               <td width="40%" align="right"><label>Tambah Foto</label></td>
+               <td width="30"><input type="file" name="select_file" /></td>
+               <td width="30%" align="left"><input type="submit" name="upload" class="btn btn-primary" value="Upload"></td>
+              </tr>
+             </table>
+            </div>
+            @if ($message = Session::get('success'))
+              <div class="alert alert-success alert-block">
+               <button type="button" class="close" data-dismiss="alert">×</button>
+                      <strong>{{ $message }}</strong>
+              </div>
+            @endif
+           </form>
+
+        </div>
+
+        <div class="modal" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="image-gallery-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="image-gallery-image" class="img-responsive col-md-12" src="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fa fa-arrow-left"></i>
+                        </button>
+
+                        <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- End Gallery -->
+
+  <section id="portfolio"  class="section-bg" >
+    <div class="container">
+
+      <header class="section-header" style="">
+        <h3>Mungkin Anda Sukai</h3>
+      </header>
+      <div class="row portfolio-container">
+        @foreach ($dataWisata as $wisata)
+        <div class="col-md-4 portfolio-item filter-app wow fadeInUp">
+          <div class="portfolio-wrap">
+            <figure>
+              <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-fluid" alt="">
+              <a href="{{ URL::asset($wisata->wisata_gambar) }}" data-lightbox="portfolio" data-title="{{ $wisata->wisata_name }}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
+              <a href="{{ route('wisataDetail', $wisata) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+            </figure>
+            <div class="portfolio-info">
+              <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
+              <div class="rating">
+                  <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Ulasan  -->
+  <div class="container">
+
+    @if($message=Session::get('successUlasan'))
+      <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>{{$message}}</strong>
+      </div>
+    @endif
+
+    <button type="button" class="btn btn-primary fa fa-plus-circle" data-toggle="modal" data-target="#exampleModal"> Tambah Ulasan</button>
+  	<div class="card">
+      <div class="row">
+          <div class="col-xs-12 col-md-12"> <!-- Ratting -->
               <div class="well well-sm">
                   <div class="row">
                       <div class="col-xs-12 col-md-6 text-left"> <!--class total rating-->
@@ -49,75 +150,165 @@
                           <div class="rating">
                               <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
                           </div>
+                      </div>
                   </div>
               </div>
-          </div>
-        </div>
+          </div> <!-- End Ratting -->
 
-  	    <div class="card-body">
-          @foreach ($wisata->ulasan()->get() as $ulasan)
-	        	<div class="card card-inner">
-            	    <div class="card-body">
-            	        <div class="row">
-                    	    <div class="col-md-2">
-                    	        <img src="{{ URL::asset( $ulasan->user['avatar']) }}" class="img img-rounded img-fluid" style=""/>
-                    	        <p class="text-secondary text-center">{{ $ulasan->created_at->diffForHumans()}}</p>
-                    	    </div>
-                    	    <div class="col-md-10">
-                    	        <p>
-                                <a href="#"><strong>{{$ulasan->user->name}}</strong></a>
-                                <span class="float-right"><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->rating['rating'] }}" data-size="xs"></span>
-                              </p>
-                    	        <p>{{$ulasan->isi_ulasan}}</p>
-                    	    </div>
-            	        </div>
-            	    </div>
-	            </div>
-            @endforeach
-  	    </div>
-        <div class="panel-body">
+          <div class="card-body"> <!-- Ulasan -->
+            @foreach ($wisata->ulasan()->get() as $ulasan)
+  	        	<div class="card card-inner">
+              	    <div class="card-body">
+              	        <div class="row">
+                      	    <div class="col-md-2" style="align:center;" >
+                      	        <img src="{{ URL::asset( $ulasan->user['avatar']) }}" class="img img-rounded img-fluid" style="width:70px; height:70px; "/>
+                      	        <p class="text-secondary text-center">{{ $ulasan->created_at->diffForHumans()}}</p>
+                      	    </div>
+                      	    <div class="col-md-10">
+                      	        <p>
+                                  <a href="#"><strong>{{$ulasan->user->name}}</strong></a>
+                                  <span class="float-right"><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->rating['rating'] }}" data-size="xs"></span>
+                                </p>
+                      	        <p>{{$ulasan->isi_ulasan}}</p>
+                      	    </div>
+              	        </div>
+              	    </div>
+  	            </div>
+              @endforeach
 
-          <button type="button" class="btn btn-primary fa fa-plus-circle" data-toggle="modal" data-target="#exampleModal"> Tambah Ulasan</button>
+    	    </div> <!-- #eND Ulasan -->
 
-          <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">{{$wisata->wisata_name}}</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+          <div class="panel-body"> <!-- Modal Ulasan -->
+            <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{$wisata->wisata_name}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body has-feedback{{ $errors->has('isi_ulasan') ? ' has-error ' : ''}}">
+                    <form method="post" action="{{ route('wisata.ulasan.store', $wisata) }}" >
+                      {{ csrf_field() }}
+                      <div class="form-group">
+                        <input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="" data-size="xs">
+                        <input type="hidden" name="id" required="" value="{{ $wisata->id }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="message-text" class="col-form-label">Ulasan :</label>
+                        <textarea name="isi_ulasan" class="form-control" id="message-text" required autofocus></textarea>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Komentar" class="btn btn-primary">
+                      </div>
+                    </form>
+                  </div>
+
                 </div>
-                <div class="modal-body has-feedback{{ $errors->has('isi_ulasan') ? ' has-error ' : ''}}">
-                  <form method="post" action="{{ route('wisata.ulasan.store', $wisata) }}" >
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                      <input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="" data-size="xs">
-                      <input type="hidden" name="id" required="" value="{{ $wisata->id }}">
-                    </div>
-                    <div class="form-group">
-                      <label for="message-text" class="col-form-label">Ulasan :</label>
-                      <textarea name="isi_ulasan" class="form-control" id="message-text" required autofocus></textarea>
-                      @if($errors->has('isi_ulasan'))
-                        <span class="help-block">
-                          <p>{{ $errors->first('isi_ulasan') }}</p>
-                        </span>
-                      @endif
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <input type="submit" value="Komentar" class="btn btn-primary">
-                    </div>
-                  </form>
-                </div>
-
               </div>
             </div>
-          </div>
-        </div>
-  	</div>
-  </div>
-  <script type="text/javascript">
-  </script>
+          </div> <!-- End Modal Ulasan -->
 
+  	    </div>
+      </div>
+    </div>
+
+<!-- Scrip modal Gallery -->
+<script type="text/javascript">
+let modalId = $('#image-gallery');
+
+$(document)
+  .ready(function () {
+
+    loadGallery(true, 'a.thumbnail');
+
+    //This function disables buttons when needed
+    function disableButtons(counter_max, counter_current) {
+      $('#show-previous-image, #show-next-image')
+        .show();
+      if (counter_max === counter_current) {
+        $('#show-next-image')
+          .hide();
+      } else if (counter_current === 1) {
+        $('#show-previous-image')
+          .hide();
+      }
+    }
+
+    /**
+     *
+     * @param setIDs        Sets IDs when DOM is loaded. If using a PHP counter, set to false.
+     * @param setClickAttr  Sets the attribute for the click handler.
+     */
+
+    function loadGallery(setIDs, setClickAttr) {
+      let current_image,
+        selector,
+        counter = 0;
+
+      $('#show-next-image, #show-previous-image')
+        .click(function () {
+          if ($(this)
+            .attr('id') === 'show-previous-image') {
+            current_image--;
+          } else {
+            current_image++;
+          }
+
+          selector = $('[data-image-id="' + current_image + '"]');
+          updateGallery(selector);
+        });
+
+      function updateGallery(selector) {
+        let $sel = selector;
+        current_image = $sel.data('image-id');
+        $('#image-gallery-title')
+          .text($sel.data('title'));
+        $('#image-gallery-image')
+          .attr('src', $sel.data('image'));
+        disableButtons(counter, $sel.data('image-id'));
+      }
+
+      if (setIDs == true) {
+        $('[data-image-id]')
+          .each(function () {
+            counter++;
+            $(this)
+              .attr('data-image-id', counter);
+          });
+      }
+      $(setClickAttr)
+        .on('click', function () {
+          updateGallery($(this));
+        });
+    }
+  });
+
+// build key actions
+$(document)
+  .keydown(function (e) {
+    switch (e.which) {
+      case 37: // left
+        if ((modalId.data('bs.modal') || {})._isShown && $('#show-previous-image').is(":visible")) {
+          $('#show-previous-image')
+            .click();
+        }
+        break;
+
+      case 39: // right
+        if ((modalId.data('bs.modal') || {})._isShown && $('#show-next-image').is(":visible")) {
+          $('#show-next-image')
+            .click();
+        }
+        break;
+
+      default:
+        return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+  });
+
+</script> <!--End Scrip Gallery  -->
 @endsection

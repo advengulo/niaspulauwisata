@@ -15,12 +15,14 @@ Route::resource( '/', 'WelcomeController');
 Route::get('recomended', [
   'uses' => 'RecomendedController@index',
 ]);
+
 Route::get('/wisata/{wisata}', 'WelcomeController@Show')->name('wisataDetail');
 Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@Tampil')->name('acaradanfestivalDetail');
 
 Route::resource( 'wisata', 'WisataController');
 Route::get('/wisata/{wisata}', 'WisataController@Show')->name('wisataDetail');
 Route::post('/wisata/{wisata}/ulasan', 'WisataUlasanController@store')->name('wisata.ulasan.store')->middleware(['auth']);
+Route::post('/wisata/{wisata}/upload', 'WisataUlasanController@gallery')->name('ulasan.tambahGallery')->middleware(['auth']);
 
 Auth::routes();
 
@@ -89,11 +91,11 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::post('/dashboard/kamus', 'Admin\KamusController@store')->name('kamus.store');
   Route::delete('/dashboard/kamus/{id}/destroy', 'Admin\KamusController@destroy')->name('kamus.destroy');
 
-  Route::get('/dashboard/adminsetting', function () { 
+  Route::get('/dashboard/adminsetting', function () {
       return view('dashboards.adminsetting');
   });
 
   Route::get('/dashboard/inbox', 'Admin\InboxController@index')->name('inbox.index');
 
-  
+
 });

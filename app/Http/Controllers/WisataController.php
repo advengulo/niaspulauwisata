@@ -56,7 +56,9 @@ class WisataController extends Controller
   {
     Mapper::map($wisata->latitude, $wisata->longtitude, ['zoom' => 12]);
 
-    return view('wisataDetail', compact('wisata'));
+    $dataWisata = Wisata::latest()->paginate(3);
+
+    return view('wisataDetail', compact('wisata', 'dataWisata'));
   }
 
   /**

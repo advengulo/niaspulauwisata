@@ -19,6 +19,11 @@ class Wisata extends Model
 
   public function ulasan()
   {
-    return $this->hasMany(Ulasan::class);
+    return $this->hasOne(Ulasan::class);
+  }
+
+  public function gallery()
+  {
+    return $this->hasMany(Gallery::class);
   }
 }
