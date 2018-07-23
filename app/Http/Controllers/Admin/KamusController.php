@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Kamus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Kamus;
 
 class KamusController extends Controller
 {

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use DB;
-use App\Kuliner;
 use App\Artikel;
-
+use App\Kuliner;
+use DB;
+use Illuminate\Http\Request;
 
 class KulinerController extends Controller
 {
@@ -17,9 +16,9 @@ class KulinerController extends Controller
      */
     public function index()
     {
-      $data = Kuliner::latest()->paginate(env('PER_PAGE'));
+        $data = Kuliner::latest()->paginate(env('PER_PAGE'));
 
-      return view('kuliner',compact('data'));
+        return view('kuliner', compact('data'));
     }
 
     /**

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use DB;
-use App\Budaya;
 use App\Artikel;
+use App\Budaya;
+use DB;
+use Illuminate\Http\Request;
 
 class BudayaController extends Controller
 {
@@ -16,9 +16,9 @@ class BudayaController extends Controller
      */
     public function index()
     {
-      $data = Budaya::latest()->paginate(env('PER_PAGE'));
+        $data = Budaya::latest()->paginate(env('PER_PAGE'));
 
-      return view('budaya',compact('data'));
+        return view('budaya', compact('data'));
     }
 
     /**

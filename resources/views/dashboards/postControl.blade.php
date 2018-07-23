@@ -16,8 +16,8 @@
         <!--BEGIN CONTENT-->
         <div class="page-content">
             <div id="tab-general">
-                <div class="row mbl">                        
-                    <div class="col-lg-12">                            
+                <div class="row mbl">
+                    <div class="col-lg-12">
                         <div class="col-lg-12">
                             @if ($message = Session::get('success'))
                                 <div class="alert alert-success alert-block">
@@ -34,7 +34,7 @@
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                     <strong>{{ $message }}</strong>
                                 </div>
-                            @endif  
+                            @endif
                             <ul id="generalTab" class="nav nav-tabs responsive">
                                 <li class="{{Request::is("dashboard/postcontrol")?'active':''}}"><a href="/dashboard/postcontrol">Wisata</a></li>
                                 <li class="{{Request::is("dashboard/postbudaya")?'active':''}}"><a href="/dashboard/postbudaya">Budaya</a></li>
@@ -84,10 +84,10 @@
                                                     <div data-control-type="pagination" data-control-name="paging" data-control-action="paging" class="jplist-pagination"></div>
                                                 </div>
 
-                                                
+
 
                                                 <div class="box text-shadow">
-                                                        
+
                                                     <table class="demo-tbl">
                                                         <!--<item>1</item>-->
                                                         @foreach($dataWisatas as $wisata)
@@ -98,7 +98,7 @@
 
                                                                     <a href="{{ route('post.show', $wisata->id)}}"> <p class="title">{{$wisata->wisata_name}}</p> </a>
 
-                                                                    <p class="desc" align="justify">{{  str_limit($wisata->artikel['artikel'], 305, ' ....')}}</p>
+                                                                    <p class="desc" align="justify">{{ $wisata->artikel->shortArticle }}</p>
                                                                     <p class="like"></p></td>
                                                                 <td class="col-md-1">
                                                                     <div class="row">

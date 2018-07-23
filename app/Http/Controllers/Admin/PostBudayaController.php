@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Wisata;
-use App\JenisWisata;
 use App\Artikel;
 use App\Budaya;
+use App\JenisWisata;
 use App\Transportasi;
+use App\Wisata;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostBudayaController extends Controller
 {
@@ -78,7 +78,7 @@ class PostBudayaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataBudayas = Budaya::find($id);        
+        $dataBudayas = Budaya::find($id);
         $dataBudayas->update([
             'budaya_name' => request('budaya_name'),
             'budaya_gambar' => request('budaya_gambar'),
@@ -91,7 +91,7 @@ class PostBudayaController extends Controller
             'artikel' => request('artikel'),
         ]);
 
-        return redirect('dashboard/postbudaya')->with(['update' => 'Data Budaya Telah Diedit']);        
+        return redirect('dashboard/postbudaya')->with(['update' => 'Data Budaya Telah Diedit']);
     }
 
     /**

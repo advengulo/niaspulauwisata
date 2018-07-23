@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Wisata;
-use App\JenisWisata;
 use App\Artikel;
 use App\Budaya;
+use App\JenisWisata;
 use App\Transportasi;
+use App\Wisata;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -20,6 +20,8 @@ class PostController extends Controller
     public function index()
     {
         $dataWisatas = Wisata::all();
+
+        // return Wisata::first()->artikel->shortArticlea;
 
         return view('dashboards.postControl', compact('dataWisatas'));
     }
@@ -79,7 +81,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataWisatas = Wisata::find($id);        
+        $dataWisatas = Wisata::find($id);
         $dataWisatas->update([
             'wisata_name' => request('wisata_name'),
             'wisata_gambar' => request('wisata_gambar'),

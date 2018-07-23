@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Service\Recomended;
+use Illuminate\Http\Request;
 
 class RecomendedController extends Controller
 {

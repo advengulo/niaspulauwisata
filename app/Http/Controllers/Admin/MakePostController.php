@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Wisata;
-use App\JenisWisata;
+use App\Acaradanfestival;
 use App\Artikel;
 use App\Budaya;
-use App\Transportasi;
+use App\JenisWisata;
 use App\Kuliner;
-use App\Acaradanfestival;   
+use App\Transportasi;
+use App\Wisata;
+use Illuminate\Http\Request;
 use Image;
 
 class MakePostController extends Controller
@@ -46,14 +46,14 @@ class MakePostController extends Controller
      */
     public function store(Request $request)
     {
-        if(request('wisata_name') != null){
+        if (null !== request('wisata_name')) {
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
             ]);
-            if($request->hasFile('wisata_gambar')){
-              $wisata_gambar = $request->file('wisata_gambar');
-              $filename = time() . '.' . $wisata_gambar->getClientOriginalExtension();
-              Image::make($wisata_gambar)->resize(850, 637)->save( public_path('/img/img-wisata/' . $filename) );
+            if ($request->hasFile('wisata_gambar')) {
+                $wisata_gambar = $request->file('wisata_gambar');
+                $filename = time() . '.' . $wisata_gambar->getClientOriginalExtension();
+                Image::make($wisata_gambar)->resize(850, 637)->save(public_path('/img/img-wisata/' . $filename));
             }
 
             Wisata::create([
@@ -68,14 +68,14 @@ class MakePostController extends Controller
                 'longtitude' => request('longtitude')
             ]);
             return redirect('dashboard/postcontrol')->with(['success' => 'Data Wisata Berhasil Ditambahkan']);
-        } elseif(request('budaya_name') != null) {
+        } elseif (null !== request('budaya_name')) {
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
             ]);
-            if($request->hasFile('budaya_gambar')){
-              $budaya_gambar = $request->file('budaya_gambar');
-              $filename = time() . '.' . $budaya_gambar->getClientOriginalExtension();
-              Image::make($budaya_gambar)->resize(850, 637)->save( public_path('/img/img-budaya/' . $filename) );
+            if ($request->hasFile('budaya_gambar')) {
+                $budaya_gambar = $request->file('budaya_gambar');
+                $filename = time() . '.' . $budaya_gambar->getClientOriginalExtension();
+                Image::make($budaya_gambar)->resize(850, 637)->save(public_path('/img/img-budaya/' . $filename));
             }
 
             Budaya::create([
@@ -85,14 +85,14 @@ class MakePostController extends Controller
                 'budaya_lokasi' => request('budaya_lokasi')
             ]);
             return redirect('dashboard/postbudaya')->with(['success' => 'Data Budaya Berhasil Ditambahkan']);
-        } elseif(request('kuliner_name') != null){
+        } elseif (null !== request('kuliner_name')) {
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
             ]);
-            if($request->hasFile('kuliner_gambar')){
+            if ($request->hasFile('kuliner_gambar')) {
                 $kuliner_gambar = $request->file('kuliner_gambar');
                 $filename = time() . '.' . $kuliner_gambar->getClientOriginalExtension();
-                Image::make($kuliner_gambar)->resize(850, 637)->save( public_path('/img/img-kuliner/' . $filename) );
+                Image::make($kuliner_gambar)->resize(850, 637)->save(public_path('/img/img-kuliner/' . $filename));
             }
             Kuliner::create([
                 'kuliner_name' => request('kuliner_name'),
@@ -101,14 +101,14 @@ class MakePostController extends Controller
                 'kuliner_lokasi' => request('kuliner_lokasi')
             ]);
             return redirect('dashboard/postkuliner')->with(['success' => 'Data Kuliner Berhasil Ditambahkan']);
-        } elseif(request('acaradanfestival_name') !=null){
+        } elseif (null !==request('acaradanfestival_name')) {
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
             ]);
-            if($request->hasFile('acaradanfestival_gambar')){
+            if ($request->hasFile('acaradanfestival_gambar')) {
                 $acaradanfestival_gambar = $request->file('acaradanfestival_gambar');
                 $filename = time() . '.' . $acaradanfestival_gambar->getClientOriginalExtension();
-                Image::make($acaradanfestival_gambar)->resize(850, 637)->save( public_path('/img/img-acaradanfestival/' . $filename) );
+                Image::make($acaradanfestival_gambar)->resize(850, 637)->save(public_path('/img/img-acaradanfestival/' . $filename));
             }
             Acaradanfestival::create([
                 'acaradanfestival_name' => request('acaradanfestival_name'),
@@ -116,14 +116,14 @@ class MakePostController extends Controller
                 'acaradanfestival_gambar' => '/img/img-acaradanfestival/'.$filename,
             ]);
             return redirect('dashboard/postacaradanfestival')->with(['success' => 'Data Acara dan Festival Berhasil Ditambahkan']);
-        }else{
+        } else {
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
             ]);
-            if($request->hasFile('transportasi_gambar')){
-              $transportasi_gambar = $request->file('transportasi_gambar');
-              $filename = time() . '.' . $transportasi_gambar->getClientOriginalExtension();
-              Image::make($transportasi_gambar)->resize(850, 637)->save( public_path('/img/img-transportasi/' . $filename) );
+            if ($request->hasFile('transportasi_gambar')) {
+                $transportasi_gambar = $request->file('transportasi_gambar');
+                $filename = time() . '.' . $transportasi_gambar->getClientOriginalExtension();
+                Image::make($transportasi_gambar)->resize(850, 637)->save(public_path('/img/img-transportasi/' . $filename));
             }
 
             Transportasi::create([

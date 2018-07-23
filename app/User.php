@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -29,9 +29,8 @@ class User extends Authenticatable
 
     public function is_admin()
     {
-      if($this->admin)
-        {
-          return true;
+        if ($this->admin) {
+            return true;
         }
         return false;
     }
@@ -50,11 +49,11 @@ class User extends Authenticatable
 
     public function profile()
     {
-      return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class);
     }
 
     public function gallery()
     {
-      return $this->hasOne(Gallery::class);
+        return $this->hasOne(Gallery::class);
     }
 }

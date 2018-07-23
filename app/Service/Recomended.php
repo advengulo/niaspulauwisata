@@ -14,9 +14,9 @@ class Recomended
 
     public function selisihRating(array $items)
     {
-        $users = collect($this->data)->map(function($item, $index) use($items) {
+        $users = collect($this->data)->map(function ($item, $index) use ($items) {
             $user = $items[$index];
-            return collect($item)->map(function($rating) use($user) {
+            return collect($item)->map(function ($rating) use ($user) {
                 return $rating - $user;
             })->toArray();
         });
@@ -29,10 +29,9 @@ class Recomended
     {
         $data = collect($this->data);
 
-        $items = $data->map(function($item) {
+        $items = $data->map(function ($item) {
             return collect($item)->avg();
         })->toArray();
-
 
         return $items;
     }
@@ -40,8 +39,7 @@ class Recomended
     public function cosine()
     {
         $prepareData = [];
-        foreach($this->data as $index => $data)
-        {
+        foreach ($this->data as $index => $data) {
             $prepareData[] = [
                 'userId' => $index,
                 'data' => $data,
@@ -50,17 +48,14 @@ class Recomended
 
         $arrayResult = [];
 
-        for($i=0; $i<=count($prepareData) - 1; $i++)
-        {
-            for($j=$i+1; $j<= count($prepareData) - 1; $j++)
-            {
+        for ($i=0; $i<=count($prepareData) - 1; $i++) {
+            for ($j=$i+1; $j<= count($prepareData) - 1; $j++) {
                 $tempResult = [];
                 $itemA = [];
                 $itemB = [];
-                foreach ($prepareData[$i]['data'] as $index => $rating)
-                {
+                foreach ($prepareData[$i]['data'] as $index => $rating) {
                     $nextRating = $prepareData[$j]['data'][$index] ?? null;
-                    if($nextRating) {
+                    if ($nextRating) {
                         $result = $rating * $nextRating;
                         $tempResult[$index] = $result;
                         $itemA[] = $rating**2;
@@ -78,20 +73,16 @@ class Recomended
                 $nextUser = $prepareData[$j]['userId'];
                 $userId = $prepareData[$i]['userId'];
                 $arrayResult[$userId][$nextUser] = $hasil;
-
             }
-
         }
 
         return $arrayResult;
-
     }
 
     public function hitungPearson()
     {
         $prepareData = [];
-        foreach($this->data as $index => $data)
-        {
+        foreach ($this->data as $index => $data) {
             $prepareData[] = [
                 'userId' => $index,
                 'data' => $data,
@@ -101,21 +92,18 @@ class Recomended
         $arrayResult = [];
 
         $rataWisata = $this->rataDariSetiapWisata();
-        for($i=0; $i<=count($prepareData) - 1; $i++)
-        {
+        for ($i=0; $i<=count($prepareData) - 1; $i++) {
             $userId = $prepareData[$i]['userId'];
 
-            for($j=0; $j<= count($prepareData) - 1; $j++)
-            {
+            for ($j=0; $j<= count($prepareData) - 1; $j++) {
                 $nextUserId = $prepareData[$j]['userId'];
                 $tempResult = [];
                 $itemA = [];
                 $itemB = [];
-                foreach ($prepareData[$i]['data'] as $index => $rating)
-                {
+                foreach ($prepareData[$i]['data'] as $index => $rating) {
                     $nextRating = $prepareData[$j]['data'][$index] ?? null;
 
-                    if($nextRating) {
+                    if ($nextRating) {
                         $result = ($rating - $rataWisata[$userId]) * ($nextRating - $rataWisata[$nextUserId]);
                         // $itemA =
                         $akarDariSelisihRatingA = $this->selisihRating($rataWisata)[$userId];
@@ -127,7 +115,6 @@ class Recomended
                     }
                 }
 
-
                 $akarItemA = sqrt(array_sum($itemA));
                 $akarItemB = sqrt(array_sum($itemB));
 
@@ -135,13 +122,11 @@ class Recomended
 
                 try {
                     $hasil = array_sum($tempResult) / $akarAKaliAkarB;
-
-                } catch(\Exception $e) {
+                } catch (\Exception $e) {
                     $hasil = 0;
                 }
 
                 $arrayResult[$userId][$nextUserId] = $hasil;
-
             }
         }
 
@@ -150,7 +135,6 @@ class Recomended
 
     private function calculatePearson(int $currentUserId, array $prepareData)
     {
-
     }
     public function predictItemBased()
     {
@@ -159,37 +143,34 @@ class Recomended
         // dump($cosine);
 
         // dd($cosine);
-        foreach($dataAwal as $user => $r)
-        {
-            foreach($cosine as $itemIndex => $item)
-            {
+        foreach ($dataAwal as $user => $r) {
+            foreach ($cosine as $itemIndex => $item) {
                 $check = $dataAwal[$user][$itemIndex] ?? null;
                 // if ($user === 2 && $itemIndex === 104) {
                 //     dump($dataAwal[$user][$itemIndex]);
                 //     dd($check);
                 // }
                 if (null === $check) {
-                    $countPositive = collect($cosine[$itemIndex])->reject(function($item, $index) use($itemIndex) {
-                        return $item <= 0 || $index == $itemIndex;
+                    $countPositive = collect($cosine[$itemIndex])->reject(function ($item, $index) use ($itemIndex) {
+                        return $item <= 0 || $index === $itemIndex;
                     })->count();
 
-                    $countNegative = collect($cosine[$itemIndex])->reject(function($item, $index) use($itemIndex) {
-                        return $item >= 0 || $index == $itemIndex;
+                    $countNegative = collect($cosine[$itemIndex])->reject(function ($item, $index) use ($itemIndex) {
+                        return $item >= 0 || $index === $itemIndex;
                     })->count();
 
                     if ($countPositive >= 2) {
-                        $data  = $this->getTetangga($cosine[$itemIndex], function($item, $index) use($itemIndex) {
-                            return $item <= 0 || $index == $itemIndex;
+                        $data  = $this->getTetangga($cosine[$itemIndex], function ($item, $index) use ($itemIndex) {
+                            return $item <= 0 || $index === $itemIndex;
                         })->take(2)->toArray();
                     } else {
-                        $data  = $this->getTetangga($cosine[$itemIndex], function($item, $index) use($itemIndex) {
-                            return $item >= 0 || $index == $itemIndex;
+                        $data  = $this->getTetangga($cosine[$itemIndex], function ($item, $index) use ($itemIndex) {
+                            return $item >= 0 || $index === $itemIndex;
                         })->take(2)->toArray();
                     }
 
                     $dataYangDiAmbil = [];
-                    foreach ($data as $indexDataUserId => $value)
-                    {
+                    foreach ($data as $indexDataUserId => $value) {
                         // dd($indexDataUserId);
                         if ($s = $this->data[$user][$indexDataUserId] ?? false) {
                             $dataYangDiAmbil[$indexDataUserId] = $s;
@@ -197,8 +178,7 @@ class Recomended
                     }
 
                     $hasilKali = 0;
-                    foreach ($data as $u => $v)
-                    {
+                    foreach ($data as $u => $v) {
                         if ($datasu = $dataYangDiAmbil[$u] ?? false) {
                             $hasilKali += ($data[$u] * $dataYangDiAmbil[$u]);
                         }
@@ -206,7 +186,7 @@ class Recomended
 
                     try {
                         $finalResult = ($hasilKali / array_sum($data));
-                    } catch(\Exception $e) {
+                    } catch (\Exception $e) {
                         $finalResult = 0;
                     }
                     $this->data[$user][$itemIndex] = $finalResult;
@@ -222,10 +202,8 @@ class Recomended
 
         $prepareData = [];
         $totalProduct = 5;
-        foreach($selisihRating as $index => $data)
-        {
-            foreach ($data as $iData => $v)
-            {
+        foreach ($selisihRating as $index => $data) {
+            foreach ($data as $iData => $v) {
                 $prepareData[$iData][$index] = $v;
             }
         }
@@ -234,18 +212,15 @@ class Recomended
         $hasilArray = [];
         $penyebutArray = [];
         $h = [];
-        foreach ($prepareData as $index => $u)
-        {
-            foreach ($prepareData as $nIndex => $nU)
-            {
+        foreach ($prepareData as $index => $u) {
+            foreach ($prepareData as $nIndex => $nU) {
                 if ($index === $nIndex) {
                     continue;
                 }
                 $hasil = 0;
                 $penyebut= 0;
                 $penyebut2= 0;
-                foreach ($listUser as $iUser => $uId)
-                {
+                foreach ($listUser as $iUser => $uId) {
                     $nilaiPertama = $prepareData[$index][$uId] ?? null;
                     $nilaiKedua = $prepareData[$nIndex][$uId] ?? null;
                     if (null !== $nilaiPertama && null !== $nilaiKedua) {
@@ -253,7 +228,6 @@ class Recomended
                         $penyebut += pow($nilaiPertama, 2);
                         $penyebut2 += pow($nilaiKedua, 2);
                     }
-
                 }
                 $penyebut = sqrt($penyebut);
                 $penyebut2 = sqrt($penyebut2);
@@ -274,8 +248,7 @@ class Recomended
     {
         $prepareData = [];
         $pearson = $this->hitungPearson();
-        foreach($this->data as $index => $data)
-        {
+        foreach ($this->data as $index => $data) {
             $prepareData[] = [
                 'userId' => $index,
                 'data' => $data,
@@ -287,50 +260,44 @@ class Recomended
         $rataWisata = $this->rataDariSetiapWisata();
         $selisihRating = $this->selisihRating($rataWisata);
 
-        for($i=0; $i<=count($prepareData) - 1; $i++)
-        {
+        for ($i=0; $i<=count($prepareData) - 1; $i++) {
             $userId = $prepareData[$i]['userId'];
 
-            for($j=0; $j<= count($prepareData) - 1; $j++)
-            {
+            for ($j=0; $j<= count($prepareData) - 1; $j++) {
                 if ($j === $i) {
                     continue;
                 }
                 $nextUserId = $prepareData[$j]['userId'];
-                foreach ($prepareData[$i]['data'] as $index => $rating)
-                {
+                foreach ($prepareData[$i]['data'] as $index => $rating) {
                     $nextRating = $prepareData[$j]['data'][$index] ?? null;
                     if (null === $nextRating) {
-
-                        $countPositive = collect($pearson[$nextUserId])->reject(function($item, $index) use($nextUserId) {
-                            return $item <= 0 || $index == $nextUserId;
+                        $countPositive = collect($pearson[$nextUserId])->reject(function ($item, $index) use ($nextUserId) {
+                            return $item <= 0 || $index === $nextUserId;
                         })->count();
 
-                        $countNegative = collect($pearson[$nextUserId])->reject(function($item, $index) use($nextUserId) {
-                            return $item >= 0 || $index == $nextUserId;
+                        $countNegative = collect($pearson[$nextUserId])->reject(function ($item, $index) use ($nextUserId) {
+                            return $item >= 0 || $index === $nextUserId;
                         })->count();
 
                         if ($countPositive >= 2) {
-                            $data  = $this->getTetangga($pearson[$nextUserId], function($item, $index) use($nextUserId) {
-                                return $item <= 0 || $index == $nextUserId;
+                            $data  = $this->getTetangga($pearson[$nextUserId], function ($item, $index) use ($nextUserId) {
+                                return $item <= 0 || $index === $nextUserId;
                             })->take(2)->toArray();
                         } else {
-                            $data  = $this->getTetangga($pearson[$nextUserId], function($item, $index) use($nextUserId) {
-                                return $item >= 0 || $index == $nextUserId;
+                            $data  = $this->getTetangga($pearson[$nextUserId], function ($item, $index) use ($nextUserId) {
+                                return $item >= 0 || $index === $nextUserId;
                             })->take(2)->toArray();
                         }
 
                         $dataYangDiAmbil = [];
-                        foreach ($data as $indexDataUserId => $value)
-                        {
+                        foreach ($data as $indexDataUserId => $value) {
                             if ($s = $selisihRating[$indexDataUserId][$index] ?? false) {
                                 $dataYangDiAmbil[$indexDataUserId] = $s;
                             }
                         }
 
                         $hasilKali = 0;
-                        foreach ($data as $u => $v)
-                        {
+                        foreach ($data as $u => $v) {
                             if ($datasu = $dataYangDiAmbil[$u] ?? false) {
                                 $hasilKali += ($data[$u] * $dataYangDiAmbil[$u]);
                             }
@@ -338,7 +305,7 @@ class Recomended
 
                         try {
                             $finalResult = ($hasilKali / array_sum($data) + $rataWisata[$nextUserId]);
-                        } catch(\Exception $e) {
+                        } catch (\Exception $e) {
                             $finalResult = 0;
                         }
                         $this->data[$nextUserId][$index] = $finalResult;
@@ -349,14 +316,12 @@ class Recomended
 
         // dd($this->data);
 
-        foreach($this->data as $user => $val)
-        {
+        foreach ($this->data as $user => $val) {
             asort($this->data[$user]);
         }
 
         dd($this->data);
         // $sor
-
     }
 
     private function getTetangga(array $data, $scope)
@@ -370,10 +335,9 @@ class Recomended
         $data = $this->data;
 
         $newArray = [];
-        foreach ($data as $user)
-        {
-            $user = collect($user)->map(function($item, $index) use ($rata) {
-                if ($rata[$index] && $item != 0) {
+        foreach ($data as $user) {
+            $user = collect($user)->map(function ($item, $index) use ($rata) {
+                if ($rata[$index] && 0 !== $item) {
                     $result = $item - $rata[$index];
                 } else {
                     $result = 0;
@@ -384,6 +348,5 @@ class Recomended
         }
 
         dd($newArray);
-
     }
 }

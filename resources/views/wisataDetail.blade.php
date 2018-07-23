@@ -20,14 +20,8 @@
         <h3>{{ $wisata->wisata_name }}</h3>
         <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i>
       </header>
-      <p>{{ $wisata->artikel['artikel']}}</p>
-      <div class="col-md12">
-        <video width="100%" height="300px" controls>
-          <source src="movie.mp4" type="video/mp4">
-          <source src="movie.ogg" type="video/ogg">
-          Your browser does not support the video tag.
-        </video>
-      </div>
+      <p>{!! $wisata->artikel->artikel !!}</p>
+
     </div>
     <div class="container">
       <div style="width:100%; height:300px;">
