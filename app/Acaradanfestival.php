@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Acaradanfestival extends Model
 {
-  protected $fillable = ['acaradanfestival_img', 'acaradanfestival_lokasi', 'acaradanfestival_tanggal'];
+  protected $fillable = ['acaradanfestival_gambar','artikel_id', 'acaradanfestival_name'];
 
   public function artikel()
   {

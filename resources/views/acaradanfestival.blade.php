@@ -33,7 +33,7 @@
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" >
             <div class="portfolio-wrap">
               <figure>
-                <a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}"><img src="{{ URL::asset($acaradanfestival->acaradanfestival_img) }}" class="img-fluid" alt=""></a>
+                <a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}"><img src="{{ URL::asset($acaradanfestival->acaradanfestival_gambar) }}" class="img-fluid" alt=""></a>
               </figure>
               <div class="portfolio-info" style="background-color:black">
                 <h4><a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}">{{ $acaradanfestival->artikel['artikel_title']}}</a></h4>

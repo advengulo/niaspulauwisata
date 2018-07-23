@@ -31,12 +31,14 @@
                             <li class="active"><a href="#wisata" data-toggle="tab">Wisata</a></li>
                             <li><a href="#budaya" data-toggle="tab">Budaya</a></li>
                             <li><a href="#transportasi" data-toggle="tab">Transportasi</a></li>
+                            <li><a href="#kuliner" data-toggle="tab">Kuliner</a></li>
+                            <li><a href="#acaradanfestival" data-toggle="tab">Acara dan Festival</a></li>                            
                         </ul>
                         <div id="generalTabContent" class="tab-content responsive">
                             <div id="wisata" class="tab-pane fade in active">
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <form action="{{ Route('makePost.store') }}" method="post" enctype="multipart/form-data">
+                                        <form action="{{ Route('makePost.store') }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="">Nama Wisata</label>
@@ -74,9 +76,9 @@
 
                                             <div class="form-group">
                                                 <label for="">Jenis Wisata</label>
-                                                <select name="jenis_wisata_id" id="" class="form-control">
+                                                <select name="wisata_jenis_id" id="" class="form-control">
                                                     @foreach ($jeniswisatas as $Jeniswisata)
-                                                        <option value=" {{$Jeniswisata->id }}"> {{$Jeniswisata->jeniswisata_name}} </option>
+                                                        <option value="{{ $Jeniswisata->id }}"> {{$Jeniswisata->jeniswisata_nama}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -84,7 +86,6 @@
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
                                                 <textarea name="artikel" id="wysiwyg" cols="30" rows="5" class="form-control" placeholder="Artikel" required></textarea>
-
                                             </div>
 
                                             <div class="form-group">
@@ -153,7 +154,6 @@
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <div class="summernote">summernote 2</div>
                                                 <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required autofocus></textarea>
                                             </div>
 
@@ -164,6 +164,70 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div id="kuliner" class="tab-pane fade">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    <form action="{{ Route('makePost.store') }}" method="post" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="">Nama Kuliner</label>
+                                                <input type="text" class="form-control" name="kuliner_name" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="">Gambar Kuliner</label>
+                                                <input type="file" name="kuliner_gambar" id="kuliner_gambar" required>
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="">Lokasi kuliner</label>
+                                                <input type="text" class="form-control" name="kuliner_lokasi" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="">Artikel</label>
+                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="submit" class="btn btn-primary" value="Save">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="acaradanfestival" class="tab-pane fade">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    <form action="{{ Route('makePost.store') }}" method="post" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="">Nama Acara dan Festival</label>
+                                                <input type="text" class="form-control" name="acaradanfestival_name" required autofocus>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="">Gambar Acara dan Festival</label>
+                                                <input type="file" name="acaradanfestival_gambar" id="acaradanfestival_gambar" required autofocus>
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="">Artikel</label>
+                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required autofocus></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="submit" class="btn btn-primary" value="Save">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
