@@ -16,6 +16,8 @@ Route::get('recomended', [
   'uses' => 'RecomendedController@index',
 ]);
 
+Route::resource('/recomendation', 'RecomendationController');
+
 Route::get('/wisata/{wisata}', 'WelcomeController@Show')->name('wisataDetail');
 Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@Tampil')->name('acaradanfestivalDetail');
 

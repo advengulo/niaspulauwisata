@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ArticleSeeder::class,
             JenisWisataSeeder::class,
+            WisataSeeder::class,
         ]);
     }
 }

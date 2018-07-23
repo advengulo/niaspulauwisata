@@ -17,7 +17,7 @@ class Recomended
         $users = collect($this->data)->map(function ($item, $index) use ($items) {
             $user = $items[$index];
             return collect($item)->map(function ($rating) use ($user) {
-                return $rating - $user;
+                return (int) $rating - (int) $user;
             })->toArray();
         });
 
@@ -146,10 +146,6 @@ class Recomended
         foreach ($dataAwal as $user => $r) {
             foreach ($cosine as $itemIndex => $item) {
                 $check = $dataAwal[$user][$itemIndex] ?? null;
-                // if ($user === 2 && $itemIndex === 104) {
-                //     dump($dataAwal[$user][$itemIndex]);
-                //     dd($check);
-                // }
                 if (null === $check) {
                     $countPositive = collect($cosine[$itemIndex])->reject(function ($item, $index) use ($itemIndex) {
                         return $item <= 0 || $index === $itemIndex;
@@ -194,6 +190,7 @@ class Recomended
             }
         }
         // dd($this->data);
+        return $this->data;
     }
     public function cosineItemBased()
     {
@@ -314,14 +311,11 @@ class Recomended
             }
         }
 
-        // dd($this->data);
-
         foreach ($this->data as $user => $val) {
             asort($this->data[$user]);
         }
 
-        dd($this->data);
-        // $sor
+        return $this->data;
     }
 
     private function getTetangga(array $data, $scope)
@@ -338,7 +332,7 @@ class Recomended
         foreach ($data as $user) {
             $user = collect($user)->map(function ($item, $index) use ($rata) {
                 if ($rata[$index] && 0 !== $item) {
-                    $result = $item - $rata[$index];
+                    $result = $item - (int) $rata[$index];
                 } else {
                     $result = 0;
                 }
