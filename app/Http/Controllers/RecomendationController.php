@@ -35,13 +35,25 @@ class RecomendationController extends Controller
         ;
 
         $recomendation = new Recomended($usersWithRating);
+        $activeUser = request()->user();
         
-        // $data = Cache::remember('1', 1, function() use ($recomendation) {
-        //     return $recomendation->predictRating();
-        // });
+        // Cache
+        $recomendationResult = Cache::remember('user-'.$activeUser->id, 1, function() use ($recomendation) {
+            return $recomendation->predictRating();
+        });
 
-        $data = $recomendation->predictRating();
+        // $recomendationResult = $recomendation->predictRating();
 
-        return response()->json($data, 200, [], 128);
+
+        $data = $recomendationResult[$activeUser->id];
+        $ids = collect(array_keys($data))->map(function($value) {
+            return Wisata::find($value);
+        });
+
+        $reject = $ids->reject(function($wisata) use($activeUser) {
+            return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
+        })->flatten();
+
+        return response()->json($reject, 200, [], 128);
     }
 }

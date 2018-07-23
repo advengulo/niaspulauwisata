@@ -312,7 +312,9 @@ class Recomended
         }
 
         foreach ($this->data as $user => $val) {
-            asort($this->data[$user]);
+            uasort($this->data[$user], function($a, $b) {
+                return $a < $b;
+            });
         }
 
         return $this->data;
