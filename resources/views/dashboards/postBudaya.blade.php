@@ -34,7 +34,7 @@
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                         <strong>{{ $message }}</strong>
                                     </div>
-                                @endif 
+                                @endif
                             <ul id="generalTab" class="nav nav-tabs responsive">
                                 <li class="{{Request::is("dashboard/postcontrol")?'active':''}}"><a href="/dashboard/postcontrol">Wisata</a></li>
                                 <li class="{{Request::is("dashboard/postbudaya")?'active':''}}"><a href="/dashboard/postbudaya">Budaya</a></li>
@@ -95,7 +95,7 @@
 
                                                                     <a href="{{ route('postbudaya.show', $budaya->id)}}"> <p class="title">{{$budaya->budaya_name}}</p> </a>
 
-                                                                    <p class="desc" align="justify">{{  str_limit($budaya->artikel['artikel'], 305, ' ....')}}</p>
+                                                                    <p class="desc" align="justify">{!!  str_limit($budaya->artikel['artikel'], 305, ' ....')!!}</p>
                                                                     <p class="like"></p></td>
                                                                 <td class="col-md-1">
                                                                     <div class="row">

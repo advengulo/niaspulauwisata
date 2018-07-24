@@ -18,7 +18,7 @@
         <h3>{{ $kuliner->kuliner_name}}</h3>
         <i class="ion-ios-location"> {{ $kuliner->kuliner_lokasi}}</i>
       </header>
-      <p>{{ $kuliner->artikel['artikel']}}</p>
+      <p>{!! $kuliner->artikel['artikel'] !!}</p>
     </div>
   </section><!-- #about -->
 

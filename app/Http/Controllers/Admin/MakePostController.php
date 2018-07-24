@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Acaradanfestival;
 use App\Artikel;
 use App\Budaya;
-use App\JenisWisata;
+use App\Jeniswisata;
 use App\Kuliner;
 use App\Transportasi;
 use App\Wisata;
@@ -31,7 +31,7 @@ class MakePostController extends Controller
      */
     public function create()
     {
-        $jeniswisatas = JenisWisata::all();
+        $jeniswisatas = Jeniswisata::all();
         // dd($jeniswisatas);
         // return $jeniswisatas;
 
@@ -101,6 +101,7 @@ class MakePostController extends Controller
                 'kuliner_lokasi' => request('kuliner_lokasi')
             ]);
             return redirect('dashboard/postkuliner')->with(['success' => 'Data Kuliner Berhasil Ditambahkan']);
+            
         } elseif (null !==request('acaradanfestival_name')) {
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
@@ -113,6 +114,7 @@ class MakePostController extends Controller
             Acaradanfestival::create([
                 'acaradanfestival_name' => request('acaradanfestival_name'),
                 'artikel_id' => $artikel->id,
+                'acaradanfestival_lokasi' => request('acaradanfestival_lokasi'),
                 'acaradanfestival_gambar' => '/img/img-acaradanfestival/'.$filename,
             ]);
             return redirect('dashboard/postacaradanfestival')->with(['success' => 'Data Acara dan Festival Berhasil Ditambahkan']);

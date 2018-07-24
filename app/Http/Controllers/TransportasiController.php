@@ -42,18 +42,6 @@ class TransportasiController extends Controller
         //
     }
 
-<<<<<<< HEAD
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-   public function show(Transportasi $transportasi)
-   {
-       return view('transportasiModal', compact('transportasi'));
-   }
-=======
     /**
      * Display the specified resource.
      *
@@ -64,7 +52,6 @@ class TransportasiController extends Controller
     {
         return view('exampleModalLong', compact('transportasi'));
     }
->>>>>>> 7d8bcbbd1faf9515109da3f1fd23fba952840c8a
 
     /**
      * Show the form for editing the specified resource.

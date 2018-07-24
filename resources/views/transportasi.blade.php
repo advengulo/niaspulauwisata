@@ -35,17 +35,18 @@
               <figure>
                 <img src="{{ URL::asset($transportasi->transportasi_gambar) }}" class="img-fluid" alt="">
                 <a href="{{ URL::asset($transportasi->transportasi_gambar) }}" data-lightbox="portfolio" data-title="{{ $transportasi->transportasi_name}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
-                <a href="" data-target="#modalMd" data-toggle="modal" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                <a href="" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
               </figure>
 
               <div class="portfolio-info">
-                <h4><a href={{ route('transportasiModal', $transportasi) }}>{{ $transportasi->transportasi_name}}</a></h4>
-                <p>{{ $transportasi->transportasi_jenis }}</p>
+                <h4><a href="">{{ $transportasi->transportasi_name}}</a></h4>
+                <p>{{ $transportasi->transportasi_jenis}}</p>
               </div>
             </div>
           </div>
           @endforeach
         </div>
+
         <div class="pagination justify-content-center" >
           <div class="container">
             <div style="text-align:center;">
@@ -54,11 +55,5 @@
           </div>
         </div>
     </section><!-- #portfolio -->
-
-
   </main>
-
-
-
 @endsection
-<!-- Modal -->

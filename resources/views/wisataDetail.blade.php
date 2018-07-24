@@ -16,39 +16,6 @@
   <!-- Content Wisata   -->
   <section id="portfolio" class="section-bg">
     <div class="container">
-<<<<<<< HEAD
-      <header class="section-header">
-        <h3>{{ $wisata->wisata_name }}</h3>
-        <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i>
-      </header>
-      <p>{{ $wisata->artikel['artikel']}}</p>
-    </div>
-    <div class="container">
-      <div style="width:100%; height:300px;">
-        {!! Mapper::render() !!}
-      </div>
-    </div>
-  </section><!-- #End Content Wisata -->
-    <div class="container">
-      <header class="section-header" style="">
-        <h3>Mungkin Anda Sukai</h3>
-      </header>
-      <div class="row portfolio-container">
-
-      <div>
-    </div>
-
-  <!-- Gallery -->
-  @if ($message = Session::get('success'))
-    <div class="alert alert-success alert-block">
-     <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
-    </div>
-  @endif
-  <div class="container">
-    <div class="container">
-      <div class="row">
-=======
       <div class="row">
         <div class="col-md-9" style="padding-right:20px">
         <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-rounded" alt="Cinque Terre" width="100%" height="auto">
@@ -62,17 +29,16 @@
         <p>{!! $wisata->artikel->artikel !!}</p>
       </div>
 
-      <div class="col-md-3">      
+      <div class="col-md-3">
         <h3 style="margin-top:0;">Map</h3>
         <hr style="border-width:2px">
         <div style="width:100%; height:275px;">
             {!! Mapper::render() !!}
         </div>
       </div>
-    </div>    
+    </div>
  `
     <div class="container" style="padding:10px 0">
->>>>>>> 7d8bcbbd1faf9515109da3f1fd23fba952840c8a
         <header class="section-header">
           <h2>Gallery</h2>
         </header>
@@ -81,16 +47,16 @@
           @foreach ($wisata->gallery()->get() as $gallery)
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
               <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{$wisata->wisata_name}}"
-                 data-image="{{ URL::asset($gallery->gallery_gambar) }}"
+                 data-image="{{ asset($gallery->gallery_gambar) }}"
                  data-target="#image-gallery">
                   <img class="img-thumbnail"
-                    src="{{ URL::asset($gallery->gallery_gambar) }}"
+                    srcset="{{ asset($gallery->gallery_gambar) }}"
                     alt="Another alt text">
               </a>
             </div>
             @endforeach
           </div>
-            
+
 
           <div class="col-md-4">
             <form method="post" action="{{ route('ulasan.tambahGallery', $wisata) }}" enctype="multipart/form-data">
@@ -104,7 +70,12 @@
               </tr>
              </table>
             </div>
-
+            @if ($message = Session::get('success'))
+              <div class="alert alert-success alert-block">
+               <button type="button" class="close" data-dismiss="alert">×</button>
+                      <strong>{{ $message }}</strong>
+              </div>
+            @endif
            </form>
           </div>
         </div>
@@ -132,11 +103,8 @@
         </div>
     </div>
   </section><!-- End Gallery -->
-  
 
-<<<<<<< HEAD
 
-=======
   <section id="portfolio"  class="section-bg" >
     <div class="container">
       <header class="section-header" style="">
@@ -163,7 +131,6 @@
       </div>
     </div>
   </section>
->>>>>>> 7d8bcbbd1faf9515109da3f1fd23fba952840c8a
 
 
   <!-- Ulasan  -->
@@ -193,7 +160,7 @@
                       	    <div class="col-md-10">
                                 <div><strong>{{$ulasan->user->name}}</strong></div>
                                 <div><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->rating['rating'] }}" data-size="xs"></span></div>
-                                <div><p>{{$ulasan->isi_ulasan}}</p> </div>                       	        
+                                <div><p>{{$ulasan->isi_ulasan}}</p> </div>
                       	    </div>
               	        </div>
               	    </div>
@@ -238,7 +205,7 @@
 
         </div>
       </div>
-    
+
 
 <!-- Scrip modal Gallery -->
 <script type="text/javascript">

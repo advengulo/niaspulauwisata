@@ -10,13 +10,6 @@ use Illuminate\Http\Request;
 use Input;
 use redirect;
 use Session;
-<<<<<<< HEAD
-use DB;
-use App\Wisata;
-use App\Artikel;
-use App\Ulasan;
-=======
->>>>>>> 7d8bcbbd1faf9515109da3f1fd23fba952840c8a
 
 class WisataController extends Controller
 {
@@ -53,11 +46,6 @@ class WisataController extends Controller
         //
     }
 
-<<<<<<< HEAD
-    // dd(ulasanData);
-    return view('wisataDetail', compact('wisata'));
-  }
-=======
     /**
      * Display the specified resource.
      *
@@ -69,7 +57,6 @@ class WisataController extends Controller
         Mapper::map($wisata->latitude, $wisata->longtitude, ['zoom' => 12]);
 
         $dataWisata = Wisata::latest()->paginate(4);
->>>>>>> 7d8bcbbd1faf9515109da3f1fd23fba952840c8a
 
         return view('wisataDetail', compact('wisata', 'dataWisata'));
     }

@@ -23,7 +23,7 @@
                             <li><a href="#budaya" data-toggle="tab">Budaya</a></li>
                             <li><a href="#transportasi" data-toggle="tab">Transportasi</a></li>
                             <li><a href="#kuliner" data-toggle="tab">Kuliner</a></li>
-                            <li><a href="#acaradanfestival" data-toggle="tab">Acara dan Festival</a></li>                            
+                            <li><a href="#acaradanfestival" data-toggle="tab">Acara dan Festival</a></li>
                         </ul>
                         <div id="generalTabContent" class="tab-content responsive">
                             <div id="wisata" class="tab-pane fade in active">
@@ -111,7 +111,7 @@
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required autofocus></textarea>
+                                                <textarea name="artikel" id="wysiwyg1" cols="30" rows="5" class="form-control" required autofocus></textarea>
                                             </div>
 
                                             <div class="form-group">
@@ -179,7 +179,7 @@
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required></textarea>
+                                                <textarea name="artikel" id="wysiwyg3" cols="30" rows="5" class="form-control" required></textarea>
                                             </div>
 
                                             <div class="form-group">
@@ -207,8 +207,13 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="">Daerah Lokasi</label>
+                                                <input type="text" class="form-control" name="acaradanfestival_lokasi" required autofocus>
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required autofocus></textarea>
+                                                <textarea name="artikel" id="wysiwyg4" cols="30" rows="5" class="form-control" required autofocus></textarea>
                                             </div>
 
                                             <div class="form-group">
@@ -235,5 +240,18 @@
 <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
 <script>
     $('#wysiwyg').ckeditor();
+</script>
+
+<script>
+    $('#wysiwyg1').ckeditor();
+</script>
+<script>
+    $('#wysiwyg2').ckeditor();
+</script>
+<script>
+    $('#wysiwyg3').ckeditor();
+</script>
+<script>
+    $('#wysiwyg4').ckeditor();
 </script>
 @endsection
