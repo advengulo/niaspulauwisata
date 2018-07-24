@@ -211,8 +211,7 @@
                 self.$clear = $clr;
                 return;
             }
-            self._addContent('clear',
-                '<div class="' + css + '" title="' + self.clearButtonTitle + '">' + self.clearButton + '</div>');
+            self._addContent('clear',);
             self.$clear = self.$container.find('.' + self.clearButtonBaseClass);
         },
         _getClearClass: function () {
@@ -542,16 +541,16 @@
         showClear: true,
         showCaption: true,
         starCaptionClasses: {
-            0.5: 'label label-danger',
-            1: 'label label-danger',
-            1.5: 'label label-warning',
-            2: 'label label-warning',
-            2.5: 'label label-info',
-            3: 'label label-info',
-            3.5: 'label label-primary',
-            4: 'label label-primary',
-            4.5: 'label label-success',
-            5: 'label label-success'
+            0.5: 'label label-default',
+            1: 'label label-default',
+            1.5: 'label label-default',
+            2: 'label label-default',
+            2.5: 'label label-default',
+            3: 'label label-default',
+            3.5: 'label label-default',
+            4: 'label label-default',
+            4.5: 'label label-default',
+            5: 'label label-default'
         },
         clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
         clearButtonBaseClass: 'clear-rating',
@@ -568,18 +567,18 @@
     };
 
     $.fn.ratingLocales.en = {
-        defaultCaption: '{rating} Stars',
+        defaultCaption: '{rating}',
         starCaptions: {
-            0.5: 'Half Star',
-            1: 'One Star',
-            1.5: 'One & Half Star',
-            2: 'Two Stars',
-            2.5: 'Two & Half Stars',
-            3: 'Three Stars',
-            3.5: 'Three & Half Stars',
-            4: 'Four Stars',
-            4.5: 'Four & Half Stars',
-            5: 'Five Stars'
+            0.5: '0.5',
+            1: '1',
+            1.5: '1.5',
+            2: '2',
+            2.5: '2.5',
+            3: '3',
+            3.5: '3.5',
+            4: '4',
+            4.5: '4.5',
+            5: '5'
         },
         clearButtonTitle: 'Clear',
         clearCaption: 'Not Rated'

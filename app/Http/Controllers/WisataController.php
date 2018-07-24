@@ -2,97 +2,109 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Artikel;
+use App\Wisata;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
+use DB;
+use Illuminate\Http\Request;
 use Input;
 use redirect;
 use Session;
+<<<<<<< HEAD
 use DB;
 use App\Wisata;
 use App\Artikel;
 use App\Ulasan;
+=======
+>>>>>>> 7d8bcbbd1faf9515109da3f1fd23fba952840c8a
 
 class WisataController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-    $data = Wisata::latest()->paginate(3);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $data = Wisata::latest()->paginate(6);
 
-    return view('wisata',compact('data'));
-  }
+        // return Wisata::first();
+        return view('wisata', compact('data'));
+    }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
-  {
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+    }
 
-  }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request)
-  {
-      //
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show(Wisata $wisata)
-  {
-    Mapper::map($wisata->latitude, $wisata->longtitude, ['zoom' => 12]);
-
+<<<<<<< HEAD
     // dd(ulasanData);
     return view('wisataDetail', compact('wisata'));
   }
+=======
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Wisata $wisata)
+    {
+        Mapper::map($wisata->latitude, $wisata->longtitude, ['zoom' => 12]);
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($id)
-  {
-      //
-  }
+        $dataWisata = Wisata::latest()->paginate(4);
+>>>>>>> 7d8bcbbd1faf9515109da3f1fd23fba952840c8a
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $id)
-  {
-      //
-  }
+        return view('wisataDetail', compact('wisata', 'dataWisata'));
+    }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy($id)
-  {
-      //
-  }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

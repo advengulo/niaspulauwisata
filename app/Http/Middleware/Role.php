@@ -3,8 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
-use User;
 
 class Role
 {
@@ -17,10 +15,10 @@ class Role
      */
     public function handle($request, Closure $next)
     {
-      if (Auth::user()->admin==true ) {
-        return $next($request);
-      }
+        if (true == $request->user()->admin) {
+            return $next($request);
+        }
 
-      return redirect('/home');
+        abort(404);
     }
 }

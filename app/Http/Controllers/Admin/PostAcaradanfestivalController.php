@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use App\Acaradanfestival;
 use App\Artikel;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostAcaradanfestivalController extends Controller
 {
@@ -76,7 +76,7 @@ class PostAcaradanfestivalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataAcaradanfestivals = Acaradanfestivals::find($id);        
+        $dataAcaradanfestivals = Acaradanfestivals::find($id);
         $dataAcaradanfestivals->update([
             'acaradanfestival_name' => request('acaradanfestival_name'),
             'acaradanfestival_gambar' => request('acaradanfestival_gambar'),

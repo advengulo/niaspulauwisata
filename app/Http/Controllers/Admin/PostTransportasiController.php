@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Wisata;
-use App\Jeniswisata;
 use App\Artikel;
 use App\Budaya;
+use App\JenisWisata;
 use App\Transportasi;
+use App\Wisata;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostTransportasiController extends Controller
 {
@@ -53,7 +53,7 @@ class PostTransportasiController extends Controller
      */
     public function show(transportasi $transportasi)
     {
-        return view('dashboards.showTransportasi', compact('transportasi'));        
+        return view('dashboards.showTransportasi', compact('transportasi'));
     }
 
     /**
@@ -78,7 +78,7 @@ class PostTransportasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataTransportasis = Transportasi::find($id);        
+        $dataTransportasis = Transportasi::find($id);
         $dataTransportasis->update([
             'transportasi_name' => request('transportasi_name'),
             'transportasi_gambar' => request('transportasi_gambar'),
@@ -91,7 +91,7 @@ class PostTransportasiController extends Controller
             'artikel' => request('artikel'),
         ]);
 
-        return redirect('dashboard/posttransportasi')->with(['update' => 'Data Transportasi Telah Diedit']);        
+        return redirect('dashboard/posttransportasi')->with(['update' => 'Data Transportasi Telah Diedit']);
     }
 
     /**
@@ -109,6 +109,6 @@ class PostTransportasiController extends Controller
         $artikel = Artikel::where('id', $artikel_id);
         $artikel->delete();
 
-        return back()->with(['delete' => 'Data Transportasi Telah Dihapus']);        
+        return back()->with(['delete' => 'Data Transportasi Telah Dihapus']);
     }
 }

@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Artikel;
-use App\Transportasi;
-use DB;
 use Illuminate\Http\Request;
 
-class TransportasiController extends Controller
+class WisataHasilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +13,7 @@ class TransportasiController extends Controller
      */
     public function index()
     {
-        $data = Transportasi::latest()->paginate(env('PER_PAGE'));
-
-        return view('transportasi', compact('data'));
+        //
     }
 
     /**
@@ -42,29 +37,16 @@ class TransportasiController extends Controller
         //
     }
 
-<<<<<<< HEAD
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-   public function show(Transportasi $transportasi)
-   {
-       return view('transportasiModal', compact('transportasi'));
-   }
-=======
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Transportasi $transportasi)
+    public function show($id)
     {
-        return view('exampleModalLong', compact('transportasi'));
+        //
     }
->>>>>>> 7d8bcbbd1faf9515109da3f1fd23fba952840c8a
 
     /**
      * Show the form for editing the specified resource.

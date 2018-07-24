@@ -64,12 +64,13 @@
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li><a href="/">Home</a></li>
+          <li><a href="/wisata">wisata</a></li>
           <li><a href="/budaya">Budaya</a></li>
-          <li><a href="/kamus">Kamus</a></li>
           <li class="menu-has-children"><a href="#">Informasi</a>
             <ul>
               <li><a href="/kuliner">Kuliner</a></li>
               <li><a href="/transportasi">Transportasi</a></li>
+              <li><a href="/kamus">Kamus</a></li>              
               <li><a href="/kontak">Kontak</a></li>
             </ul>
           </li>
@@ -127,10 +128,6 @@
   <script src="{{ URL::asset('lib/touchSwipe/jquery.touchSwipe.min.js') }}"></script>
   <!-- Contact Form JavaScript File -->
   <script src="{{ URL::asset('contactform/contactform.js') }}"></script>
-  <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
-<!-- {{ asset('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') }} -->
-  <!-- Template Main Javascript File -->
-  <script src="{{ URL::asset('js/main.js') }}"></script>
-    @yield('js')
+  <script src="{{ URL::asset('js/main.js') }}"></script>  
 </body>
 </html>

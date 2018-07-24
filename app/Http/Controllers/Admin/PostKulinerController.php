@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use App\Kuliner;
 use App\Artikel;
+use App\Http\Controllers\Controller;
+use App\Kuliner;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostKulinerController extends Controller
 {
@@ -51,7 +51,7 @@ class PostKulinerController extends Controller
      */
     public function show($id)
     {
-        return view('dashboards.showKuliner', compact('kuliner'));        
+        return view('dashboards.showKuliner', compact('kuliner'));
     }
 
     /**
@@ -76,7 +76,7 @@ class PostKulinerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataKuliners = Kuliner::find($id);        
+        $dataKuliners = Kuliner::find($id);
         $dataKuliners->update([
             'kuliner_name' => request('kuliner_name'),
             'kuliner_gambar' => request('kuliner_gambar'),
