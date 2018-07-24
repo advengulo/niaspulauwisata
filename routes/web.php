@@ -18,6 +18,9 @@ Route::get('recomended', [
 
 Route::resource('/recomendation', 'RecomendationController');
 
+Route::get('/resultwisata', 'RecomendationController@index')->name('result.index');
+
+
 Route::get('/wisata/{wisata}', 'WelcomeController@Show')->name('wisataDetail');
 Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@Tampil')->name('acaradanfestivalDetail');
 

@@ -121,7 +121,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 768px) {
   #header #logo h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
   #header #logo img {
     max-height: 40px;
@@ -858,7 +858,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 /* Portfolio Section
 --------------------------------*/
 #portfolio {
-  padding: 60px 0;
+  padding: 40px 0;
 }
 
 #portfolio #portfolio-flters {
@@ -971,7 +971,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #portfolio .portfolio-item .portfolio-info {
   background: #fff;
   text-align: center;
-  padding: 30px;
+  padding: 10px;
   height: 90px;
   border-radius: 0 0 3px 3px;
 }
@@ -1456,4 +1456,20 @@ body.mobile-nav-active #mobile-nav-toggle {
   text-align: center;
   font-size: 13px;
   color: #ddd;
+}
+
+
+.portfolio-info-detail {
+  background: #fff;
+  text-align: center;
+  padding: 10px;
+  height: 50px;
+  border-radius: 0 0 3px 3px;
+   
+}
+
+.portfolio-wrap-detail {
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s; 
+  margin-bottom: 10px; 
 }

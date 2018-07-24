@@ -14,7 +14,9 @@
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2>Pulau Asu</h2>
-                <button type="button" class="btn-get-started scrollto" data-toggle="modal" data-target="#rekomendasiModal" data-whatever="@mdo">Apakah Anda Memerlukan Rekomendasi Wisata?</button>
+                <form action="/resultwisata">
+                  <input type="submit" class="btn-get-started scrollto" value="Apakah Anda Memerlukan Rekomendasi Wisata?">
+                </form>
               </div>
             </div>
           </div>
@@ -24,7 +26,9 @@
           <div class="carousel-container">
             <div class="carousel-content">
               <h2>Hombo Batu</h2>
-              <button type="button" class="btn-get-started scrollto" data-toggle="modal" data-target="#rekomendasiModal" data-whatever="@mdo">Apakah Anda Memerlukan Rekomendasi Wisata?</button>
+              <form action="/resultwisata">
+                <input type="submit" class="btn-get-started scrollto" value="Apakah Anda Memerlukan Rekomendasi Wisata?">
+              </form>
             </div>
           </div>
         </div>
@@ -34,7 +38,9 @@
           <div class="carousel-container">
             <div class="carousel-content">
               <h2>Pantai Sorake</h2>
-              <button type="button" class="btn-get-started scrollto" data-toggle="modal" data-target="#rekomendasiModal" data-whatever="@mdo">Apakah Anda Memerlukan Rekomendasi Wisata?</button>
+              <form action="/resultwisata">
+                <input type="submit" class="btn-get-started scrollto" value="Apakah Anda Memerlukan Rekomendasi Wisata?">
+              </form>
             </div>
           </div>
         </div>
@@ -51,7 +57,7 @@
       </a>
 
       <!-- Modal Rekomendasi -->
-      <div class="modal" id="rekomendasiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--  <div class="modal" id="rekomendasiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -87,7 +93,7 @@
 
           </div>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>
@@ -100,9 +106,8 @@
   ============================-->
   <section id="portfolio"  class="section-bg" >
     <div class="container">
-
       <header class="section-header" style="">
-        <h3>Destinasi Wisata <a style="text-transform: none; font-size: 16px;" href="/wisata">Selengkapnya..</a></h3>
+        <h3>Destinasi Wisata</h3>
       </header>
       <div class="row portfolio-container">
         @foreach ($dataWisata as $wisata)
@@ -133,7 +138,7 @@
     <div class="container">
 
       <header class="section-header" style="">
-        <h3>Acara dan Festival <a style="text-transform: none; font-size: 16px;" href="/acaradanfestival">Selengkapnya..</a></h3>
+        <h3>Acara dan Festival</h3>
       </header>
 
       <div class="row portfolio-container">

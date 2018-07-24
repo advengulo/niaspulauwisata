@@ -38,11 +38,11 @@ class RecomendationController extends Controller
         $activeUser = request()->user();
         
         // Cache
-        $recomendationResult = Cache::remember('user-'.$activeUser->id, 1, function() use ($recomendation) {
-            return $recomendation->predictRating();
-        });
+        // $recomendationResult = Cache::remember('user-'.$activeUser->id, 1, function() use ($recomendation) {
+        //     return $recomendation->predictRating();
+        // });
 
-        // $recomendationResult = $recomendation->predictRating();
+        $recomendationResult = $recomendation->predictRating();
 
 
         $data = $recomendationResult[$activeUser->id];
@@ -54,6 +54,8 @@ class RecomendationController extends Controller
             return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
         })->flatten();
 
-        return response()->json($reject, 200, [], 128);
+        return view('wisataHasil', compact('reject'));
+
+       // return response()->json($reject, 200, [], 128);
     }
 }

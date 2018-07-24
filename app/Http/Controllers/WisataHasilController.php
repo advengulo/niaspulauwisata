@@ -2,17 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Acaradanfestival;
-use App\Artikel;
-use App\Wisata;
-use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
-use DB;
 use Illuminate\Http\Request;
-use Input;
-use Redirect;
-use Session;
 
-class WelcomeController extends Controller
+class WisataHasilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,9 +13,7 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $dataAcaradanFestival = Acaradanfestival::latest()->paginate(3);
-        $dataWisata = Wisata::latest()->paginate(6);
-        return view('welcome', ['dataWisata' => $dataWisata], ['dataAcaradanFestival' => $dataAcaradanFestival ]);
+        //
     }
 
     /**
@@ -53,16 +43,9 @@ class WelcomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function show(Wisata $wisata)
+    public function show($id)
     {
-        Mapper::map(1.304203, 97.590803);
-        return view('wisataDetail', compact('wisata'));
-    }
-
-    public function tampil(AcaradanFestival $acaradanfestival)
-    {
-        return view('acaradanfestivalDetail', compact('acaradanfestival'));
+        //
     }
 
     /**

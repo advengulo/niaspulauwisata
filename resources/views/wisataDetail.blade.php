@@ -2,11 +2,11 @@
 
 @section('content')
   <!-- Header Wisata  -->
-  <section id="intro" style="height:50vh;">
+  <section id="intro" style="height:30vh;">
     <div class="intro-container">
       <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
-          <div class="carousel-item active" style="height:50vh;">
+          <div class="carousel-item active" style="height:30vh;">
             <div class="carousel-background"><img src="{{ URL::asset($wisata->wisata_gambar) }}" alt="">
             </div>
           </div>
@@ -14,40 +14,51 @@
   </section><!-- #End Header Wisata -->
 
   <!-- Content Wisata   -->
-  <section id="about">
-    <div class="container">
-      <header class="section-header">
-        <h3>{{ $wisata->wisata_name }}</h3>
-        <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i>
-      </header>
-      <p>{!! $wisata->artikel->artikel !!}</p>
-
-    </div>
-    <div class="container">
-      <div style="width:100%; height:300px;">
-        {!! Mapper::render() !!}
-      </div>
-    </div>
-  </section><!-- #End Content Wisata -->
-  <!-- Gallery -->
-  <div class="container">
+  <section id="portfolio" class="section-bg">
     <div class="container">
       <div class="row">
+        <div class="col-md-9" style="padding-right:20px">
+        <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-rounded" alt="Cinque Terre" width="100%" height="auto">
+        <header class="section-header">
+          <h3 style="padding-bottom: 0px;">{{ $wisata->wisata_name }}</h3>
+          <div> <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i> </div>
+          <div class="rating">
+              <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
+          </div>
+        </header>
+        <p>{!! $wisata->artikel->artikel !!}</p>
+      </div>
+
+      <div class="col-md-3">      
+        <h3 style="margin-top:0;">Map</h3>
+        <hr style="border-width:2px">
+        <div style="width:100%; height:275px;">
+            {!! Mapper::render() !!}
+        </div>
+      </div>
+    </div>    
+ `
+    <div class="container" style="padding:10px 0">
         <header class="section-header">
           <h2>Gallery</h2>
         </header>
         <div class="row">
+          <div class="col-md-12">
           @foreach ($wisata->gallery()->get() as $gallery)
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
               <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{$wisata->wisata_name}}"
                  data-image="{{ URL::asset($gallery->gallery_gambar) }}"
                  data-target="#image-gallery">
                   <img class="img-thumbnail"
-                       src="{{ URL::asset($gallery->gallery_gambar) }}"
-                       alt="Another alt text">
+                    src="{{ URL::asset($gallery->gallery_gambar) }}"
+                    alt="Another alt text">
               </a>
             </div>
             @endforeach
+          </div>
+            
+
+          <div class="col-md-4">
             <form method="post" action="{{ route('ulasan.tambahGallery', $wisata) }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group">
@@ -66,7 +77,7 @@
               </div>
             @endif
            </form>
-
+          </div>
         </div>
 
         <div class="modal" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -90,29 +101,28 @@
                 </div>
             </div>
         </div>
-      </div>
     </div>
-  </div><!-- End Gallery -->
+  </section><!-- End Gallery -->
+  
 
   <section id="portfolio"  class="section-bg" >
     <div class="container">
-
       <header class="section-header" style="">
-        <h3>Mungkin Anda Sukai</h3>
+        <h4>Mungkin Anda Sukai</h4>
       </header>
       <div class="row portfolio-container">
-        @foreach ($dataWisata as $wisata)
-        <div class="col-md-4 portfolio-item filter-app wow fadeInUp">
+        @foreach ($dataWisata as $wisatalike)
+        <div class="col-md-3 portfolio-item filter-app wow fadeInUp">
           <div class="portfolio-wrap">
             <figure>
-              <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-fluid" alt="">
-              <a href="{{ URL::asset($wisata->wisata_gambar) }}" data-lightbox="portfolio" data-title="{{ $wisata->wisata_name }}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
-              <a href="{{ route('wisataDetail', $wisata) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+              <img src="{{ URL::asset($wisatalike->wisata_gambar) }}" class="img-fluid" alt="">
+              <a href="{{ URL::asset($wisatalike->wisata_gambar) }}" data-lightbox="portfolio" data-title="{{ $wisatalike->wisata_name }}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
+              <a href="{{ route('wisataDetail', $wisatalike) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
             </figure>
             <div class="portfolio-info">
-              <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
+              <h4><a href="{{ route('wisataDetail', $wisatalike) }}">{{ $wisatalike->wisata_name}}</a></h4>
               <div class="rating">
-                  <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
+                  <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisatalike->averageRating }}" data-size="xs" disabled="">
               </div>
             </div>
           </div>
@@ -125,7 +135,7 @@
 
   <!-- Ulasan  -->
   <div class="container">
-
+    <div class="row">
     @if($message=Session::get('successUlasan'))
       <div class="alert alert-success alert-block">
         <button type="button" class="close" data-dismiss="alert">x</button>
@@ -133,37 +143,24 @@
       </div>
     @endif
 
-    <button type="button" class="btn btn-primary fa fa-plus-circle" data-toggle="modal" data-target="#exampleModal"> Tambah Ulasan</button>
-  	<div class="card">
-      <div class="row">
-          <div class="col-xs-12 col-md-12"> <!-- Ratting -->
-              <div class="well well-sm">
-                  <div class="row">
-                      <div class="col-xs-12 col-md-6 text-left"> <!--class total rating-->
-                          <!-- <h1 class="rating-num">{{ str_limit ($wisata->averageRating, 3,'') }}</h1> -->
-                          <div class="rating">
-                              <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div> <!-- End Ratting -->
+    <div class="col-md-12">
+    <button type="button" class="btn btn-primary btn-block fa fa-plus-circle" data-toggle="modal" data-target="#exampleModal"> Tambah Ulasan</button>
+    </div>
 
           <div class="card-body"> <!-- Ulasan -->
             @foreach ($wisata->ulasan()->get() as $ulasan)
   	        	<div class="card card-inner">
               	    <div class="card-body">
+
               	        <div class="row">
-                      	    <div class="col-md-2" style="align:center;" >
-                      	        <img src="{{ URL::asset( $ulasan->user['avatar']) }}" class="img img-rounded img-fluid" style="width:70px; height:70px; "/>
-                      	        <p class="text-secondary text-center">{{ $ulasan->created_at->diffForHumans()}}</p>
+                      	    <div class="col-md-2">
+                      	        <img style="width:100px ; height:auto;" src="{{ URL::asset( $ulasan->user['avatar']) }}" class="img img-rounded img-fluid" style="width:70px; height:70px; "/>
+                      	        <!--<p class="text-secondary text-center">{{ $ulasan->created_at->diffForHumans()}}</p> -->
                       	    </div>
                       	    <div class="col-md-10">
-                      	        <p>
-                                  <a href="#"><strong>{{$ulasan->user->name}}</strong></a>
-                                  <span class="float-right"><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->rating['rating'] }}" data-size="xs"></span>
-                                </p>
-                      	        <p>{{$ulasan->isi_ulasan}}</p>
+                                <div><strong>{{$ulasan->user->name}}</strong></div>
+                                <div><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->rating['rating'] }}" data-size="xs"></span></div>
+                                <div><p>{{$ulasan->isi_ulasan}}</p> </div>                       	        
                       	    </div>
               	        </div>
               	    </div>
@@ -177,11 +174,12 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{$wisata->wisata_name}}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Tulis ulasan {{$wisata->wisata_name}} </strong></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
+
                   <div class="modal-body has-feedback{{ $errors->has('isi_ulasan') ? ' has-error ' : ''}}">
                     <form method="post" action="{{ route('wisata.ulasan.store', $wisata) }}" >
                       {{ csrf_field() }}
@@ -205,9 +203,9 @@
             </div>
           </div> <!-- End Modal Ulasan -->
 
-  	    </div>
+        </div>
       </div>
-    </div>
+    
 
 <!-- Scrip modal Gallery -->
 <script type="text/javascript">
