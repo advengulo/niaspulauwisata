@@ -109,7 +109,5 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::delete('/dashboard/kamus/{id}/destroy', 'Admin\KamusController@destroy')->name('kamus.destroy');
 
   Route::get('/dashboard/adminsetting', 'Admin\AdminSettingController@index')->name('admin.index');
-
-
   Route::get('/dashboard/inbox', 'Admin\InboxController@index')->name('inbox.index');
 });
