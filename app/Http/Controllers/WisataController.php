@@ -10,6 +10,7 @@ use Session;
 use DB;
 use App\Wisata;
 use App\Artikel;
+use App\Ulasan;
 
 class WisataController extends Controller
 {
@@ -56,9 +57,8 @@ class WisataController extends Controller
   {
     Mapper::map($wisata->latitude, $wisata->longtitude, ['zoom' => 12]);
 
-    $dataWisata = Wisata::latest()->paginate(3);
-
-    return view('wisataDetail', compact('wisata', 'dataWisata'));
+    // dd(ulasanData);
+    return view('wisataDetail', compact('wisata'));
   }
 
   /**

@@ -21,13 +21,6 @@
         <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i>
       </header>
       <p>{{ $wisata->artikel['artikel']}}</p>
-      <div class="col-md12">
-        <video width="100%" height="300px" controls>
-          <source src="movie.mp4" type="video/mp4">
-          <source src="movie.ogg" type="video/ogg">
-          Your browser does not support the video tag.
-        </video>
-      </div>
     </div>
     <div class="container">
       <div style="width:100%; height:300px;">
@@ -35,7 +28,22 @@
       </div>
     </div>
   </section><!-- #End Content Wisata -->
+    <div class="container">
+      <header class="section-header" style="">
+        <h3>Mungkin Anda Sukai</h3>
+      </header>
+      <div class="row portfolio-container">
+
+      <div>
+    </div>
+
   <!-- Gallery -->
+  @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+     <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+    </div>
+  @endif
   <div class="container">
     <div class="container">
       <div class="row">
@@ -65,12 +73,7 @@
               </tr>
              </table>
             </div>
-            @if ($message = Session::get('success'))
-              <div class="alert alert-success alert-block">
-               <button type="button" class="close" data-dismiss="alert">×</button>
-                      <strong>{{ $message }}</strong>
-              </div>
-            @endif
+
            </form>
 
         </div>
@@ -100,33 +103,7 @@
     </div>
   </div><!-- End Gallery -->
 
-  <section id="portfolio"  class="section-bg" >
-    <div class="container">
 
-      <header class="section-header" style="">
-        <h3>Mungkin Anda Sukai</h3>
-      </header>
-      <div class="row portfolio-container">
-        @foreach ($dataWisata as $wisata)
-        <div class="col-md-4 portfolio-item filter-app wow fadeInUp">
-          <div class="portfolio-wrap">
-            <figure>
-              <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-fluid" alt="">
-              <a href="{{ URL::asset($wisata->wisata_gambar) }}" data-lightbox="portfolio" data-title="{{ $wisata->wisata_name }}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
-              <a href="{{ route('wisataDetail', $wisata) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-            </figure>
-            <div class="portfolio-info">
-              <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
-              <div class="rating">
-                  <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
-              </div>
-            </div>
-          </div>
-        </div>
-        @endforeach
-      </div>
-    </div>
-  </section>
 
 
   <!-- Ulasan  -->

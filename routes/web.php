@@ -37,6 +37,7 @@ Route::resource( 'kuliner', 'KulinerController');
 Route::get('/kuliner/{kuliner}', 'KulinerController@Show')->name('kulinerDetail');
 
 Route::resource( 'transportasi', 'TransportasiController');
+Route::get('/transportasi/{transportasi}', 'TransportasiController@show')->name('transportasiModal');
 
 Route::resource( 'acaradanfestival', 'AcaraDanFestivalController');
 Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@Show')->name('acaradanfestivalDetail');
@@ -97,7 +98,7 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::get('/dashboard/postacaradanvestival/{acaradanvestival}', 'Admin\PostAcaradanfestivalController@show')->name('postacaradanfestival.show');
   Route::get('/dashboard/postacaradanvestival/{id}/edit', 'Admin\PostAcaradanfestivalController@edit')->name('postacaradanfestival.edit');
   Route::patch('/dashboard/postacaradanvestival/{id}/update', 'Admin\PostAcaradanfestivalController@update')->name('postacaradanfestival.update');
-  Route::delete('/dashboard/postacaradanvestival/{id}/destroy', 'Admin\PostAcaradanfestivalController@destroy')->name('postacaradanfestival.destroy');  
+  Route::delete('/dashboard/postacaradanvestival/{id}/destroy', 'Admin\PostAcaradanfestivalController@destroy')->name('postacaradanfestival.destroy');
 
   Route::get('/dashboard/kamus', 'Admin\KamusController@index')->name('kamus.index');
   Route::post('/dashboard/kamus', 'Admin\KamusController@store')->name('kamus.store');
