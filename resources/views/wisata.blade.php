@@ -24,37 +24,29 @@
     ============================-->
     <section id="portfolio"  class="section-bg" >
       <div class="container">
-
         <header class="section-header">
           <h3 class="section-title">Wisata Pulau Nias</h3>
         </header>
-
-        <div class="row portfolio-container">
-
-          @foreach ($data as $wisata)
-          <div class="row portfolio-item filter-app wow fadeInUp">
-          <div class="col-md-5">
-            <div class="portfolio-wrap">
-              <figure>
-                <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-fluid" alt="">
-                <a href="{{ URL::asset($wisata->wisata_gambar) }}" data-lightbox="portfolio" data-title="{{ $wisata->wisata_name }}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
-                <a href="{{ route('wisataDetail', $wisata) }}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-              </figure>
-              <div class="portfolio-info">
-                <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
-                <div class="rating">
-                    <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
+        <div class="row" style="padding-right: 15px; padding-left: 15px;">
+            @foreach ($data as $wisata)
+            <div class="portfolio-wrap-detail col-md-4" style="padding-right: 0; padding-left: 0;">
+                <figure>
+                  <a href="{{ route('wisataDetail', $wisata) }}">
+                  <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-fluid" alt="">
+                  </a>
+                </figure>
+                <div class="portfolio-info-detail">
+                  <div class="rating">
+                      <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
+                  </div>
                 </div>
               </div>
-
-            </div>
+              <div class="col-lg-8" style="padding-bottom:10px;">
+                  <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4> 
+                  <p>{{ str_limit ($wisata->artikel['artikel'], 800, ' ...') }}  <a href="{{ route('wisataDetail', $wisata) }}">Selengkapnya..</a></p>
+              </div>
+            @endforeach
           </div>
-          <div class="col-md-7">
-            <p>{{ str_limit ($wisata->artikel['artikel'], 800, ' ...') }}  <a href="{{ route('wisataDetail', $wisata) }}">Selengkapnya..</a></p>
-          </div>
-          </div>
-          @endforeach
-        </div>
       </div>
       <div class="container">
         <div style="text-align:center;">

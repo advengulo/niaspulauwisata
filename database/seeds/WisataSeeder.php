@@ -22,11 +22,10 @@ class WisataSeeder extends Seeder
         {
             $wisata = new Wisata();
             $wisata->wisata_name = $faker->name;
-            $wisata->artikel_id = 1;
+            $wisata->artikel_id = 30;
             $wisata->latitude = $faker->latitude;
             $wisata->longtitude = $faker->longitude;
             $wisata->wisata_jenis_id = 1;
-            $wisata->artikel_id = 1;
             $wisata->wisata_rating = 5;
             $wisata->wisata_lokasi = $faker->address;
             $wisata->wisata_gambar = "/img/img-wisata/wisata_001.jpeg";

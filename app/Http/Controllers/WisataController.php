@@ -20,7 +20,7 @@ class WisataController extends Controller
      */
     public function index()
     {
-        $data = Wisata::latest()->paginate(3);
+        $data = Wisata::latest()->paginate(6);
 
         // return Wisata::first();
         return view('wisata', compact('data'));
@@ -56,7 +56,7 @@ class WisataController extends Controller
     {
         Mapper::map($wisata->latitude, $wisata->longtitude, ['zoom' => 12]);
 
-        $dataWisata = Wisata::latest()->paginate(3);
+        $dataWisata = Wisata::latest()->paginate(4);
 
         return view('wisataDetail', compact('wisata', 'dataWisata'));
     }
