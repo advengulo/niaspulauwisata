@@ -111,7 +111,7 @@
         <h4>Mungkin Anda Sukai</h4>
       </header>
       <div class="row portfolio-container">
-        @foreach ($dataWisata as $wisatalike)
+        @foreach ($itemBased as $wisatalike)
         <div class="col-md-3 portfolio-item filter-app wow fadeInUp">
           <div class="portfolio-wrap">
             <figure>

@@ -29,7 +29,7 @@
           </hr>
         </header>
         <div class="row" style="padding-right: 15px; padding-left: 15px;">
-          @foreach ($reject as $wisata)
+          @foreach ($userBased as $wisata)
           <div class="portfolio-wrap-detail col-md-4" style="padding-right: 0; padding-left: 0;">
               <figure>
                 <a href="{{ route('wisataDetail', $wisata) }}">
@@ -43,8 +43,8 @@
               </div>
             </div>
             <div class="col-lg-8" style="padding-bottom:10px;">
-                <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4> 
-                <p>{{ str_limit ($wisata->artikel['artikel'], 800, ' ...') }}  <a href="{{ route('wisataDetail', $wisata) }}">Selengkapnya..</a></p>
+                <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
+                <p>{!! str_limit ($wisata->artikel['artikel'], 800, ' ...') !!}  <a href="{{ route('wisataDetail', $wisata) }}">Selengkapnya..</a></p>
             </div>
           @endforeach
         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Service\Recomended;
 use Illuminate\Http\Request;
+use Auth;
 use App\User;
 use App\Wisata;
 use Cache;
@@ -12,11 +13,12 @@ class RecomendationController extends Controller
 {
     public function index()
     {
-        $usersWithRating = User::get()
+        if(Auth::check()){
+            $usersWithRating = User::get()
             ->groupBy('id')
             ->map(function($user, $userId) {
                 $wisatas = Wisata::get();
-                
+
                 $ratings = [];
                 foreach ($wisatas as $wisata)
                 {
@@ -32,12 +34,20 @@ class RecomendationController extends Controller
             ->toArray()
         ;
 
-        $itemBased = $this->getItemRating($usersWithRating);
-        // dd($itemBased);
-        return $itemBased;
-        // $userBased  = $this->getItemRating($usersWithRating);
+        //$itemBased = $this->getItemRating($usersWithRating);
+        //dd($itemBased);
+        // return $itemBased;
+        $userBased  = $this->getUserRating($usersWithRating);
 
-        // return view('wisataHasil', compact('reject'));
+        //dd($userBased);
+
+        return view('wisataHasil', compact('userBased'));
+        } else{
+            $userBased = Wisata::latest()->paginate(4);
+            return view('wisataHasil', compact('userBased'));
+        }
+
+
     }
 
     private function getUserRating(array $usersWithRating)
@@ -46,6 +56,7 @@ class RecomendationController extends Controller
         $activeUser = request()->user();
 
         $recomendationResult = $recomendation->predictRating();
+        // dd($recomendationResult);
 
         return $this->hydrateData($recomendationResult);
 
@@ -59,6 +70,7 @@ class RecomendationController extends Controller
         $activeUser = request()->user();
 
         $recomendationResult = $recomendation->predictItemBased();
+        //dd($recomendationResult);
 
         return $this->hydrateData($recomendationResult);
     }
@@ -67,9 +79,9 @@ class RecomendationController extends Controller
     {
         $activeUser = request()->user();
 
-        dd($recomendationResult);
-        $data = collect($recomendationResult[$activeUser->id])->take(10)->toArray();
-
+        //dd($recomendationResult);
+        //$data = collect($recomendationResult[$activeUser->id])->take(20)->toArray();
+        $data = ($recomendationResult[$activeUser->id]);
         $ids = collect(array_keys($data))->map(function($value) {
             return Wisata::find($value);
         });
@@ -77,6 +89,7 @@ class RecomendationController extends Controller
         $reject = $ids->reject(function($wisata) use($activeUser) {
             return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
         })->flatten();
+
 
 
         return $reject;
