@@ -42,8 +42,8 @@
                 </div>
               </div>
               <div class="col-lg-8" style="padding-bottom:10px;">
-                  <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4> 
-                  <p>{{ str_limit ($wisata->artikel['artikel'], 800, ' ...') }}  <a href="{{ route('wisataDetail', $wisata) }}">Selengkapnya..</a></p>
+                  <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
+                  <p>{!! str_limit ($wisata->artikel['artikel'], 800, ' ...') !!}  <a href="{{ route('wisataDetail', $wisata) }}">Selengkapnya..</a></p>
               </div>
             @endforeach
           </div>

@@ -207,7 +207,12 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="">Daerah Lokasi</label>
+                                                <label for="">Tanggal Acara</label>
+                                                <input type="date" class="form-control" name="acaradanfestival_tanggal" required autofocus>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="">Lokasi  Acara</label>
                                                 <input type="text" class="form-control" name="acaradanfestival_lokasi" required autofocus>
                                             </div>
 

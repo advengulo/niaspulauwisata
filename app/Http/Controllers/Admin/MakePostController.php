@@ -101,7 +101,7 @@ class MakePostController extends Controller
                 'kuliner_lokasi' => request('kuliner_lokasi')
             ]);
             return redirect('dashboard/postkuliner')->with(['success' => 'Data Kuliner Berhasil Ditambahkan']);
-            
+
         } elseif (null !==request('acaradanfestival_name')) {
             $artikel = Artikel::create([
                 'artikel' => request('artikel')
@@ -114,8 +114,9 @@ class MakePostController extends Controller
             Acaradanfestival::create([
                 'acaradanfestival_name' => request('acaradanfestival_name'),
                 'artikel_id' => $artikel->id,
-                'acaradanfestival_lokasi' => request('acaradanfestival_lokasi'),
-                'acaradanfestival_gambar' => '/img/img-acaradanfestival/'.$filename,
+                'acaradanfestival_tanggal' => request('acaradanfestival_tanggal'),
+                "acaradanfestival_lokasi" => request('acaradanfestival_lokasi'),
+                'acaradanfestival_gambar' => '/img/img-acaradanfestival/'.$filename
             ]);
             return redirect('dashboard/postacaradanfestival')->with(['success' => 'Data Acara dan Festival Berhasil Ditambahkan']);
         } else {

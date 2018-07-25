@@ -149,7 +149,7 @@
                 <a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}"><img src="{{ URL::asset($acaradanfestival->acaradanfestival_gambar) }}" class="img-fluid" alt=""></a>
             </figure>
             <div class="portfolio-info" style="background-color:black">
-              <h4><a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}">{{ $acaradanfestival->artikel['artikel_title']}}</a></h4>
+              <h4><a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}">{{ $acaradanfestival->acaradanfestival_name}}</a></h4>
               <div class="row">
                 <div class="col md-5">
                   <i class="ion-android-calendar"> &nbsp{{ $acaradanfestival->acaradanfestival_tanggal}}</i>
