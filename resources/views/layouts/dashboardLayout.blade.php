@@ -161,6 +161,10 @@
                 <!--CORE JAVASCRIPT-->
                 <script src="{{ URL::asset('styleDash/script/main.js') }}"></script>
                 <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyB6K1CFUQ1RwVJ-nyXxd6W0rfiIBe12Q&libraries=places"
+                  type="text/javascript"></script>
                 @yield('js')
     </body>
 </html>

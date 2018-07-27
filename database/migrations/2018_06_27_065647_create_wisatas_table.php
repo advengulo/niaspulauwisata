@@ -18,8 +18,6 @@ class CreateWisatasTable extends Migration
           $table->string('wisata_name');
           $table->integer('artikel_id')->unsigned()->nullable()->index();
           $table->string('wisata_gambar');
-          $table->string('wisata_video');
-          $table->integer('wisata_rating');
           $table->string('wisata_lokasi');
           $table->integer('wisata_jenis_id')->unsigned()->nullable()->index();
           $table->string('latitude');

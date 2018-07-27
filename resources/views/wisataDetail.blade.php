@@ -159,7 +159,7 @@
                       	    </div>
                       	    <div class="col-md-10">
                                 <div><strong>{{$ulasan->user->name}}</strong></div>
-                                <div><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->rating['rating'] }}" data-size="xs"></span></div>
+                                <div><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->userRating }}" data-size="xs"></span></div>
                                 <div><p>{{$ulasan->isi_ulasan}}</p> </div>
                       	    </div>
               	        </div>

@@ -195,3 +195,18 @@
   position: absolute;
   border-radius: 50%;
 }
+
+/*--------------------------------------------------------------
+# Map Pada dashboard wisata
+--------------------------------------------------------------*/
+#map-canvas{
+  width: 650px;
+  height: 250px;
+}
+#map-latlong{
+  margin-top:24px;
+}
+
+#searchmap{
+  width:400px;
+}

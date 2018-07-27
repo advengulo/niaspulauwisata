@@ -60,12 +60,10 @@ class MakePostController extends Controller
                 'wisata_name' => request('wisata_name'),
                 'artikel_id' => $artikel->id,
                 'wisata_gambar' => '/img/img-wisata/'.$filename,
-                'wisata_video' => request('wisata_video'),
-                'wisata_rating' => request('wisata_rating'),
                 'wisata_lokasi' => request('wisata_lokasi'),
                 'wisata_jenis_id' => request('wisata_jenis_id'),
-                'latitude' => request('latitude'),
-                'longtitude' => request('longtitude')
+                'latitude' => request('lat'),
+                'longtitude' => request('lng')
             ]);
             return redirect('dashboard/postcontrol')->with(['success' => 'Data Wisata Berhasil Ditambahkan']);
         } elseif (null !== request('budaya_name')) {
