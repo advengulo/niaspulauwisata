@@ -11,6 +11,11 @@ use Input;
 use redirect;
 use Session;
 
+use App\Service\Recomended;
+use Auth;
+use App\User;
+use Cache;
+
 class WisataController extends Controller
 {
     /**
@@ -58,7 +63,35 @@ class WisataController extends Controller
 
         $dataWisata = Wisata::latest()->paginate(4);
 
-        return view('wisataDetail', compact('wisata', 'dataWisata'));
+        if(Auth::check()){
+            $usersWithRating = User::get()
+            ->groupBy('id')
+            ->map(function($user, $userId) {
+                $wisatas = Wisata::get();
+
+                $ratings = [];
+                foreach ($wisatas as $wisata)
+                {
+                    $rating = $wisata
+                        ->ratings()->where('user_id', $userId)
+                        ->first()->rating ?? null
+                    ;
+                    $ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
+                }
+
+                return $ratings;
+            })
+            ->toArray()
+        ;
+
+        $itemBased = $this->getItemRating($usersWithRating);
+
+        return view('wisataDetail', compact('wisata', 'dataWisata','itemBased'));
+
+        } else{
+            $itemBased = Wisata::latest()->paginate(4);
+            return view('wisataDetail', compact('wisata', 'dataWisata','itemBased'));
+        }
     }
 
     /**
@@ -93,5 +126,37 @@ class WisataController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getItemRating(array $usersWithRating)
+    {
+
+        $recomendation = new Recomended($usersWithRating);
+        $activeUser = request()->user();
+
+        $recomendationResult = $recomendation->predictItemBased();
+        //dd($recomendationResult);
+
+        return $this->hydrateData($recomendationResult);
+    }
+
+    private function hydrateData(array $recomendationResult)
+    {
+        $activeUser = request()->user();
+
+        //dd($recomendationResult);
+        //$data = collect($recomendationResult[$activeUser->id])->take(20)->toArray();
+        $data = ($recomendationResult[$activeUser->id]);
+        $ids = collect(array_keys($data))->map(function($value) {
+            return Wisata::find($value);
+        });
+
+        $reject = $ids->reject(function($wisata) use($activeUser) {
+            return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
+        })->flatten();
+
+
+
+        return $reject;
     }
 }

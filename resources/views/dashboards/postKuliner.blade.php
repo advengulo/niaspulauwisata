@@ -34,7 +34,7 @@
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                         <strong>{{ $message }}</strong>
                                     </div>
-                                @endif 
+                                @endif
                             <ul id="generalTab" class="nav nav-tabs responsive">
                                 <li class="{{Request::is("dashboard/postcontrol")?'active':''}}"><a href="/dashboard/postcontrol">Wisata</a></li>
                                 <li class="{{Request::is("dashboard/postbudaya")?'active':''}}"><a href="/dashboard/postbudaya">Budaya</a></li>
@@ -86,7 +86,7 @@
 
                                                 <div class="box text-shadow">
                                                     <table class="demo-tbl">
-                                                        <!--<item>1</item>--> 
+                                                        <!--<item>1</item>-->
                                                         @foreach($dataKuliners as $kuliner)
                                                             <tr class="tbl-item"><!--<img/>-->
                                                                 <td class="col-lg-1"><img src="{{ $kuliner->kuliner_gambar }}" style="width:120px; height:90px" alt="" title=""/></td>
@@ -95,7 +95,7 @@
 
                                                                     <a href="{{ route('postkuliner.show', $kuliner->id)}}"> <p class="title">{{$kuliner->kuliner_name}}</p> </a>
 
-                                                                    <p class="desc" align="justify">{{  str_limit($kuliner->artikel['artikel'], 305, ' ....')}}</p>
+                                                                    <p class="desc" align="justify">{!!  str_limit($kuliner->artikel['artikel'], 305, ' ....') !!}</p>
                                                                     <p class="like"></p></td>
                                                                 <td class="col-md-1">
                                                                     <div class="row">

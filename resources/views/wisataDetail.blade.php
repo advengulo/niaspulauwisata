@@ -18,10 +18,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-9" style="padding-right:20px">
-        <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-rounded" alt="Cinque Terre" width="100%" height="auto">
-        <header class="section-header">
           <h3 style="padding-bottom: 0px;">{{ $wisata->wisata_name }}</h3>
           <div> <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i> </div>
+        <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-rounded" alt="Cinque Terre" width="100%" height="auto">
+        <header class="section-header">
+
           <div class="rating">
               <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
           </div>
@@ -29,14 +30,14 @@
         <p>{!! $wisata->artikel->artikel !!}</p>
       </div>
 
-      <div class="col-md-3">      
+      <div class="col-md-3">
         <h3 style="margin-top:0;">Map</h3>
         <hr style="border-width:2px">
         <div style="width:100%; height:275px;">
             {!! Mapper::render() !!}
         </div>
       </div>
-    </div>    
+    </div>
  `
     <div class="container" style="padding:10px 0">
         <header class="section-header">
@@ -47,16 +48,16 @@
           @foreach ($wisata->gallery()->get() as $gallery)
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
               <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{$wisata->wisata_name}}"
-                 data-image="{{ URL::asset($gallery->gallery_gambar) }}"
+                 data-image="{{ asset($gallery->gallery_gambar) }}"
                  data-target="#image-gallery">
                   <img class="img-thumbnail"
-                    src="{{ URL::asset($gallery->gallery_gambar) }}"
+                    srcset="{{ asset($gallery->gallery_gambar) }}"
                     alt="Another alt text">
               </a>
             </div>
             @endforeach
           </div>
-            
+
 
           <div class="col-md-4">
             <form method="post" action="{{ route('ulasan.tambahGallery', $wisata) }}" enctype="multipart/form-data">
@@ -103,7 +104,7 @@
         </div>
     </div>
   </section><!-- End Gallery -->
-  
+
 
   <section id="portfolio"  class="section-bg" >
     <div class="container">
@@ -111,7 +112,7 @@
         <h4>Mungkin Anda Sukai</h4>
       </header>
       <div class="row portfolio-container">
-        @foreach ($dataWisata as $wisatalike)
+        @foreach ($itemBased as $wisatalike)
         <div class="col-md-3 portfolio-item filter-app wow fadeInUp">
           <div class="portfolio-wrap">
             <figure>
@@ -159,8 +160,8 @@
                       	    </div>
                       	    <div class="col-md-10">
                                 <div><strong>{{$ulasan->user->name}}</strong></div>
-                                <div><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->rating['rating'] }}" data-size="xs"></span></div>
-                                <div><p>{{$ulasan->isi_ulasan}}</p> </div>                       	        
+                                <div><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->userRating }}" data-size="xs"></span></div>
+                                <div><p>{{$ulasan->isi_ulasan}}</p> </div>
                       	    </div>
               	        </div>
               	    </div>
@@ -205,7 +206,7 @@
 
         </div>
       </div>
-    
+
 
 <!-- Scrip modal Gallery -->
 <script type="text/javascript">

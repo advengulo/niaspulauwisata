@@ -23,7 +23,7 @@
                             <li><a href="#budaya" data-toggle="tab">Budaya</a></li>
                             <li><a href="#transportasi" data-toggle="tab">Transportasi</a></li>
                             <li><a href="#kuliner" data-toggle="tab">Kuliner</a></li>
-                            <li><a href="#acaradanfestival" data-toggle="tab">Acara dan Festival</a></li>                            
+                            <li><a href="#acaradanfestival" data-toggle="tab">Acara dan Festival</a></li>
                         </ul>
                         <div id="generalTabContent" class="tab-content responsive">
                             <div id="wisata" class="tab-pane fade in active">
@@ -42,27 +42,32 @@
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="">Video Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_video" required>
+                                            <div class="row">
+                                              <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label for="">Cari Lokasi : </label>
+                                                    <input type="text" id="searchmap" placeholder="">
+                                                    <div id="map-canvas"></div>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div id="map-latlong">
+                                                <div class="form-group">
+                                                    <label for="">Langtitude</label>
+                                                    <input type="text" class="form-control input-sm" name="lat" id="lat" disabled>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="">Longtitude</label>
+                                                    <input type="text" class="form-control input-sm" name="lng" id="lng" disabled>
+                                                </div>
+                                              </div>
+                                            </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="">Rating Wisata</label>
-                                                <input type="text" class="form-control" name="wisata_rating" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="">Lokasi Wisata</label>
+                                                <label for="">Nama Daerah Wisata</label>
                                                 <input type="text" class="form-control" name="wisata_lokasi" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Latitude</label>
-                                                <input type="text" class="form-control" name="latitude" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Longtitude</label>
-                                                <input type="text" class="form-control" name="longtitude" required>
                                             </div>
 
                                             <div class="form-group">
@@ -111,7 +116,7 @@
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required autofocus></textarea>
+                                                <textarea name="artikel" id="wysiwyg1" cols="30" rows="5" class="form-control" required autofocus></textarea>
                                             </div>
 
                                             <div class="form-group">
@@ -179,7 +184,7 @@
 
                                             <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required></textarea>
+                                                <textarea name="artikel" id="wysiwyg3" cols="30" rows="5" class="form-control" required></textarea>
                                             </div>
 
                                             <div class="form-group">
@@ -207,8 +212,18 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="">Tanggal Acara</label>
+                                                <input type="date" class="form-control" name="acaradanfestival_tanggal" required autofocus>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="">Lokasi  Acara</label>
+                                                <input type="text" class="form-control" name="acaradanfestival_lokasi" required autofocus>
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label for="">Artikel</label>
-                                                <textarea name="artikel" id="" cols="30" rows="5" class="form-control" required autofocus></textarea>
+                                                <textarea name="artikel" id="wysiwyg4" cols="30" rows="5" class="form-control" required autofocus></textarea>
                                             </div>
 
                                             <div class="form-group">
@@ -235,5 +250,54 @@
 <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
 <script>
     $('#wysiwyg').ckeditor();
+</script>
+
+<script>
+    $('#wysiwyg1').ckeditor();
+</script>
+<script>
+    $('#wysiwyg2').ckeditor();
+</script>
+<script>
+    $('#wysiwyg3').ckeditor();
+</script>
+<script>
+    $('#wysiwyg4').ckeditor();
+</script>
+
+<script>
+var map = new google.maps.Map(document.getElementById('map-canvas'),{
+           center:{
+               lat: 1.1255279,
+               lng: 97.5247243
+           },
+           zoom:10
+       });
+       var marker = new google.maps.Marker({
+           position: {
+               lat: 1.1255279,
+               lng: 97.5247243
+           },
+           map: map,
+           draggable: true
+       });
+       var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));
+       google.maps.event.addListener(searchBox,'places_changed',function(){
+           var places = searchBox.getPlaces();
+           var bounds = new google.maps.LatLngBounds();
+           var i, place;
+           for(i=0; place=places[i];i++){
+                 bounds.extend(place.geometry.location);
+                 marker.setPosition(place.geometry.location); //set marker position new...
+             }
+             map.fitBounds(bounds);
+             map.setZoom(10);
+       });
+       google.maps.event.addListener(marker,'position_changed',function(){
+           var lat = marker.getPosition().lat();
+           var lng = marker.getPosition().lng();
+           $('#lat').val(lat);
+           $('#lng').val(lng);
+       });
 </script>
 @endsection

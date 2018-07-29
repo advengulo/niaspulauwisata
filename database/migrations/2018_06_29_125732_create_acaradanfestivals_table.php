@@ -18,9 +18,11 @@ class CreateAcaradanfestivalsTable extends Migration
           $table->string('acaradanfestival_name');
           $table->integer('artikel_id')->unsigned();
           $table->string('acaradanfestival_gambar');
+          $table->string('acaradanfestival_lokasi');
+          $table->date('acaradanfestival_tanggal')->nullable();
           $table->timestamps();
 
-          $table->foreign('artikel_id')->references('id')->on('artikels');
+          $table->foreign('artikel_id')->references('id')->on('artikels')->onDelete('cascade');
         });
     }
 

@@ -54,7 +54,16 @@
                 <ul class="nav navbar navbar-top-links navbar-right mbn">
                     <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-user"></i>&nbsp;<span class="hidden-xs">Admin</span>&nbsp;<span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-user pull-right">
-                            <li><a href="#"><i class="fa fa-key"></i>Log Out</a></li>
+                          <li><a class="ion-ios-log-out" href="{{ route('logout') }}"
+                                  onclick="event.preventDefault();
+                                          document.getElementById('logout-form').submit();">
+                                  Logout
+                              </a>
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                  {{ csrf_field() }}
+                              </form>
+                          </li>
+      
                         </ul>
                     </li>
                 </ul>
@@ -161,6 +170,10 @@
                 <!--CORE JAVASCRIPT-->
                 <script src="{{ URL::asset('styleDash/script/main.js') }}"></script>
                 <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyB6K1CFUQ1RwVJ-nyXxd6W0rfiIBe12Q&libraries=places"
+                  type="text/javascript"></script>
                 @yield('js')
     </body>
 </html>

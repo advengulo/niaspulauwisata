@@ -130,15 +130,14 @@
       </div>
     </div>
   </section>
-
   <!--==========================
     ACARA DAN FESTIVAL
   ============================-->
-  <section id="services">
+  <section id="portfolio"  class="section-bg" >
     <div class="container">
 
       <header class="section-header" style="">
-        <h3>Acara dan Festival</h3>
+        <h3>Acara dan Festival <a style="text-transform: none; font-size: 16px;" href="/acaradanfestival">Selengkapnya..</a></h3>
       </header>
 
       <div class="row portfolio-container">
@@ -149,11 +148,11 @@
             <figure>
                 <a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}"><img src="{{ URL::asset($acaradanfestival->acaradanfestival_gambar) }}" class="img-fluid" alt=""></a>
             </figure>
-            <div class="portfolio-info" style="background-color:black">
-              <h4><a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}">{{ $acaradanfestival->artikel['artikel_title']}}</a></h4>
+            <div class="portfolio-info">
+              <h4><a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}">{{ $acaradanfestival->acaradanfestival_name}}</a></h4>
               <div class="row">
                 <div class="col md-5">
-                  <i class="ion-android-calendar"> &nbsp{{ $acaradanfestival->acaradanfestival_tanggal}}</i>
+                  <i class="ion-android-calendar"> &nbsp{{ $acaradanfestival->acaradanfestival_tanggal }}</i>
                 </div>
                 <div class="col md-6">
                   <i class="ion-ios-location"> &nbsp{{ $acaradanfestival->acaradanfestival_lokasi}}</i>

@@ -8,7 +8,7 @@
             <div class="page-header pull-left">
                 <div class="page-title">
                     Kamus</div>
-            </div>            
+            </div>
             <div class="clearfix"></div>
         </div>
         <!--END TITLE & BREADCRUMB PAGE-->
@@ -18,8 +18,8 @@
                 <div class="row mbl">
                     <div class="col-lg-12">
                         <div class="col-lg-12">
-                            
-                                <div id="generalTabContent" class="tab-content responsive">                
+
+                                <div id="generalTabContent" class="tab-content responsive">
                                     <div id="wisata" class="tab-pane fade in active">
                                         <div class="row">
                                             <div class="col-md-4 col-md-offset-4">
@@ -28,7 +28,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-7 col-md-offset-3">
-                                                <form action="{{ Route('kamus.store') }}" method="POST">                                                    
+                                                <form action="{{ Route('kamus.store') }}" method="POST">
                                                 {{ csrf_field() }}
                                                     <div class="col-md-4">
                                                         <input type="text" class="form-control" placeholder="Nias" name="nias" required autofocus>
@@ -45,17 +45,17 @@
                                     </div>
                                 </div>
 
-                            <div id="generalTabContent" class="tab-content responsive">                
+                            <div id="generalTabContent" class="tab-content responsive">
                                 <div id="wisata" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div id="area-chart-spline" style="width: 100%; height: 300px; display: none;"></div>                            
+                                            <div id="area-chart-spline" style="width: 100%; height: 300px; display: none;"></div>
                                             <div id="grid-layout-table-1" class="box jplist">
                                                 <div class="jplist-ios-button"><i class="fa fa-sort"></i>Actions</div>
-                                                
+
                                                 <div class="jplist-panel box panel-top">
                                                     <button type="button" data-control-type="reset" data-control-name="reset" data-control-action="reset" class="jplist-reset-btn btn btn-default">Reset<i class="fa fa-share mls"></i></button>
-                                                    
+
                                                     <div data-control-type="drop-down" data-control-name="paging" data-control-action="paging" class="jplist-drop-down form-control">
                                                         <ul class="dropdown-menu">
                                                             <li><span data-number="3"> 3 per page</span></li>
@@ -79,13 +79,13 @@
                                                     </div>
                                                     <div class="text-filter-box">
                                                         <div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input data-path=".desc" type="text" value="" placeholder="Search by Indonesia" data-control-type="textbox" data-control-name="desc-filter" data-control-action="filter" class="form-control"/></div>
-                                                    </div>                                                    
+                                                    </div>
                                                 </div>
                                                 <div class="box text-shadow">
                                                     <div class="row">
                                                         <div class="col-md-6 col-md-offset-3">
                                                     <table class="demo-tbl">
-                                                        
+
                                                             <tr>
                                                                 <td align="center" class="col-md-1"><strong>No</strong></td>
                                                                 <td align="center"><strong>Nias</strong></td>
@@ -94,7 +94,7 @@
                                                             </tr>
                                                             @foreach($dataKamus as $kamus)
                                                             <tr class="tbl-item"><!--<img/>-->
-                                                                <td>{{ $kamus->id }}</td> 
+                                                                <td>{{ $kamus->id }}</td>
                                                                 <!--<data></data>-->
                                                                 <td class="td-block">
                                                                     <p class="title"  style="color:black; font-size:14px; font-weight: normal;">{{$kamus->nias}}</p>
@@ -116,7 +116,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                            </tr>                                                          
+                                                            </tr>
                                                             @endforeach
                                                     </table>
                                                         </div>
@@ -151,15 +151,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> <!--END ARTIKEL TAB -->    
+                                </div> <!--END ARTIKEL TAB -->
                             </div> <!--END TAB CONTENT-->
-                        </div>                            
-                    </div>                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div> <!--END CONTENT-->
-        
-        
+
+
     </div>
     <!--END PAGE WRAPPER-->
 </div>

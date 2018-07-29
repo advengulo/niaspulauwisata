@@ -21,6 +21,8 @@ Route::resource('/recomendation', 'RecomendationController');
 Route::get('/resultwisata', 'RecomendationController@index')->name('result.index');
 
 
+
+
 Route::get('/wisata/{wisata}', 'WelcomeController@Show')->name('wisataDetail');
 Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@Tampil')->name('acaradanfestivalDetail');
 
@@ -70,7 +72,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     ->name('dashboard');
 
   Route::resource( '/dashboard/userControl', 'Admin\UserControlController');
-  Route::delete( '/dashboard/userControl/{id}/destroy', "UserControlController@destroy")->name('user.destroy');
+  Route::delete( '/dashboard/userControl/{id}/destroy', "Admin\UserControlController@destroy")->name('user.destroy');
 
   Route::get('/dashboard/makepost', 'Admin\MakePostController@create')->name('makePost.create');
   Route::post('/dashboard/makepost', 'Admin\MakePostController@store')->name('makePost.store');
@@ -103,7 +105,7 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::get('/dashboard/postacaradanvestival/{acaradanvestival}', 'Admin\PostAcaradanfestivalController@show')->name('postacaradanfestival.show');
   Route::get('/dashboard/postacaradanvestival/{id}/edit', 'Admin\PostAcaradanfestivalController@edit')->name('postacaradanfestival.edit');
   Route::patch('/dashboard/postacaradanvestival/{id}/update', 'Admin\PostAcaradanfestivalController@update')->name('postacaradanfestival.update');
-  Route::delete('/dashboard/postacaradanvestival/{id}/destroy', 'Admin\PostAcaradanfestivalController@destroy')->name('postacaradanfestival.destroy');  
+  Route::delete('/dashboard/postacaradanvestival/{id}/destroy', 'Admin\PostAcaradanfestivalController@destroy')->name('postacaradanfestival.destroy');
 
   Route::get('/dashboard/kamus', 'Admin\KamusController@index')->name('kamus.index');
   Route::post('/dashboard/kamus', 'Admin\KamusController@store')->name('kamus.store');

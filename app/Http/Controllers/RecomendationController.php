@@ -18,7 +18,7 @@ class RecomendationController extends Controller
             ->groupBy('id')
             ->map(function($user, $userId) {
                 $wisatas = Wisata::get();
-                
+
                 $ratings = [];
                 foreach ($wisatas as $wisata)
                 {
@@ -47,7 +47,7 @@ class RecomendationController extends Controller
             return view('wisataHasil', compact('userBased'));
         }
 
-        
+
     }
 
     private function getUserRating(array $usersWithRating)
@@ -90,6 +90,7 @@ class RecomendationController extends Controller
             return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
         })->flatten();
         
+
 
 
         return $reject;

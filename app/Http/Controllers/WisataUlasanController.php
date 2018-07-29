@@ -56,11 +56,13 @@ class WisataUlasanController extends Controller
         $image = $request->file('select_file');
         $new_name = time() . '.' . $image->getClientOriginalExtension();
         // $image->move (public_path("img/img-wisata/gallery"), $new_name);
+        // Image::make($image)->resize(2250, 1500)->save(storage_path('app/public/files/' . $new_name));
         Image::make($image)->resize(2250, 1500)->save(public_path('/img/img-wisata/gallery/' . $new_name));
 
         Gallery::create([
           'wisata_id' => $wisata->id,
           'user_id' => auth()->id(),
+          // 'gallery_gambar' => 'app/public/files/'.$new_name
           'gallery_gambar' => '/img/img-wisata/gallery/'.$new_name
       ]);
         return redirect()->back()->with('success', 'Image Uploaded Successfully');

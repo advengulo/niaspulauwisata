@@ -18,7 +18,7 @@
         <h3>{{ $budaya->budaya_name}}</h3>
         <i class="ion-ios-location"> {{ $budaya->budaya_lokasi}}</i>
       </header>
-      <p>{{ $budaya->artikel['artikel'] }}</p>
+      <p>{!! $budaya->artikel['artikel'] !!}</p>
     </div>
   </section><!-- #about -->
 

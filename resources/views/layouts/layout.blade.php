@@ -74,7 +74,7 @@
             <ul>
               <li><a href="/kuliner">Kuliner</a></li>
               <li><a href="/transportasi">Transportasi</a></li>
-              <li><a href="/kamus">Kamus</a></li>              
+              <li><a href="/kamus">Kamus</a></li>
               <li><a href="/kontak">Kontak</a></li>
             </ul>
           </li>
@@ -134,6 +134,6 @@
   <script src="{{ URL::asset('styleDash/script/jplist.js') }}"></script>
   <!-- Contact Form JavaScript File -->
   <script src="{{ URL::asset('contactform/contactform.js') }}"></script>
-  <script src="{{ URL::asset('js/main.js') }}"></script>  
+  <script src="{{ URL::asset('js/main.js') }}"></script>
 </body>
 </html>

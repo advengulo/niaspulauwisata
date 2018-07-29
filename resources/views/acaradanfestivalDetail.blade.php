@@ -22,8 +22,8 @@
           <div class="col-md-3 wow fadeInUp">
             <div class="about-col">
               <div class="img">
-                <img src="{{ URL::asset($acaradanfestival->acaradanfestival_img) }}" alt="" class="img-fluid">
-                <div class="icon"><a href="{{ URL::asset($acaradanfestival->acaradanfestival_img) }}" data-lightbox="portfolio" data-title="{{ $acaradanfestival->artikel['artikel_title']}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a></div>
+                <img src="{{ URL::asset($acaradanfestival->acaradanfestival_gambar) }}" alt="" class="img-fluid">
+                <div class="icon"><a href="{{ URL::asset($acaradanfestival->acaradanfestival_gambar) }}" data-lightbox="portfolio" data-title="{{ $acaradanfestival->artikel['artikel_title']}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a></div>
               </div>
             </div>
             <div class="portfolio-info">
@@ -40,7 +40,7 @@
 
           <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="about-col">
-              <p>{{ $acaradanfestival->artikel['artikel_content']}}</p>
+              <p>{!! $acaradanfestival->artikel['artikel'] !!}</p>
             </div>
           </div>
 
@@ -51,7 +51,7 @@
             @foreach ($data as $list)
               <li style="list-style-type:none;">
                   <div>
-                    <i style="margin-left:10px">{{ str_limit ($list->artikel['artikel_title'], 26, ' ...') }}</i>
+                    <i style="margin-left:10px">{{ str_limit ($list->acaradanfestival_name, 26, ' ...') }}</i>
                     <div class="col md-4" style="text-align:right;">
                       <i class="ion-android-calendar" > &nbsp{{ $list->acaradanfestival_tanggal}}</i>
                     </div>

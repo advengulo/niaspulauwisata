@@ -8,7 +8,7 @@
             <div class="page-header pull-left">
                 <div class="page-title">
                     Inbox</div>
-            </div>            
+            </div>
             <div class="clearfix"></div>
         </div>
         <!--END TITLE & BREADCRUMB PAGE-->
@@ -39,7 +39,7 @@
         </div>
             <div class="mtl mbl"></div>
             <div class="row">
-            
+
             <div class="col-sm-12">
                     <ul class="nav nav-tabs">
                     <li class="active"><a href="#home" data-toggle="tab"><span class="fa fa-inbox"></span>&nbsp;
@@ -47,23 +47,23 @@
                     </ul>
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                        
+
                         @foreach($datas as $data)
                         <div class="list-group mail-box">
-                        
+
                         <a href="#" class="list-group-item">
                             <input type="checkbox"/>
                              <span class="fa fa-star-o mrm mlm"></span>
                             <span style="min-width: 150px; display: inline-block;" class="name">{{$data->name}}</span>
                             <span>{{$data->topik}}</span>&nbsp; - &nbsp;
                             <span style="font-size: 14px;" class="text-muted">{{str_limit($data->pesan), 200, '...'}}</span>
-                            <span class="time-badge">{{$data['created_at']->format('d M Y')}}</span>
+                            <span class="time-badge">{{$data['created_at']}}</span>
                             <span class="pull-right mrl"></span>
                         </a>
                         </div>
                         @endforeach
                     </div>
-                    
+
                 </div>
             </div>
             <div class="common-modal modal fade" id="common-Modal1" tabindex="-1" role="dialog" aria-hidden="true">
@@ -77,16 +77,16 @@
         </div>
 
 
-                        
+
                         </div>
-                        
-                    
-                
-                    
+
+
+
+
                 </div>
             </div>
         </div>
-        <!--END CONTENT-->       
+        <!--END CONTENT-->
     </div>
     <!--END PAGE WRAPPER-->
 </div>
