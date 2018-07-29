@@ -46,6 +46,8 @@ Route::resource( 'transportasi', 'TransportasiController');
 Route::resource( 'acaradanfestival', 'AcaraDanFestivalController');
 Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@Show')->name('acaradanfestivalDetail');
 
+Route::resource('kamus', 'KamusController');
+
 Route::resource( 'kontak', 'KontakController');
 
 Route::resource( 'profile', 'ProfileController');

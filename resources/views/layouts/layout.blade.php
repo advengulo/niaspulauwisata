@@ -33,6 +33,10 @@
   <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
   <link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
 
+  <link type="text/css" rel="stylesheet" href="{{ URL::asset('styleDash/styles/jplist-custom.css') }}">
+  <link type="text/css" rel="stylesheet" href="{{ URL::asset('styleDash/styles/jquery.news-ticker.css') }}">
+  
+
 <link href="{{ URL::asset('rating/css/bootstrap.css') }}" rel="stylesheet">
 
 <link rel="stylesheet" href="{{ URL::asset('rating/star-rating.min.css') }}" />
@@ -126,6 +130,8 @@
   <script src="{{ URL::asset('lib/isotope/isotope.pkgd.min.js') }}"></script>
   <script src="{{ URL::asset('lib/lightbox/js/lightbox.min.js') }}"></script>
   <script src="{{ URL::asset('lib/touchSwipe/jquery.touchSwipe.min.js') }}"></script>
+  <script src="{{ URL::asset('styleDash/script/jplist.min.js') }}"></script>
+  <script src="{{ URL::asset('styleDash/script/jplist.js') }}"></script>
   <!-- Contact Form JavaScript File -->
   <script src="{{ URL::asset('contactform/contactform.js') }}"></script>
   <script src="{{ URL::asset('js/main.js') }}"></script>  

@@ -64,7 +64,7 @@ class PostKulinerController extends Controller
     {
         $dataKuliners = Kuliner::find($id);
 
-        return view('dashboards.editKuliner', compact('dataKuliner'));
+        return view('dashboards.editKuliner', compact('dataKuliners'));
     }
 
     /**

@@ -64,7 +64,7 @@ class PostAcaradanfestivalController extends Controller
     {
         $dataAcaradanfestivals = Acaradanfestival::find($id);
 
-        return view('dashboards.editAcaradanfestival', compact('dataAcaradanfestival'));
+        return view('dashboards.editAcaradanfestival', compact('dataAcaradanfestivals'));
     }
 
     /**
@@ -76,7 +76,7 @@ class PostAcaradanfestivalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataAcaradanfestivals = Acaradanfestivals::find($id);
+        $dataAcaradanfestivals = Acaradanfestival::find($id);
         $dataAcaradanfestivals->update([
             'acaradanfestival_name' => request('acaradanfestival_name'),
             'acaradanfestival_gambar' => request('acaradanfestival_gambar'),
@@ -89,7 +89,7 @@ class PostAcaradanfestivalController extends Controller
             'artikel' => request('artikel'),
         ]);
 
-        return redirect('dashboard/postacaradanfestivals')->with(['update' => 'Data Acara dan Festivals Telah Diedit']);
+        return redirect('dashboard/postacaradanfestival')->with(['update' => 'Data Acara dan Festivals Telah Diedit']);
     }
 
     /**
