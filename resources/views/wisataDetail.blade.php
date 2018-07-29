@@ -64,9 +64,9 @@
             <div class="form-group">
              <table class="table">
               <tr>
-               <td width="40%" align="right"><label>Tambah Foto</label></td>
-               <td width="30"><input type="file" name="select_file" /></td>
-               <td width="30%" align="left"><input type="submit" name="upload" class="btn btn-primary" value="Upload"></td>
+               <td align="right"><label>Tambah Foto</label></td>
+               <td ><input type="file" name="select_file" /></td>
+               <td align="left"><input type="submit" name="upload" class="btn btn-primary" value="Upload"></td>
               </tr>
              </table>
             </div>
