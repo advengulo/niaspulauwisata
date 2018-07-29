@@ -50,7 +50,7 @@ class TransportasiController extends Controller
      */
     public function show(Transportasi $transportasi)
     {
-        return view('exampleModalLong', compact('transportasi'));
+        // return view('transportasiDetail', compact('transportasi'));
     }
 
     /**

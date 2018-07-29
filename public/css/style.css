@@ -1051,7 +1051,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #testimonials .testimonial-item .testimonial-img {
-  width: 120px;
+  width: 300px;
   border-radius: 50%;
   border: 4px solid #fff;
   margin: 0 auto;
@@ -1103,7 +1103,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #testimonials .owl-dot {
   display: inline-block;
-  margin: 0 5px;
+  margin: 0 15px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -1465,11 +1465,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 10px;
   height: 50px;
   border-radius: 0 0 3px 3px;
-   
+
 }
 
 .portfolio-wrap-detail {
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
-  transition: 0.3s; 
-  margin-bottom: 10px; 
+  transition: 0.3s;
+  margin-bottom: 10px;
 }

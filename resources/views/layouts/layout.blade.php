@@ -70,7 +70,6 @@
             <ul>
               <li><a href="/kuliner">Kuliner</a></li>
               <li><a href="/transportasi">Transportasi</a></li>
-              <li><a href="/acaradanfestival">Acara dan Fetival</a></li>
               <li><a href="/kamus">Kamus</a></li>
               <li><a href="/kontak">Kontak</a></li>
             </ul>

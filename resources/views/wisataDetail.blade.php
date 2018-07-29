@@ -18,10 +18,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-9" style="padding-right:20px">
-        <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-rounded" alt="Cinque Terre" width="100%" height="auto">
-        <header class="section-header">
           <h3 style="padding-bottom: 0px;">{{ $wisata->wisata_name }}</h3>
           <div> <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i> </div>
+        <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-rounded" alt="Cinque Terre" width="100%" height="auto">
+        <header class="section-header">
+
           <div class="rating">
               <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
           </div>

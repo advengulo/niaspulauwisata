@@ -20,40 +20,25 @@
     <!--==========================
       Portfolio Section
     ============================-->
-    <section id="portfolio"  class="section-bg" >
+    <section id="testimonials" class="section-bg wow fadeInUp">
       <div class="container">
+        <div class="owl-carousel testimonials-carousel">
 
-        <header class="section-header">
-          <h3 class="section-title">Transportasi di Pulau Nias</h3>
-        </header>
-
-        <div class="row portfolio-container">
-
-          @foreach ($data as $transportasi)
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-            <div class="portfolio-wrap">
-              <figure>
-                <img src="{{ URL::asset($transportasi->transportasi_gambar) }}" class="img-fluid" alt="">
-                <a href="{{ URL::asset($transportasi->transportasi_gambar) }}" data-lightbox="portfolio" data-title="{{ $transportasi->transportasi_name}}" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
-                <a href="" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-              </figure>
-
-              <div class="portfolio-info">
-                <h4><a href="">{{ $transportasi->transportasi_name}}</a></h4>
-                <p>{{ $transportasi->transportasi_jenis}}</p>
-              </div>
-            </div>
+          @foreach($data as $transportasi)
+          <div class="testimonial-item">
+            <img src="{{ $transportasi->transportasi_gambar }}" class="testimonial-img" alt="">
+            <h3>{{$transportasi->transportasi_name}}</h3>
+            <h4>{{$transportasi->transportasi_jenis}}</h4>
+            <p>
+              <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
+              {!! $transportasi->artikel['artikel'] !!}
+              <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
+            </p>
           </div>
           @endforeach
         </div>
 
-        <div class="pagination justify-content-center" >
-          <div class="container">
-            <div style="text-align:center;">
-              {{ $data->render() }}
-            </div>
-          </div>
-        </div>
-    </section><!-- #portfolio -->
+      </div>
+    </section><!-- #testimonials -->
   </main>
 @endsection

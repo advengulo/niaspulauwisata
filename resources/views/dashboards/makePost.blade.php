@@ -66,7 +66,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="">Nama Daerah</label>
+                                                <label for="">Nama Daerah Wisata</label>
                                                 <input type="text" class="form-control" name="wisata_lokasi" required>
                                             </div>
 

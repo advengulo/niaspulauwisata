@@ -54,7 +54,16 @@
                 <ul class="nav navbar navbar-top-links navbar-right mbn">
                     <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-user"></i>&nbsp;<span class="hidden-xs">Admin</span>&nbsp;<span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-user pull-right">
-                            <li><a href="#"><i class="fa fa-key"></i>Log Out</a></li>
+                          <li><a class="ion-ios-log-out" href="{{ route('logout') }}"
+                                  onclick="event.preventDefault();
+                                          document.getElementById('logout-form').submit();">
+                                  Logout
+                              </a>
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                  {{ csrf_field() }}
+                              </form>
+                          </li>
+      
                         </ul>
                     </li>
                 </ul>
