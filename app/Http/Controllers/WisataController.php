@@ -31,6 +31,12 @@ class WisataController extends Controller
         return view('wisata', compact('data'));
     }
 
+    public function search(Request $request){
+        $cari = $request->get('search');
+        $data = Wisata::where('wisata_name','LIKE','%'.$cari.'%')->paginate(10);
+        return view('wisata', compact('data'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

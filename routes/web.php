@@ -28,6 +28,7 @@ Route::get('/acaradanfestival/{acaradanfestival}', 'AcaraDanFestivalController@T
 
 Route::resource( 'wisata', 'WisataController');
 Route::get('/wisata/{wisata}', 'WisataController@Show')->name('wisataDetail');
+Route::get('cariwisata', 'WisataController@search')->name('cariwisata');
 Route::post('/wisata/{wisata}/ulasan', 'WisataUlasanController@store')->name('wisata.ulasan.store')->middleware(['auth']);
 Route::post('/wisata/{wisata}/upload', 'WisataUlasanController@gallery')->name('ulasan.tambahGallery')->middleware(['auth']);
 

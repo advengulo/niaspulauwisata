@@ -16,6 +16,8 @@
   <!-- Content Wisata   -->
   <section id="portfolio" class="section-bg">
     <div class="container">
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b5dcee7847546ad"></script>
       <div class="row">
         <div class="col-md-9" style="padding-right:20px">
           <h3 style="padding-bottom: 0px;">{{ $wisata->wisata_name }}</h3>
