@@ -11,76 +11,89 @@ use Cache;
 
 class RecomendationController extends Controller
 {
+    private $recomendationClass;
+
     public function index()
     {
-        if(Auth::check()){
+        if(Auth::check()) {
             $usersWithRating = User::get()
-            ->groupBy('id')
-            ->map(function($user, $userId) {
-                $wisatas = Wisata::get();
+                ->groupBy('id')
+                ->map(function($user, $userId) {
+                    $wisatas = Wisata::get();
 
-                $ratings = [];
-                foreach ($wisatas as $wisata)
-                {
-                    $rating = $wisata
-                        ->ratings()->where('user_id', $userId)
-                        ->first()->rating ?? null
-                    ;
-                    $ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
-                }
+                    $ratings = [];
+                    foreach ($wisatas as $wisata)
+                    {
+                        $rating = $wisata
+                            ->ratings()->where('user_id', $userId)
+                            ->first()->rating ?? null
+                        ;
+                        $ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
+                    }
 
-                return $ratings;
-            })
-            ->toArray()
-        ;
+                    return $ratings;
+                })
+                ->toArray()
+            ;
 
-        //$itemBased = $this->getItemRating($usersWithRating);
-        //dd($itemBased);
-        // return $itemBased;
-        $userBased  = $this->getUserRating($usersWithRating);
+            //$itemBased = $this->getItemRating($usersWithRating);
+            // return $itemBased
+            $userBased  = $this->getUserRating($usersWithRating);
 
-        //dd($userBased);
+            $rataSelisihRating = $this->recomendationClass->getRataDariSetiapWisata();
 
-        return view('wisataHasil', compact('userBased'));
-        } else{
-            $userBased = Wisata::latest()->paginate(4);
             return view('wisataHasil', compact('userBased'));
+
         }
 
-
+        $userBased = Wisata::latest()->paginate(4);
+        return view('wisataHasil', compact('userBased'));
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param array $usersWithRating
+     * @return void
+     */
     private function getUserRating(array $usersWithRating)
     {
-        $recomendation = new Recomended($usersWithRating);
+        $this->recomendationClass = new Recomended($usersWithRating);
         $activeUser = request()->user();
 
-        $recomendationResult = $recomendation->predictRating();
-        // dd($recomendationResult);
+        $recomendationResult = $this->recomendationClass->predictRating();
 
         return $this->hydrateData($recomendationResult);
 
     }
 
 
+    /**
+     * Ambil Rekomendasi Rating.
+     *
+     * @param array $usersWithRating
+     * @return void
+     */
     private function getItemRating(array $usersWithRating)
     {
-
-        $recomendation = new Recomended($usersWithRating);
+        $this->recomendationClass = new Recomended($usersWithRating);
         $activeUser = request()->user();
 
-        $recomendationResult = $recomendation->predictItemBased();
-        //dd($recomendationResult);
+        $recomendationResult = $this->recomendationClass->predictItemBased();
 
         return $this->hydrateData($recomendationResult);
     }
 
+    /**
+     * Convert ke Model
+     *
+     * @param array $recomendationResult
+     * @return void
+     */
     private function hydrateData(array $recomendationResult)
     {
         $activeUser = request()->user();
 
-        //dd($recomendationResult);
-        //$data = collect($recomendationResult[$activeUser->id])->take(20)->toArray();
         $data = ($recomendationResult[$activeUser->id]);
         $ids = collect(array_keys($data))->map(function($value) {
             return Wisata::find($value);
@@ -90,9 +103,6 @@ class RecomendationController extends Controller
             return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
         })->flatten();
         
-
-
-
         return $reject;
     }
 }
