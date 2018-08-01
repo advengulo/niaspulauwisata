@@ -19,6 +19,8 @@ Route::get('recomended', [
 Route::resource('/recomendation', 'RecomendationController');
 
 Route::get('/resultwisata', 'RecomendationController@index')->name('result.index');
+//Route::get('/resultwisata', 'RecomendationController@itemBased')->name('result.itemBased');
+
 
 
 
@@ -114,4 +116,6 @@ Route::middleware(['role', 'auth'])->group(function () {
 
   Route::get('/dashboard/adminsetting', 'Admin\AdminSettingController@index')->name('admin.index');
   Route::get('/dashboard/inbox', 'Admin\InboxController@index')->name('inbox.index');
+
+  Route::get('/dashboard/training', 'RecomendationController@rataRatingUser');
 });

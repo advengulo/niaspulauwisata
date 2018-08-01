@@ -25,16 +25,16 @@
     <section id="portfolio"  class="section-bg" >
       <div class="container">
 
-        <div class=row>
-            <div class="col-md-6">
+        <div class=row style="padding-right: 15px; margin-bottom:15px;">
+            <div class="col-md-7">
               <header class="section-header">
                 <h3 class="section-title">Wisata Pulau Nias</h3>
               </header>
             </div>
-            <div class="col-md-2">
-            </div>
+            <div class="col-md-2"> </div>
+
             <!-- Form Pencarian -->
-            <div class="col-md-4">
+            <div class="col-md-3" style="padding: 20px 0px 20px 15px">
               <form class="" action="{{ route('cariwisata')}}" method="get">
                 <div class="input-group custom-search-form">
                     <input type="text" class="form-control" name="search" placeholder="Search...">

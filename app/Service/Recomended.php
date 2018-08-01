@@ -21,6 +21,8 @@ class Recomended
      */
     private $rataDariSetiapWisata;
 
+    private $selisihRating;
+
     public function __construct(array $data)
     {
         $this->data = $data;
@@ -33,8 +35,8 @@ class Recomended
         $items = $data->map(function ($item) {
             return collect($item)->avg();
         })->toArray();
-
-        return $items;
+        
+        return $items;        
     }
 
     public function getRataDariSetiapWisata()
@@ -46,7 +48,7 @@ class Recomended
         return $this->rataDariSetiapWisata;
     }
 
-    public function selisihRating(array $items)
+    public function selisihRating(array $items = [])
     {
         $users = collect($this->data)->map(function ($item, $index) use ($items) {
             $user = $items[$index];
@@ -56,6 +58,14 @@ class Recomended
         });
 
         return $users;
+    }
+
+    public function getSelisihRating()
+    {
+        if (null === $this->selisihRating){
+            $this->selisihRating = $this->selisihRating();
+        }
+        return $this->selisihRating;
     }
 
 
@@ -292,6 +302,12 @@ class Recomended
             }
         }
         // dd($this->data);
+        foreach ($this->data as $user => $val) {
+            uasort($this->data[$user], function($a, $b) {
+                return $a < $b;
+            });
+        }
+
         return $this->data;
     }
     public function cosineItemBased()
