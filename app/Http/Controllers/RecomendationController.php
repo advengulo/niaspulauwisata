@@ -39,14 +39,16 @@ class RecomendationController extends Controller
                 ->toArray()
             ;
 
-            //$itemBased = $this->getItemRating($usersWithRating);
-            // return $itemBased
-            //dd($usersWithRating);
             $userBased  = $this->getUserRating($usersWithRating);
             $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
             $selisihRatings = $this->recomendationClass->getSelisihRating();
+
+            // dd($selisihRatings->toArray());
             
-        return view('dashboards.training', compact('rataRatingUser','selisihRatings'));
+            return view('dashboards.training', [
+                'rataRatingUser' => $rataRatingUser,
+                'selisihRatings' => $selisihRatings,
+            ]);
         }
     }
 
@@ -79,6 +81,10 @@ class RecomendationController extends Controller
             // return $itemBased
             //dd($usersWithRating);
             $userBased  = $this->getUserRating($usersWithRating);
+
+            // $selisihRating = $this
+            //     ->recomendationClass
+            //     ->selisihRating($this->recomendationClass->getRataDariSetiapWisata());
             return view('wisataHasil', compact('userBased')); 
         }
 
