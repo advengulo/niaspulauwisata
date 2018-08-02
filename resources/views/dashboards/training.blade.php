@@ -16,16 +16,21 @@
         <!--BEGIN CONTENT-->
         <div class="page-content">
             <div id="tab-general">
-                @foreach($rataRatingUser as $rataWisata)
-                    <div>{{$rataWisata}}</div>
+                @foreach($rataRatingUser as $userID => $rataWisata)
+                    <div>User ID : {{ $userID }} = {{$rataWisata}}</div>
                 @endforeach
 
-                {{-- @foreach($selishRatings as $selisihRating)
-                    <div>{{$selisihRating }}</div>
-                @endforeach --}}
+                @foreach($selisihRatings as $userID => $users)
+                  <div>
+                    <p>User ID: <b>{{ $userID }}</b>
+                    @foreach($users as $wisataID => $wisata)
+                      <p>Wisata ID: {{ $wisataID }} = {{ $wisata }}</p>
+                    @endforeach
+                  </div>
+                @endforeach
             </div>
         </div>
-                
+
     </div>
     <!--END PAGE WRAPPER-->
 </div>
