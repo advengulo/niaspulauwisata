@@ -60,10 +60,11 @@ class Recomended
         return $users;
     }
 
-    public function getSelisihRating()
+    public function getSelisihRating(array $array = null)
     {
         if (null === $this->selisihRating){
-            $this->selisihRating = $this->selisihRating();
+            $data = $array ?? $this->getRataDariSetiapWisata();
+            $this->selisihRating = $this->selisihRating($data);
         }
         return $this->selisihRating;
     }
@@ -139,8 +140,8 @@ class Recomended
                     if ($nextRating) {
                         $result = ($rating - $rataWisata[$userId]) * ($nextRating - $rataWisata[$nextUserId]); //hitungpembilangperson
                         // $itemA =
-                        $akarDariSelisihRatingA = $this->selisihRating($rataWisata)[$userId]; //kiri
-                        $akarDariSelisihRatingB = $this->selisihRating($rataWisata)[$nextUserId]; //kanan
+                        $akarDariSelisihRatingA = $this->getSelisihRating()[$userId]; //kiri
+                        $akarDariSelisihRatingB = $this->getSelisihRating()[$nextUserId]; //kanan
 
                         $itemA[] = $akarDariSelisihRatingA[$index] ** 2;
                         $itemB[] = $akarDariSelisihRatingB[$index] ** 2;
@@ -179,8 +180,8 @@ class Recomended
 
         $arrayResult = [];
 
-        $rataWisata = $this->rataDariSetiapWisata();
-        $selisihRating = $this->selisihRating($rataWisata);
+        $rataWisata = $this->getRataDariSetiapWisata();
+        $selisihRating = $this->getSelisihRating();
 
         for ($i=0; $i<=count($prepareData) - 1; $i++) {
             $userId = $prepareData[$i]['userId'];
