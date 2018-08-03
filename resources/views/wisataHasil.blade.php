@@ -44,6 +44,7 @@
             </div>
             <div class="col-lg-8" style="padding-bottom:10px;">
                 <h4><a href="{{ route('wisataDetail', $wisata) }}">{{ $wisata->wisata_name}}</a></h4>
+                <h5><i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i></h5>
                 <p>{!! str_limit ($wisata->artikel['artikel'], 800, ' ...') !!}  <a href="{{ route('wisataDetail', $wisata) }}">Selengkapnya..</a></p>
             </div>
           @endforeach

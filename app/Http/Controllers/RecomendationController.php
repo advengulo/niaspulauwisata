@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Service\Recomended;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Auth;
 use App\User;
 use App\Wisata;
@@ -38,16 +39,26 @@ class RecomendationController extends Controller
                 })
                 ->toArray()
             ;
-
+            
             $userBased  = $this->getUserRating($usersWithRating);
+            
+            $datas = $usersWithRating;            
             $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
             $selisihRatings = $this->recomendationClass->getSelisihRating();
+            // $nilaiPearsons = $this->recomendationClass->getHitungPearson();
+            // $nilaiRatings = $this->recomendationClass->getPredictRating();
 
+            
+           
+            
+            
             // dd($selisihRatings->toArray());
             
             return view('dashboards.training', [
                 'rataRatingUser' => $rataRatingUser,
                 'selisihRatings' => $selisihRatings,
+                'datas' => $datas,
+                // 'nilaiPearsons' => $nilaiPearsons,
             ]);
         }
     }
@@ -87,8 +98,23 @@ class RecomendationController extends Controller
             //     ->selisihRating($this->recomendationClass->getRataDariSetiapWisata());
             return view('wisataHasil', compact('userBased')); 
         }
+        $userBaseds = DB::table('wisatas')
+                    ->select('wisatas.id')
+                    ->leftJoin('ratings', 'wisatas.id', '=', 'ratings.rateable_id')
+                    ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+                    ->groupBy('wisatas.id')
+                    ->orderBy('average_rating', 'desc')
+                    ->paginate(10);
 
-        $userBased = Wisata::latest()->paginate(10);
+        
+        $userBased = collect($userBaseds);
+        $userBased = $userBaseds->map(function($item) {
+            return Wisata::with('ratings')->find($item->id);
+        });
+        
+        //dd($userBased);
+
+        //$userBased = Wisata::latest()->paginate(10);
         return view('wisataHasil', compact('userBased'));
         // $sampleData = [
         //     1 => [
