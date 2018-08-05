@@ -9,7 +9,8 @@ class Ulasan extends Model
     protected $fillable = [
       'wisata_id',
       'user_id',
-      'isi_ulasan'
+      'isi_ulasan',
+      'temp_rat'
     ];
 
     public function wisata()

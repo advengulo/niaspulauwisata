@@ -40,7 +40,9 @@ class WisataUlasanController extends Controller
 
             'user_id' => auth()->id(),
 
-            'isi_ulasan' => $request->isi_ulasan
+            'isi_ulasan' => $request->isi_ulasan,
+
+            'temp_rat' => $request->rate
           ]);
         }
 

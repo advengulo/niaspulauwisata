@@ -20,15 +20,15 @@
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b5dcee7847546ad"></script>
       <div class="row">
         <div class="col-md-9" style="padding-right:20px">
-          <h3 style="padding-bottom: 0px;">{{ $wisata->wisata_name }}</h3>
-          <div> <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i> </div>
+          <header class="section-header">
+            <h3 style="padding-bottom: 0px;">{{ $wisata->wisata_name }}</h3>
+            <div> <i class="ion-ios-location"> {{ $wisata->wisata_lokasi}}</i> </div>
+            <div class="rating">
+                <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
+            </div>
+          </header>
         <img src="{{ URL::asset($wisata->wisata_gambar) }}" class="img-rounded" alt="Cinque Terre" width="100%" height="auto">
-        <header class="section-header">
 
-          <div class="rating">
-              <input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="0.1" value="{{ $wisata->averageRating }}" data-size="xs" disabled="">
-          </div>
-        </header>
         <p>{!! $wisata->artikel->artikel !!}</p>
       </div>
 
@@ -149,7 +149,6 @@
     <div class="col-md-12">
     <button type="button" class="btn btn-primary btn-block fa fa-plus-circle" data-toggle="modal" data-target="#exampleModal"> Tambah Ulasan</button>
     </div>
-
           <div class="card-body"> <!-- Ulasan -->
             @foreach ($wisata->ulasan()->get() as $ulasan)
   	        	<div class="card card-inner">
@@ -162,14 +161,13 @@
                       	    </div>
                       	    <div class="col-md-10">
                                 <div><strong>{{$ulasan->user->name}}</strong></div>
-                                <div><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $wisata->userRating }}" data-size="xs"></span></div>
+                                <div><input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $ulasan->temp_rat }}" data-size="xs"></span></div>
                                 <div><p>{{$ulasan->isi_ulasan}}</p> </div>
                       	    </div>
               	        </div>
               	    </div>
   	            </div>
               @endforeach
-
     	    </div> <!-- #eND Ulasan -->
 
           <div class="panel-body"> <!-- Modal Ulasan -->

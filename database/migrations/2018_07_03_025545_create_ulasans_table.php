@@ -18,6 +18,7 @@ class CreateUlasansTable extends Migration
             $table->integer('wisata_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->text('isi_ulasan');
+            $table->integer('temp_rat');
             $table->timestamps();
 
             $table->foreign('wisata_id')->references('id')->on('wisatas');

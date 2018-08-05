@@ -70,7 +70,7 @@ class RecomendaationItemController extends Controller
       $activeUser = request()->user();
 
       $recomendationResult = $recomendation->predictItemBased();
-      //dd($recomendationResult);
+      // dd($recomendationResult);
 
       return $this->hydrateData($recomendationResult);
   }
