@@ -31,6 +31,7 @@ class WisataUlasanController extends Controller
         $userId = auth()->user()->id;
 
         $cek = $wisata->ratings()->where('user_id', $userId)->count();
+        //$date = $wisata->ratings()->whre('created_at', )->count();
         if (!$cek) {
             $wisata->ratings()->save($rating);
 

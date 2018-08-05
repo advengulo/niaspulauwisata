@@ -5,12 +5,43 @@ namespace App\Service;
 class Recomended
 {
     public $rataRata;
+
+    /**
+     * Array Data yang akan di training
+     * 
+     *
+     * @var [type]
+     */
     private $data;
+
+    /**
+     * Property untuk hasil rata setiap wisata
+     *
+     * @var [type]
+     */
+    private $rataDariSetiapWisata;
+
+    private $selisihRating;
+
+    private $hitungPearson;
+
+    private $predictRating;
+
+    
 
     public function __construct(array $data)
     {
         $this->data = $data;
     }
+
+    // public function getData(array $array = null)
+    // {
+    //     if (null === $this->data){
+    //         $datas = $array ?? $this->getData();
+    //         $this->data = $this->data($datas);
+    //     }
+    //     return $this->data;
+    // }
 
     public function rataDariSetiapWisata()
     {
@@ -19,68 +50,40 @@ class Recomended
         $items = $data->map(function ($item) {
             return collect($item)->avg();
         })->toArray();
-
-        return $items;
+        
+        return $items;        
     }
 
-    public function selisihRating(array $items)
+    public function getRataDariSetiapWisata()
+    {
+        if (null === $this->rataDariSetiapWisata) {
+            $this->rataDariSetiapWisata = $this->rataDariSetiapWisata();
+        }
+
+        return $this->rataDariSetiapWisata;
+    }
+
+    public function selisihRating(array $items = [])
     {
         $users = collect($this->data)->map(function ($item, $index) use ($items) {
             $user = $items[$index];
             return collect($item)->map(function ($rating) use ($user) {
-                return (int) $rating - (int) $user;
+                return (float) $rating - (float) $user;
             })->toArray();
         });
 
-        // dd($users);
         return $users;
     }
 
-
-
-    public function cosine()
+    public function getSelisihRating(array $array = null)
     {
-        $prepareData = [];
-        foreach ($this->data as $index => $data) {
-            $prepareData[] = [
-                'userId' => $index,
-                'data' => $data,
-            ];
+        if (null === $this->selisihRating){
+            $data = $array ?? $this->getRataDariSetiapWisata();
+            $this->selisihRating = $this->selisihRating($data);
         }
-
-        $arrayResult = [];
-
-        for ($i=0; $i<=count($prepareData) - 1; $i++) {
-            for ($j=$i+1; $j<= count($prepareData) - 1; $j++) {
-                $tempResult = [];
-                $itemA = [];
-                $itemB = [];
-                foreach ($prepareData[$i]['data'] as $index => $rating) {
-                    $nextRating = $prepareData[$j]['data'][$index] ?? null;
-                    if ($nextRating) {
-                        $result = $rating * $nextRating; //pembilang cosine
-                        $tempResult[$index] = $result;
-                        $itemA[] = $rating**2;
-                        $itemB[] = $nextRating**2;
-                    }
-                }
-
-                $akarItemA = sqrt(array_sum($itemA));
-                $akarItemB = sqrt(array_sum($itemB));
-
-                $akarAKaliAkarB = $akarItemA * $akarItemB;
-
-                $hasil = array_sum($tempResult) / $akarAKaliAkarB;
-
-                $nextUser = $prepareData[$j]['userId'];
-                $userId = $prepareData[$i]['userId'];
-                $arrayResult[$userId][$nextUser] = $hasil;
-            }
-        }
-
-        return $arrayResult;
+        return $this->selisihRating;
     }
-
+    
     public function hitungPearson()
     {
         $prepareData = [];
@@ -93,7 +96,7 @@ class Recomended
 
         $arrayResult = [];
 
-        $rataWisata = $this->rataDariSetiapWisata();
+        $rataWisata = $this->getRataDariSetiapWisata();
         for ($i=0; $i<=count($prepareData) - 1; $i++) {
             $userId = $prepareData[$i]['userId'];
 
@@ -108,12 +111,15 @@ class Recomended
                     if ($nextRating) {
                         $result = ($rating - $rataWisata[$userId]) * ($nextRating - $rataWisata[$nextUserId]); //hitungpembilangperson
                         // $itemA =
-                        $akarDariSelisihRatingA = $this->selisihRating($rataWisata)[$userId]; //kiri
-                        $akarDariSelisihRatingB = $this->selisihRating($rataWisata)[$nextUserId]; //kanan
+                        $akarDariSelisihRatingA = $this->getSelisihRating()[$userId]; //kiri
+                        $akarDariSelisihRatingB = $this->getSelisihRating()[$nextUserId]; //kanan
 
-                        $itemA[] = $akarDariSelisihRatingA[$index] ** 2;
-                        $itemB[] = $akarDariSelisihRatingB[$index] ** 2;
-                        $tempResult[$index] = $result;
+                        
+                            $itemA[] = $akarDariSelisihRatingA[$index] ** 2;
+                            $itemB[] = $akarDariSelisihRatingB[$index] ** 2;
+                            $tempResult[$index] = $result;
+                       
+                        
                     }
                 }
 
@@ -135,10 +141,18 @@ class Recomended
         return $arrayResult;
     }
 
+    public function getHitungPearson()
+    {
+        if(null === $this->hitungPearson){
+            $this->hitungPearson = $this->hitungPearson();
+        }
+        return $this->hitungPearson;
+    }   
+
     public function predictRating()
     {
         $prepareData = [];
-        $pearson = $this->hitungPearson();
+        $pearson = $this->getHitungPearson();
         foreach ($this->data as $index => $data) {
             $prepareData[] = [
                 'userId' => $index,
@@ -148,8 +162,8 @@ class Recomended
 
         $arrayResult = [];
 
-        $rataWisata = $this->rataDariSetiapWisata();
-        $selisihRating = $this->selisihRating($rataWisata);
+        $rataWisata = $this->getRataDariSetiapWisata();
+        $selisihRating = $this->getSelisihRating();
 
         for ($i=0; $i<=count($prepareData) - 1; $i++) {
             $userId = $prepareData[$i]['userId'];
@@ -210,13 +224,70 @@ class Recomended
                 return $a < $b;
             });
         }
-
         return $this->data;
+    }
+
+    public function getPredictRating()
+    {
+        if(null === $this->predictRating){
+            $this->predictRating = $this->predictRating();
+        }
+        return $this->predictRating;
     }
 
     private function calculatePearson(int $currentUserId, array $prepareData)
     {
     }
+
+    public function cosineItemBased()
+    {
+        $rata = $this->getRataDariSetiapWisata();
+        $selisihRating = $this->selisihRating($rata);
+
+        $prepareData = [];
+        $totalProduct = 5;
+        foreach ($selisihRating as $index => $data) {
+            foreach ($data as $iData => $v) {
+                $prepareData[$iData][$index] = $v;
+            }
+        }
+
+        $listUser = collect($selisihRating)->keys();
+        $hasilArray = [];
+        $penyebutArray = [];
+        $h = [];
+        foreach ($prepareData as $index => $u) {
+            foreach ($prepareData as $nIndex => $nU) {
+                if ($index === $nIndex) {
+                    continue;
+                }
+                $hasil = 0;
+                $penyebut= 0;
+                $penyebut2= 0;
+                foreach ($listUser as $iUser => $uId) {
+                    $nilaiPertama = $prepareData[$index][$uId] ?? null;
+                    $nilaiKedua = $prepareData[$nIndex][$uId] ?? null;
+                    if (null !== $nilaiPertama && null !== $nilaiKedua) {
+                        $hasil+= $nilaiPertama * $nilaiKedua;
+                        $penyebut += pow($nilaiPertama, 2);
+                        $penyebut2 += pow($nilaiKedua, 2);
+                    }
+                }
+                $penyebut = sqrt($penyebut);
+                $penyebut2 = sqrt($penyebut2);
+                $b = $penyebut * $penyebut2;
+                $hasilArray[$index][$nIndex] = $hasil / $b;
+            }
+        }
+
+        return $hasilArray;
+    }
+
+    private function getTetangga(array $data, $scope)
+    {
+        return collect($data)->reject($scope);
+    }
+
     public function predictItemBased()
     {
         $dataAwal = $this->data;
@@ -271,82 +342,13 @@ class Recomended
             }
         }
         // dd($this->data);
+        foreach ($this->data as $user => $val) {
+            uasort($this->data[$user], function($a, $b) {
+                return $a < $b;
+            });
+        }
+
         return $this->data;
     }
-    public function cosineItemBased()
-    {
-        $rata = $this->rataDariSetiapWisata();
-        $selisihRating = $this->selisihRating($rata);
-
-        $prepareData = [];
-        $totalProduct = 5;
-        foreach ($selisihRating as $index => $data) {
-            foreach ($data as $iData => $v) {
-                $prepareData[$iData][$index] = $v;
-            }
-        }
-
-        $listUser = collect($selisihRating)->keys();
-        $hasilArray = [];
-        $penyebutArray = [];
-        $h = [];
-        foreach ($prepareData as $index => $u) {
-            foreach ($prepareData as $nIndex => $nU) {
-                if ($index === $nIndex) {
-                    continue;
-                }
-                $hasil = 0;
-                $penyebut= 0;
-                $penyebut2= 0;
-                foreach ($listUser as $iUser => $uId) {
-                    $nilaiPertama = $prepareData[$index][$uId] ?? null;
-                    $nilaiKedua = $prepareData[$nIndex][$uId] ?? null;
-                    if (null !== $nilaiPertama && null !== $nilaiKedua) {
-                        $hasil+= $nilaiPertama * $nilaiKedua;
-                        $penyebut += pow($nilaiPertama, 2);
-                        $penyebut2 += pow($nilaiKedua, 2);
-                    }
-                }
-                $penyebut = sqrt($penyebut);
-                $penyebut2 = sqrt($penyebut2);
-                $b = $penyebut * $penyebut2;
-                $hasilArray[$index][$nIndex] = $hasil / $b;
-            }
-        }
-
-        return $hasilArray;
-    }
-
-    /**
-     * User Based
-     *
-     * @return void
-     */
-
-
-    private function getTetangga(array $data, $scope)
-    {
-        return collect($data)->reject($scope);
-    }
-
-    public function rataSelisihRating()
-    {
-        $rata = $this->rataDariSetiapWisata();
-        $data = $this->data;
-
-        $newArray = [];
-        foreach ($data as $user) {
-            $user = collect($user)->map(function ($item, $index) use ($rata) {
-                if ($rata[$index] && 0 !== $item) {
-                    $result = $item - (int) $rata[$index];
-                } else {
-                    $result = 0;
-                }
-                return $result;
-            });
-            $newArray[] = $user->toArray();
-        }
-
-        dd($newArray);
-    }
+    
 }
