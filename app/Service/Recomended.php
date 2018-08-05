@@ -13,7 +13,6 @@ class Recomended
      * @var [type]
      */
     private $data;
-    private $data2;
 
     /**
      * Property untuk hasil rata setiap wisata
@@ -69,7 +68,7 @@ class Recomended
         $users = collect($this->data)->map(function ($item, $index) use ($items) {
             $user = $items[$index];
             return collect($item)->map(function ($rating) use ($user) {
-                return (int) $rating - (int) $user;
+                return (float) $rating - (float) $user;
             })->toArray();
         });
 
@@ -115,9 +114,12 @@ class Recomended
                         $akarDariSelisihRatingA = $this->getSelisihRating()[$userId]; //kiri
                         $akarDariSelisihRatingB = $this->getSelisihRating()[$nextUserId]; //kanan
 
-                        $itemA[] = $akarDariSelisihRatingA[$index] ** 2;
-                        $itemB[] = $akarDariSelisihRatingB[$index] ** 2;
-                        $tempResult[$index] = $result;
+                        
+                            $itemA[] = $akarDariSelisihRatingA[$index] ** 2;
+                            $itemB[] = $akarDariSelisihRatingB[$index] ** 2;
+                            $tempResult[$index] = $result;
+                       
+                        
                     }
                 }
 
@@ -139,21 +141,18 @@ class Recomended
         return $arrayResult;
     }
 
-    public function getHitungPearson(array $array = null)
+    public function getHitungPearson()
     {
         if(null === $this->hitungPearson){
-            $data = $array ?? $this->getRataDariSetiapWisata();
-            $this->hitungPearson = $this->hitungPearson($data);
+            $this->hitungPearson = $this->hitungPearson();
         }
         return $this->hitungPearson;
-    }
-
-   
+    }   
 
     public function predictRating()
     {
         $prepareData = [];
-        $pearson = $this->hitungPearson();
+        $pearson = $this->getHitungPearson();
         foreach ($this->data as $index => $data) {
             $prepareData[] = [
                 'userId' => $index,
@@ -225,15 +224,13 @@ class Recomended
                 return $a < $b;
             });
         }
-
         return $this->data;
     }
 
-    public function getPredictRating(array $array = null)
+    public function getPredictRating()
     {
         if(null === $this->predictRating){
-            $data = $array ?? $this->getRataDariSetiapWisata();
-            $this->predictRating = $this->predictRating($data);
+            $this->predictRating = $this->predictRating();
         }
         return $this->predictRating;
     }

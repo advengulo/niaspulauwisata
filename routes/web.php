@@ -59,6 +59,7 @@ Route::resource( 'profile', 'ProfileController');
 Route::post( 'profile', 'ProfileController@update')->name('profile.update');
 Route::get( 'profileEdit', 'ProfileController@edit')->name('profile.edit');
 
+Route::get('/traininguser', 'RecomendationController@trainingUser');
 
 Route::post('/login/custom', [
   'uses' => 'LoginController@login',
@@ -117,5 +118,5 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::get('/dashboard/adminsetting', 'Admin\AdminSettingController@index')->name('admin.index');
   Route::get('/dashboard/inbox', 'Admin\InboxController@index')->name('inbox.index');
 
-  Route::get('/dashboard/training', 'RecomendationController@rataRatingUser');
+  Route::get('/dashboard/training', 'RecomendationController@trainingAdmin');
 });
