@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
- `
+ 
     <div class="container" style="padding:10px 0">
         <header class="section-header">
           <h2>Gallery</h2>

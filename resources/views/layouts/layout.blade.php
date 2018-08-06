@@ -115,8 +115,8 @@
   @extends('layouts.footer')
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
   <!-- JavaScript Libraries -->
+  <script src="http://maps.googleapis.com/maps/api/js"></script>
   <script src="{{ URL::asset('lib/jquery/jquery.min.js') }}"></script>
   <script src="{{ URL::asset('lib/jquery/jquery-migrate.min.js') }}"></script>
   <script src="{{ URL::asset('lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
