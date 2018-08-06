@@ -33,9 +33,10 @@
       </div>
 
       <div class="col-md-3">
-        <h3 style="margin-top:0;">Map</h3>
+        
         <hr style="border-width:2px">
-        <div style="width:100%; height:275px;">
+        <h3 style="margin-top:58px;">Map</h3>
+        <div style="width:100%; height:615px;">
             {!! Mapper::render() !!}
         </div>
       </div>
