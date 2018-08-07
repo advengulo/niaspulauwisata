@@ -167,25 +167,28 @@ class RecomendationController extends Controller
                 })
                 ->toArray();
 
-                $banyakDataUser = DB::table('ulasans')->where('user_id', $idUserLogin)->count();
+                // $banyakDataUser = DB::table('ulasans')->where('user_id', $idUserLogin)->count();
                 
-                if($banyakDataUser < 2)
-                {
-                    $userBaseds = DB::table('wisatas')
-                            ->select('wisatas.id')
-                            ->leftJoin('ratings', 'wisatas.id', '=', 'ratings.rateable_id')
-                            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-                            ->groupBy('wisatas.id')
-                            ->orderBy('average_rating', 'desc')
-                            ->paginate(10);
+                // if($banyakDataUser < 2)
+                // {
+                //     $userBaseds = DB::table('wisatas')
+                //             ->select('wisatas.id')
+                //             ->leftJoin('ratings', 'wisatas.id', '=', 'ratings.rateable_id')
+                //             ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+                //             ->groupBy('wisatas.id')
+                //             ->orderBy('average_rating', 'desc')
+                //             ->paginate(10);
                 
-                $userBased = collect($userBaseds);
-                $userBased = $userBaseds->map(function($item) {
-                    return Wisata::with('ratings')->find($item->id);
-                });        
+                // $userBased = collect($userBaseds);
+                // $userBased = $userBaseds->map(function($item) {
+                //     return Wisata::with('ratings')->find($item->id);
+                // }); 
+                // $userBased = collect($userBaseds);
+                // $userBased = $userBaseds->map(function($item) {
+                //     return Wisata::with('ratings')->find($item->id);       
                 
-                return view('wisataHasil', compact('userBased'));
-                }
+                // return view('wisataHasil', compact('userBased'));
+                // }
 
             $userBased  = $this->getUserRating($usersWithRating);            
             return view('wisataHasil', compact('userBased')); 
