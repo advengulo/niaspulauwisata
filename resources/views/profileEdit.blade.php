@@ -6,7 +6,7 @@
       <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
           <div class="carousel-item active" style="height:50vh;">
-            <div class="carousel-background"><img src="" alt=""></div>
+            <div class="carousel-background"><img src="{{asset($user->profile->pro_sampulImg)}}" alt=""></div>
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2>P R O F I L E</h2>
@@ -24,8 +24,10 @@
 <section id="portfolio"  class="wow fadeIn">
     <div class="container">
       <div class="panel-body">
-        <form  method="post" action="/profile" enctype="multipart/form-data"> <!--//star form post-->
-        <div class="row">
+      <form  action="{{route('profile.update', $user)}}" method="post" enctype="multipart/form-data"> <!--//star form post-->
+          {{ csrf_field() }}
+          {{ method_field('PATCH') }}          
+          <div class="row">
             <div class="col-md-3 wow fadeInUp">
               <div class="about-col">
                 <div class="img">
@@ -49,26 +51,29 @@
                               <input type="text" class="form-control"  placeholder="" name="ttl" value="{{ $user->profile['pro_tempatLahir']}}" style="width=12px;">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control"  placeholder="dd/mm/yyyy" name="" value="{{ $user->profile['pro_tglLahir']}}">
+                                <input type="text" class="form-control"  placeholder="dd/mm/yyyy" name="date" value="{{ $user->profile['pro_tglLahir']}}">
                             </div>                    
                     </td>
                   </tr>
                   <tr>
                     <td>Jenis Kelamin</td>
-                    <td><input type="text" class="form-control"  placeholder="{{ $user->profile['pro_jenisKelamin']}}" name="title" value=""></td>
+                    <td><input type="text" class="form-control"  placeholder="" name="gender" value="{{ $user->profile['pro_jenisKelamin']}}">
+                        <input type="radio" name="gender" value="Laki-Laki"> Laki-Laki<br>
+                        <input type="radio" name="gender" value="Perempuan"> Perempuan<br>
+                    </td>
                   </tr>
                   <tr>
                     <td>Alamat</td>
-                    <td><textarea name="content" class="form-control" placeholder="{{ $user->profile['pro_alamat']}}"></textarea></td>
+                    <td><textarea class="form-control" placeholder="" name="alamat"> {{ $user->profile['pro_alamat']}}</textarea></td>
                   </tr>
 
                   <tr>
                     <td>Email</td>
-                    <td><input type="text" class="form-control"  placeholder="" name="title" value="{{ $user->email }}"></td>
+                    <td><input type="text" class="form-control"  placeholder="" name="email" value="{{ $user->email }}"></td>
                   </tr>
                   <tr>
                     <td>Nomor Telepon / Hp</td>
-                    <td><input type="text" class="form-control"  placeholder="{{ $user->profile['pro_telp']}}" name="title" value=""></td>
+                    <td><input type="text" class="form-control"  placeholder="" name="phone" value="{{ $user->profile['pro_telp']}}"></td>
                   </tr>
                 </tbody>
               </table>
@@ -76,7 +81,7 @@
         </div>
         <div class="row">
             <div class="col-md-2 col-md-offset-6">
-                <input type="submit" class="btn btn-primary" style="width:100%">
+              <input type="submit" class="btn btn-primary" style="width:100%">
             </div>
             {{ csrf_field() }}
           </div>

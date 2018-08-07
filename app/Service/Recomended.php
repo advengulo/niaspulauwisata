@@ -20,14 +20,10 @@ class Recomended
      * @var [type]
      */
     private $rataDariSetiapWisata;
-
     private $selisihRating;
-
     private $hitungPearson;
-
     private $predictRating;
-
-    
+    private $predictRatingAdmin;    
 
     public function __construct(array $data)
     {
@@ -349,6 +345,92 @@ class Recomended
         }
 
         return $this->data;
+    }
+
+    public function predictRatingAdmin()
+    {
+        $prepareData = [];
+        $pearson = $this->getHitungPearson();
+        foreach ($this->data as $index => $data) {
+            $prepareData[] = [
+                'userId' => $index,
+                'data' => $data,
+            ];
+        }
+
+        $arrayResult = [];
+
+        $rataWisata = $this->getRataDariSetiapWisata();
+        $selisihRating = $this->getSelisihRating();
+
+        for ($i=0; $i<=count($prepareData) - 1; $i++) {
+            $userId = $prepareData[$i]['userId'];
+
+            for ($j=0; $j<= count($prepareData) - 1; $j++) {
+                if ($j === $i) {
+                    continue;
+                }
+                $nextUserId = $prepareData[$j]['userId'];
+                foreach ($prepareData[$i]['data'] as $index => $rating) {
+                    $nextRating = $prepareData[$j]['data'][$index] ?? null;
+                    if (null === $nextRating) {
+                        $countPositive = collect($pearson[$nextUserId])->reject(function ($item, $index) use ($nextUserId) {
+                            return $item <= 0 || $index === $nextUserId;
+                        })->count();
+
+                        $countNegative = collect($pearson[$nextUserId])->reject(function ($item, $index) use ($nextUserId) {
+                            return $item >= 0 || $index === $nextUserId;
+                        })->count();
+
+                        if ($countPositive >= 2) {
+                            $data  = $this->getTetangga($pearson[$nextUserId], function ($item, $index) use ($nextUserId) {
+                                return $item <= 0 || $index === $nextUserId;
+                            })->take(2)->toArray();
+                        } else {
+                            $data  = $this->getTetangga($pearson[$nextUserId], function ($item, $index) use ($nextUserId) {
+                                return $item >= 0 || $index === $nextUserId;
+                            })->take(2)->toArray();
+                        }
+
+                        $dataYangDiAmbil = [];
+                        foreach ($data as $indexDataUserId => $value) {
+                            if ($s = $selisihRating[$indexDataUserId][$index] ?? false) {
+                                $dataYangDiAmbil[$indexDataUserId] = $s;
+                            }
+                        }
+
+                        $hasilKali = 0;
+                        foreach ($data as $u => $v) {
+                            if ($datasu = $dataYangDiAmbil[$u] ?? false) {
+                                $hasilKali += ($data[$u] * $dataYangDiAmbil[$u]);
+                            }
+                        }
+
+                        try {
+                            $finalResult = ($hasilKali / array_sum($data) + $rataWisata[$nextUserId]);
+                        } catch (\Exception $e) {
+                            $finalResult = 0;
+                        }
+                        $this->data[$nextUserId][$index] = $finalResult;
+                    }
+                }
+            }
+        }
+        // foreach ($this->data as $user => $val) {
+        //     uasort($this->data[$user], function($a, $b) {
+        //         return $a < $b;
+        //     });
+        // }
+
+        return $this->data;
+    }
+
+    public function getPredictRatingAdmin()
+    {
+        if(null === $this->predictRatingAdmin){
+            $this->predictRatingAdmin = $this->predictRatingAdmin();
+        }
+        return $this->predictRatingAdmin;
     }
     
 }

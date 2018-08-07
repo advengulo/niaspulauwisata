@@ -6,7 +6,7 @@
       <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
           <div class="carousel-item active" style="height:50vh;">
-            <div class="carousel-background"><img src="img/profile/sampul/{{$user->profile['pro_sampulImg']}}" alt=""></div>
+            <div class="carousel-background"><img src="{{asset($user->profile->pro_sampulImg)}}" alt=""></div>
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2>P R O F I L E</h2>
@@ -24,7 +24,16 @@
 <section id="portfolio"  class="wow fadeIn">
     <div class="container">
       <div class="panel-body">
-        
+        <div class="row">
+            @if ($message = Session::get('update'))
+            <div class="col-md-12">
+            <div class="alert alert-info alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            </div>
+            @endif
+        </div>
         <div class="row">
           <div class="col-md-3 wow fadeInUp">
             <div class="about-col" >
@@ -73,7 +82,7 @@
         </div>
         <div class="row">
           <div class="col-md-2 col-md-offset-6">
-            <a href="/profileEdit" class="btn btn-primary" style="width:100%">Edit</a>
+          <a href="{{route('profile.edit', $user)}}" class="btn btn-primary" style="width:100%">Edit</a>
           </div>
         </div>
       

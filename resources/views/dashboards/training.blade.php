@@ -80,8 +80,7 @@
                                 <th style="text-align:center">{{$wisataID}}</th>
                                 @endforeach
                                 @break
-                                @endforeach
-                                
+                                @endforeach                                
                             </tr>
                             </thead>
                             <tbody>                                    
@@ -130,39 +129,36 @@
                 
                 <div class="row">
                     <div class="col-md-4">
-                    <h2>Nilai Predict User Based id User : <strong>{{ $idlogin }}</strong> </h2>          
+                    <h2>Nilai Predict User Based</h2>          
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <th>Wisata ID</th>                            
-                                <th>Nilai Predict</th>                             
+                                <th>User_id/Wisata_id</th>
+                                @foreach($selisihRatings as $userID => $users)
+                                @foreach($users as $wisataID => $wisata)
+                                <th style="text-align:center">{{$wisataID}}</th>
+                                @endforeach
+                                @break
+                                @endforeach                             
                             </tr>
                             </thead>
                             <tbody>                                    
                                 <tr>
-                                    @foreach($nilaiRatings as $userID => $user) 
-                                        <td>{{ $userID }}</td>                                    
-                                        @if($user - (int)$user != 0)    
-                                            <td>{{ number_format($user, 3, '.', ',') }}</td>
+                                    @foreach($nilaiRatings as $userID => $users) 
+                                        <td>{{ $userID }}</td>  
+                                        @foreach($users as $wisataID => $wisata)                                  
+                                        @if($wisata - (int)$wisata != 0)    
+                                            <td>{{ number_format($wisata, 3, '.', ',') }}</td>
                                         @else
-                                            <td>{{$user}}</td>
+                                            <td>{{$wisata}}</td>
                                         @endif
+                                        @endforeach
                                 </tr>
                                     @endforeach                                                         
                             </tbody>
                         </table>
                     </div>
-                </div>
-
-                {{-- @foreach($nilaiRatings as $userID => $users)
-                  <div>
-                    <p>User ID: <b>{{ $userID }}</b>
-                    @foreach($users as $wisataID => $wisata)
-                      <p>Wisata ID: {{ $wisataID }} = {{ $wisata }}</p>
-                    @endforeach
-                  </div>
-                @endforeach --}}
-                
+                </div>                
             </div>
         </div>
 

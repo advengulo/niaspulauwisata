@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use App\User;
 use App\Wisata;
+use App\Ulasan;
 use Cache;
 
 class RecomendationController extends Controller
@@ -119,15 +120,15 @@ class RecomendationController extends Controller
                 })
                 ->toArray();
             
-            $userBased  = $this->getUserRating($usersWithRating);
+            $userBased  = $this->getUserRatingAdmin($usersWithRating);
 
             $idlogin = auth()->id();
             $datas = $usersWithRating1;          
             $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
             $selisihRatings = $this->recomendationClass->getSelisihRating();
             $nilaiPearsons = $this->recomendationClass->getHitungPearson();          
-            $nilaiRatingss = $this->recomendationClass->getPredictRating();            
-            $nilaiRatings = $nilaiRatingss[$idlogin];
+            $nilaiRatings = $this->recomendationClass->getPredictRatingAdmin();
+            //dd($nilaiRatings);
 
             return view('dashboards.training', [
                 'rataRatingUser' => $rataRatingUser,
@@ -142,6 +143,7 @@ class RecomendationController extends Controller
 
     public function index()
     {
+        $idUserLogin = auth()->id();
         if(Auth::check()) {
             $usersWithRating = User::get()
                 ->groupBy('id')
@@ -164,6 +166,27 @@ class RecomendationController extends Controller
                     return $ratings;
                 })
                 ->toArray();
+
+                $banyakDataUser = DB::table('ulasans')->where('user_id', $idUserLogin)->count();
+                
+                if($banyakDataUser < 2)
+                {
+                    $userBaseds = DB::table('wisatas')
+                            ->select('wisatas.id')
+                            ->leftJoin('ratings', 'wisatas.id', '=', 'ratings.rateable_id')
+                            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+                            ->groupBy('wisatas.id')
+                            ->orderBy('average_rating', 'desc')
+                            ->paginate(10);
+                
+                $userBased = collect($userBaseds);
+                $userBased = $userBaseds->map(function($item) {
+                    return Wisata::with('ratings')->find($item->id);
+                });        
+                
+                return view('wisataHasil', compact('userBased'));
+                }
+
             $userBased  = $this->getUserRating($usersWithRating);            
             return view('wisataHasil', compact('userBased')); 
         }
@@ -198,6 +221,18 @@ class RecomendationController extends Controller
         // dd($recomendationResult);
 
         return $this->hydrateData($recomendationResult);
+
+    }
+
+    private function getUserRatingAdmin(array $usersWithRating)
+    {
+        $this->recomendationClass = new Recomended($usersWithRating);
+        
+
+        $recomendationResult = $this->recomendationClass->predictRatingAdmin();
+        dd($this->recomendationClass->predictRatingAdmin());
+
+        return $this->hydrateDataAdmin($recomendationResult);
 
     }
 
@@ -237,6 +272,22 @@ class RecomendationController extends Controller
         $reject = $ids->reject(function($wisata) use($activeUser) {
             return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
         })->flatten()->take(10);
+        
+        return $reject;
+    }
+
+    private function hydrateDataAdmin(array $recomendationResult)
+    {
+        $activeUser = request()->user();
+
+        $data = ($recomendationResult[$activeUser->id]);
+        $ids = collect(array_keys($data))->map(function($value) {
+            return Wisata::find($value);
+        });
+
+        $reject = $ids->reject(function($wisata) use($activeUser) {
+            return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
+        });
         
         return $reject;
     }

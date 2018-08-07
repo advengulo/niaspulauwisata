@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use App\Profile;
+use App\User;
 use Image;
 
 class ProfileController extends Controller
@@ -13,6 +15,11 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('profile', ['user' => Auth::user()]);
@@ -36,7 +43,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -56,9 +63,11 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('profileEdit', ['user' => Auth::user()]);
+        $user = User::find($id);
+        
+        return view('profileEdit', compact('user'));
     }
 
     /**
@@ -68,7 +77,7 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         // Handle the user upload of avatar
 
@@ -81,7 +90,25 @@ class ProfileController extends Controller
             $user->avatar = '/img/profile/avatar/'.$filename;
             $user->save();
         }
-        return view('profile', ['user' => Auth::user()]);
+        
+        $user = User::find($id);
+        $user->update([
+            'name' => request('name'),
+            'email' => request('email')
+        ]);
+
+        $profile = Profile::where('user_id', $id);
+        $profile->update([
+            'user_id' => $id,
+            'pro_sampulImg' => "img.jpg",
+            'pro_tempatLahir' => request('ttl'),
+            'pro_tglLahir' => request('date'),
+            'pro_jenisKelamin' => request('gender'),
+            'pro_telp' => request('phone'),
+            'pro_alamat' => request('alamat'),
+        ]);
+
+        return redirect('/profile')->with(['update' => 'Data Profile anda berhasil di ubah']);
     }
 
     /**

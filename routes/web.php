@@ -56,8 +56,8 @@ Route::resource('kamus', 'KamusController');
 Route::resource( 'kontak', 'KontakController');
 
 Route::resource( 'profile', 'ProfileController');
-Route::post( 'profile', 'ProfileController@update')->name('profile.update');
-Route::get( 'profileEdit', 'ProfileController@edit')->name('profile.edit');
+Route::get( 'profile/{id}/edit', 'ProfileController@edit')->name('profile.edit');
+Route::patch( 'profile/{id}/update', 'ProfileController@update')->name('profile.update');
 
 Route::get('/traininguser', 'RecomendationController@trainingUser');
 
@@ -84,7 +84,7 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::get('/dashboard/postcontrol', 'Admin\PostController@index')->name('post.index');
   Route::get('/dashboard/postcontrol/{wisata}', 'Admin\PostController@show')->name('post.show');
   Route::get('/dashboard/postcontrol/{id}/edit', 'Admin\PostController@edit')->name('post.edit');
-  Route::patch('/dashboard/postcontrol/{id}/edit', 'Admin\PostController@update')->name('post.update');
+  Route::patch('/dashboard/postcontrol/{id}/update', 'Admin\PostController@update')->name('post.update');
   Route::delete('/dashboard/postcontrol/{id}/destroy', 'Admin\PostController@destroy')->name('post.destroy');
 
   Route::get('/dashboard/postbudaya', 'Admin\PostBudayaController@index')->name('postbudaya.index');
