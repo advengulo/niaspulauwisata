@@ -233,7 +233,7 @@ class RecomendationController extends Controller
         
 
         $recomendationResult = $this->recomendationClass->predictRatingAdmin();
-        dd($this->recomendationClass->predictRatingAdmin());
+        // dd($this->recomendationClass->predictRatingAdmin());
 
         return $this->hydrateDataAdmin($recomendationResult);
 
