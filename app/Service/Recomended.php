@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\DataSetWisata;
+
 class Recomended
 {
     public $rataRata;
@@ -23,11 +25,17 @@ class Recomended
     private $selisihRating;
     private $hitungPearson;
     private $predictRating;
-    private $predictRatingAdmin;    
+    private $predictRatingAdmin;
+    
+    private $missingRating;
+
+    private $hasilHitungMae;
 
     public function __construct(array $data)
     {
         $this->data = $data;
+        $this->missingRating = [];
+        // $this->hasilHitungMae = 0;
     }
 
     // public function getData(array $array = null)
@@ -147,7 +155,9 @@ class Recomended
 
     public function predictRating()
     {
+        // Arrah kosong untuk modifikasi data
         $prepareData = [];
+
         $pearson = $this->getHitungPearson();
         foreach ($this->data as $index => $data) {
             $prepareData[] = [
@@ -158,13 +168,18 @@ class Recomended
 
         $arrayResult = [];
 
+        // Ambil Rata dari Setiap Wisata
         $rataWisata = $this->getRataDariSetiapWisata();
+        // Ambil Selisih Rating
         $selisihRating = $this->getSelisihRating();
 
+        // dd($prepareData);
+        
         for ($i=0; $i<=count($prepareData) - 1; $i++) {
             $userId = $prepareData[$i]['userId'];
 
             for ($j=0; $j<= count($prepareData) - 1; $j++) {
+                // Skip jika
                 if ($j === $i) {
                     continue;
                 }
@@ -210,6 +225,7 @@ class Recomended
                             $finalResult = 0;
                         }
                         $this->data[$nextUserId][$index] = $finalResult;
+                        $this->missingRating[$nextUserId][$index] = null;
                     }
                 }
             }
@@ -220,7 +236,48 @@ class Recomended
                 return $a < $b;
             });
         }
+        
         return $this->data;
+    }
+
+    public function hituangMae()
+    {
+        $firman = [];
+        $fromDataSet = [];
+        $totalUser = count($this->missingRating);
+
+        // foreach ($this->data)
+        foreach ($this->missingRating as $userId => $values) {
+            // dump();
+            // dd($value);
+            foreach ($values as $wisataId => $any) {
+                // $wisata
+                $firman[$wisataId][] = $this->data[$userId][$wisataId];
+
+                $fromDataSet[$wisataId] = DataSetWisata::find($wisataId)->rating;
+            }
+        }
+
+        $newFirman = collect($firman)->map(function($item, $wisataId) {
+            $total = 0;
+            collect($item)->each(function($n) use($wisataId, &$total) {
+                $total += $n - DataSetWisata::find($wisataId)->rating;
+            });
+            return $total;
+        })->sum();
+
+        $newFirman = abs($newFirman) / $totalUser;
+
+        return $newFirman;
+    }
+
+    public function getHitungMae()
+    {
+        if (null === $this->hasilHitungMae) {
+            $this->hasilHitungMae = $hitungMae();
+        }
+
+        return $this->hasilHitungMae;
     }
 
     public function getPredictRating()
