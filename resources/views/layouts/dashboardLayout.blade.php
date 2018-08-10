@@ -82,42 +82,38 @@
                     <li class="{{Request::is("dashboard")?'active':''}}"><a href="/dashboard"><i class="fa fa-tachometer fa-fw">
                         <div class="icon-bg bg-orange"></div>
                     </i><span class="menu-title">Dashboard</span></a></li>
-
                     <li class="{{Request::is("dashboard/userControl")?'active':''}}"><a href="/dashboard/userControl"><i class="fa fa-user fa-fw">
                         <div class="icon-bg bg-pink"></div>
                     </i><span class="menu-title">User Control</span></a>
-
                     </li>
                     <li class="{{Request::is("dashboard/postcontrol")?'active':'' || Request::is("dashboard/postbudaya")?'active':'' || Request::is("dashboard/posttransportasi")?'active':'' || Request::is("dashboard/postkuliner")?'active':'' || Request::is("dashboard/postacaradanfestival")?'active':''}}"><a href="/dashboard/postcontrol"><i class="fa fa-send-o fa-fw">
                         <div class="icon-bg bg-green"></div>
                     </i><span class="menu-title">Post Control</span></a>
-
                     </li>
                     <li class="{{Request::is("dashboard/makepost")?'active':''}}"><a href="/dashboard/makepost"><i class="fa fa-edit fa-fw">
                         <div class="icon-bg bg-violet"></div>
                     </i><span class="menu-title">Make Post</span></a>
-
+                    </li>
+                    <li class="{{Request::is("dashboard/training")?'active':''}}"><a href="/dashboard/training"><i class="fa fa-desktop fa-fw">
+                        <div class="icon-bg bg-blue"></div>
+                        </i><span class="menu-title">Training</span></a>
                     </li>
                     <li class="{{Request::is("dashboard/kamus")?'active':''}}"><a href="/dashboard/kamus"><i class="fa fa-th-list fa-fw">
                         <div class="icon-bg bg-blue"></div>
                     </i><span class="menu-title">Kamus</span></a>
-
                     </li>
                     <li class="{{Request::is("dashboard/inbox")?'active':''}}"><a href="/dashboard/inbox"><i class="fa fa-file-o fa-fw">
                         <div class="icon-bg bg-red"></div>
                     </i><span class="menu-title">Inbox</span></a>
-
                     </li>
                     <li class="{{Request::is("dashboard/adminsetting")?'active':''}}"><a href="/dashboard/adminsetting"><i class="fa fa-rocket fa-fw">
                         <div class="icon-bg bg-yellow"></div>
                     </i><span class="menu-title">Admin Setting</span></a>
-
                     </li>
                     <li><a href="logout.html"><i class="fa fa-key fa-fw">
                         <div class="icon-bg bg-grey"></div>
                     </i><span class="menu-title">Logout</span></a>
-
-
+                    </li>
                 </ul>
             </div>
         </nav>

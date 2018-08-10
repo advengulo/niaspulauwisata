@@ -119,4 +119,5 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::get('/dashboard/inbox', 'Admin\InboxController@index')->name('inbox.index');
 
   Route::get('/dashboard/training', 'RecomendationController@trainingAdmin');
+  Route::post('/dashboard/training', 'RecomendationController@trainingAdmin')->name('training.value');
 });

@@ -22,7 +22,7 @@ class WisataSeeder extends Seeder
         {
             $wisata = new Wisata();
             $wisata->wisata_name = $faker->name;
-            $wisata->artikel_id = 30;
+            $wisata->artikel_id = rand(1, 50);
             $wisata->latitude = $faker->latitude;
             $wisata->longtitude = $faker->longitude;
             $wisata->wisata_jenis_id = 1;
@@ -48,7 +48,7 @@ class WisataSeeder extends Seeder
         }
 
         
-        for($i=0; $i<2; $i++)
+        for($i=0; $i<4; $i++)
         {
             $randomUser = rand(1, 11);
             $randomProduct = rand(1, $wisataSize);

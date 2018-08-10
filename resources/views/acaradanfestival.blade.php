@@ -35,7 +35,7 @@
               <figure>
                 <a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}"><img src="{{ URL::asset($acaradanfestival->acaradanfestival_gambar) }}" class="img-fluid" alt=""></a>
               </figure>
-              <div class="portfolio-info" style="background-color:black">
+              <div class="portfolio-info">
                 <h4><a href="{{ route('acaradanfestivalDetail', $acaradanfestival) }}">{{ $acaradanfestival->acaradanfestival_name}}</a></h4>
                 <div class="row">
                   <div class="col md-5">

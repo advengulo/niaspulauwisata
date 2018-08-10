@@ -8,15 +8,48 @@
         <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
             <div class="page-header pull-left">
                 <div class="page-title">
-                    Data Training</div>
+                    Training</div>
             </div>
             <div class="clearfix"></div>
         </div>
         <!--END TITLE & BREADCRUMB PAGE-->
         <!--BEGIN CONTENT-->
         <div class="page-content">
-            <div id="tab-general">                   
-                
+            <div id="tab-general">                     
+            <div id="generalTabContent" class="tab-content responsive">
+                <div class="row text-center">
+                    <div class="col-md-6 col-md-offset-2">
+                        <form action="{{Route('training.value')}}" method="post">
+                                {{ csrf_field() }}
+                                <div class="col-md-4" style="padding: 7px 0"><strong>User Record</strong></div>
+                                
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="user_awal" placeholder="Awal"required autofocus>
+                                </div>
+
+                                <div class="col-md-1" style="padding: 7px 0"><strong>s/d</strong></div>
+
+                                <div class="col-md-3" style="margin-bottom:15px">
+                                    <input type="text" class="form-control" name="user_akhir" placeholder="Akhir" required autofocus>
+                                </div>
+
+                                <div class="col-md-4" style="padding: 7px 0"><strong>Wisata Record</strong></div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="wisata_awal" placeholder="Awal" required autofocus>
+                                </div>
+
+                                <div class="col-md-1" style="padding: 7px 0"><strong>s/d</strong></div>
+                            
+                                <div class="col-md-3" style="margin-bottom:15px">
+                                    <input type="text" class="form-control" name="wisata_akhir" placeholder="Akhir" required autofocus>
+                                </div>
+
+                                <div class="col-md-3 col-md-offset-8">
+                                    <input type="submit" class="btn btn-primary btn-block" value="Hitung">
+                                </div>
+                            </form>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4">
                         <h2>Data Rating Awal</h2>        
@@ -154,14 +187,15 @@
                                         @endif
                                         @endforeach
                                 </tr>
-                                    @endforeach                                                         
+                                    @endforeach
+                                    <tr><th style="text-align:center;">MAE</th> <th colspan="100" style="text-align:center;">{{$nilaiMaeItem}} </th></tr>                                                         
                             </tbody>
                         </table>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
-
+        </div>
     </div>
     <!--END PAGE WRAPPER-->
 </div>

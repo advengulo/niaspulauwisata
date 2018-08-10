@@ -18,10 +18,10 @@ class RecomendationController extends Controller
     public function trainingUser()
     {
         if(Auth::check()) {
-            $usersWithRating = User::get()
+            $usersWithRating = User::get()->where('id','>=', 5)->where('id','<=',11)
                 ->groupBy('id')
                 ->map(function($user, $userId) {
-                    $wisatas = Wisata::get();
+                    $wisatas = Wisata::get()->where('id','>=', 5)->where('id','<=',20);
 
                     $ratings = [];
                     foreach ($wisatas as $wisata)
@@ -39,10 +39,12 @@ class RecomendationController extends Controller
                 })
                 ->toArray();
 
-            $usersWithRating1 = User::get()
-                ->groupBy('id')
-                ->map(function($user, $userId) {
-                    $wisatas = Wisata::get();
+                // dd($usersWithRating);
+
+                $usersWithRating1 = User::get()->where('id','>=', 5)->where('id','<=',11)
+                    ->groupBy('id')
+                    ->map(function($user, $userId) {
+                        $wisatas = Wisata::get()->where('id','>=', 5)->where('id','<=',20);
 
                     $ratings = [];
                     foreach ($wisatas as $wisata)
@@ -85,11 +87,15 @@ class RecomendationController extends Controller
 
     public function trainingAdmin()
     {
+        $w = request('user_awal'); $x = request('user_akhir');
+        $y = request('wisata_awal'); $z = request('wisata_akhir');
+        
+        //dd(request()->all());
         if(Auth::check()) {
-            $usersWithRating = User::get()
+            $usersWithRating = User::get()->where('id','>=', $w)->where('id','<=',$x)
                 ->groupBy('id')
-                ->map(function($user, $userId) {
-                    $wisatas = Wisata::get();
+                ->map(function($user, $userId) use($y,$z) {
+                    $wisatas = Wisata::get()->where('id','>=', $y)->where('id','<=',$z);
 
                     $ratings = [];
                     foreach ($wisatas as $wisata)
@@ -107,10 +113,10 @@ class RecomendationController extends Controller
                 })
                 ->toArray();
 
-            $usersWithRating1 = User::get()
+            $usersWithRating1 = User::get()->where('id','>=', $w)->where('id','<=',$x)
                 ->groupBy('id')
-                ->map(function($user, $userId) {
-                    $wisatas = Wisata::get();
+                ->map(function($user, $userId) use($y,$z) {
+                    $wisatas = Wisata::get()->where('id','>=', $y)->where('id','<=',$z);
 
                     $ratings = [];
                     foreach ($wisatas as $wisata)
@@ -125,15 +131,16 @@ class RecomendationController extends Controller
                 })
                 ->toArray();
             
-            $userBased  = $this->getUserRatingAdmin($usersWithRating);
+            $userBased  = $this->getUserRatingTraining($usersWithRating);
 
             $idlogin = auth()->id();
             $datas = $usersWithRating1;          
             $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
             $selisihRatings = $this->recomendationClass->getSelisihRating();
             $nilaiPearsons = $this->recomendationClass->getHitungPearson();          
-            $nilaiRatings = $this->recomendationClass->getPredictRatingAdmin();
-            //dd($nilaiRatings);
+            $nilaiRatings = $this->recomendationClass->getPredictRating();
+            $nilaiMae = $this->recomendationClass->getHitungMae();
+            $nilaiMaeItem = $this->recomendationClass->getHitungMaeItem();            
 
             return view('dashboards.training', [
                 'rataRatingUser' => $rataRatingUser,
@@ -141,6 +148,8 @@ class RecomendationController extends Controller
                 'nilaiPearsons' => $nilaiPearsons,
                 'nilaiRatings' => $nilaiRatings,
                 'datas' => $datas,
+                'nilaiMae' => $nilaiMae,
+                'nilaiMaeItem' => $nilaiMaeItem,
                 'idlogin' => $idlogin,
             ]);
         }
@@ -232,19 +241,17 @@ class RecomendationController extends Controller
 
     }
 
-    private function getUserRatingAdmin(array $usersWithRating)
+    private function getUserRatingTraining(array $usersWithRating)
     {
         $this->recomendationClass = new Recomended($usersWithRating);
-        
+        $activeUser = request()->user();
 
-        $recomendationResult = $this->recomendationClass->predictRatingAdmin();
-        // dd($this->recomendationClass->predictRatingAdmin());
+        $recomendationResult = $this->recomendationClass->predictRating();
+        // dd($recomendationResult);
 
-        return $this->hydrateDataAdmin($recomendationResult);
+        return $recomendationResult;
 
     }
-
-
     /**
      * Ambil Rekomendasi Rating.
      *
@@ -273,6 +280,7 @@ class RecomendationController extends Controller
         $activeUser = request()->user();
 
         $data = ($recomendationResult[$activeUser->id]);
+        
         $ids = collect(array_keys($data))->map(function($value) {
             return Wisata::find($value);
         });
@@ -280,22 +288,6 @@ class RecomendationController extends Controller
         $reject = $ids->reject(function($wisata) use($activeUser) {
             return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
         })->flatten()->take(10);
-        
-        return $reject;
-    }
-
-    private function hydrateDataAdmin(array $recomendationResult)
-    {
-        $activeUser = request()->user();
-
-        $data = ($recomendationResult[$activeUser->id]);
-        $ids = collect(array_keys($data))->map(function($value) {
-            return Wisata::find($value);
-        });
-
-        $reject = $ids->reject(function($wisata) use($activeUser) {
-            return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
-        });
         
         return $reject;
     }
