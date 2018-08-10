@@ -65,6 +65,9 @@ class RecomendationController extends Controller
             $selisihRatings = $this->recomendationClass->getSelisihRating();
             $nilaiPearsons = $this->recomendationClass->getHitungPearson();          
             $nilaiRatingss = $this->recomendationClass->getPredictRating();
+            $nilaiMae = $this->recomendationClass->getHitungMae();
+            $nilaiMaeItem = $this->recomendationClass->getHitungMaeItem();
+            
             $nilaiRatings = $nilaiRatingss[$idlogin]; 
 
             return view('trainingUser', [
@@ -73,7 +76,9 @@ class RecomendationController extends Controller
                 'nilaiPearsons' => $nilaiPearsons,
                 'nilaiRatings' => $nilaiRatings,
                 'datas' => $datas,
-                'idlogin' => $idlogin,                
+                'idlogin' => $idlogin,
+                'nilaiMae' => $nilaiMae,
+                'nilaiMaeItem' => $nilaiMaeItem,                
             ]);
         }
     }

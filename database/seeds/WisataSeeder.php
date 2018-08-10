@@ -26,10 +26,8 @@ class WisataSeeder extends Seeder
             $wisata->latitude = $faker->latitude;
             $wisata->longtitude = $faker->longitude;
             $wisata->wisata_jenis_id = 1;
-            $wisata->wisata_rating = 5;
             $wisata->wisata_lokasi = $faker->address;
             $wisata->wisata_gambar = "/img/img-wisata/wisata_001.jpeg";
-            $wisata->wisata_video = "/";
             $wisata->save();
 
             for($u=1; $u<=$minimalRating;$u++)

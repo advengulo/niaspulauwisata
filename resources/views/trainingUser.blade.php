@@ -19,7 +19,7 @@
   <!--==========================
     Skills Section
   ============================-->
-  <section id="about">
+  <section id="portfolio">
     <div class="container">
             <div class="row mbl">
                 <div class="col-md-12">
@@ -136,8 +136,9 @@
                         </div> 
                         
                         <div class="row">
+                            <div class="col-md-12">                            
+                            <h2>Nilai Predict User Based : <strong>{{Auth::user()->name}}</strong> </h2> </div>         
                             <div class="col-md-4">
-                            <h2>Nilai Predict User Based id User : <strong>USERNAME</strong> </h2>          
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -160,6 +161,11 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-4"> Nilai Mae : {{$nilaiMae}} </div></div>
+                        {{-- <div class="row">
+                            <div class="col-md-4"> Nilai Mae Item : {{$nilaiMaeItem}} </div></div>  --}}
             </div> <!--END TAB CONTENT-->
 
 
