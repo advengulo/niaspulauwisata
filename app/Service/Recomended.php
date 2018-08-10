@@ -30,7 +30,9 @@ class Recomended
     private $missingRating;
 
     private $hasilHitungMae;
-    private $hasilHitungMaeItem;    
+    private $hasilHitungMaeItem;
+
+    private $hasilRatingTerurut;
 
     public function __construct(array $data)
     {
@@ -169,6 +171,8 @@ class Recomended
             ];
         }
 
+        // dd($this->data);
+
         $arrayResult = [];
 
         // Ambil Rata dari Setiap Wisata
@@ -233,6 +237,15 @@ class Recomended
                 }
             }
         }
+
+        // dd($this->data);
+        $ggSort = $this->data;
+
+        foreach ($ggSort as $user => &$wiasatas) {
+            ksort($wiasatas);
+        }
+
+        $this->hasilRatingTerurut = $ggSort;
 
         foreach ($this->data as $user => $val) {
             uasort($this->data[$user], function($a, $b) {
