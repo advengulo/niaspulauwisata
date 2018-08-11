@@ -87,8 +87,10 @@ class RecomendationController extends Controller
 
     public function trainingAdmin()
     {
-        $w = request('user_awal'); $x = request('user_akhir');
-        $y = request('wisata_awal'); $z = request('wisata_akhir');
+        $w = request('user_awal') ?? 1;
+        $x = request('user_akhir') ?? 11;
+        $y = request('wisata_awal') ?? 1;
+        $z = request('wisata_akhir') ?? 20;
         
         //dd(request()->all());
         if(Auth::check()) {
