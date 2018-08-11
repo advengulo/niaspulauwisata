@@ -118,6 +118,9 @@ Route::middleware(['role', 'auth'])->group(function () {
   Route::get('/dashboard/adminsetting', 'Admin\AdminSettingController@index')->name('admin.index');
   Route::get('/dashboard/inbox', 'Admin\InboxController@index')->name('inbox.index');
 
-  Route::get('/dashboard/training', 'RecomendationController@trainingAdmin');
-  Route::post('/dashboard/training', 'RecomendationController@trainingAdmin')->name('training.value');
+  Route::get('/dashboard/training', 'RecomendationController@training');
+
+  Route::get('/dashboard/traininguser', 'RecomendationController@trainingAdmin');
+  Route::post('/dashboard/traininguser', 'RecomendationController@trainingAdmin')->name('training.value');
+  Route::get('/dashboard/trainingitem', 'RecomendationController@trainingAdminItem')->name('training.valueitem');
 });

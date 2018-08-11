@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\User;
+use App\Profile;
 
 class UserSeeder extends Seeder
 {
@@ -22,6 +23,16 @@ class UserSeeder extends Seeder
             $user->email = $faker->email;
             $user->password = \Hash::make('password');
             $user->save();
+
+            $profile = new Profile();
+            $profile->user_id = $i+1;
+            $profile->pro_sampulImg = "/img/profile/sampul/sampul1.jpg";
+            $profile->pro_tempatLahir = "Gunungsitoli";
+            $profile->pro_tglLahir = '1990-1-1';
+            $profile->pro_jenisKelamin = "";
+            $profile->pro_telp = "62";
+            $profile->pro_alamat = $faker->address;
+            $profile->save();
         }
 
         // Admin

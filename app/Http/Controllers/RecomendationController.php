@@ -9,153 +9,12 @@ use Auth;
 use App\User;
 use App\Wisata;
 use App\Ulasan;
+use App\DataSetWisata;
 use Cache;
 
 class RecomendationController extends Controller
 {
     private $recomendationClass;
-
-    public function trainingUser()
-    {
-        if(Auth::check()) {
-            $usersWithRating = User::get()->where('id','>=', 5)->where('id','<=',11)
-                ->groupBy('id')
-                ->map(function($user, $userId) {
-                    $wisatas = Wisata::get()->where('id','>=', 5)->where('id','<=',20);
-
-                    $ratings = [];
-                    foreach ($wisatas as $wisata)
-                    {
-                        $rating = $wisata
-                            ->ratings()->where('user_id', $userId)
-                            ->first()->rating ?? null
-                        ;
-                        //$ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
-                        if(null !== $rating){
-                            $ratings[$wisata->id] = $rating;
-                        }
-                    }
-                    return $ratings;
-                })
-                ->toArray();
-
-                // dd($usersWithRating);
-
-                $usersWithRating1 = User::get()->where('id','>=', 5)->where('id','<=',11)
-                    ->groupBy('id')
-                    ->map(function($user, $userId) {
-                        $wisatas = Wisata::get()->where('id','>=', 5)->where('id','<=',20);
-
-                    $ratings = [];
-                    foreach ($wisatas as $wisata)
-                    {
-                        $rating = $wisata
-                            ->ratings()->where('user_id', $userId)
-                            ->first()->rating ?? null
-                        ;
-                        $ratings[$wisata->id] = $rating !== null ? (string) $rating : "-";
-                    }
-                    return $ratings;
-                })
-                ->toArray();
-            
-            $userBased  = $this->getUserRating($usersWithRating);
-
-            $idlogin = auth()->id();
-            $datas = $usersWithRating1;          
-            $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
-            $selisihRatings = $this->recomendationClass->getSelisihRating();
-            $nilaiPearsons = $this->recomendationClass->getHitungPearson();          
-            $nilaiRatingss = $this->recomendationClass->getPredictRating();
-            $nilaiMae = $this->recomendationClass->getHitungMae();
-            $nilaiMaeItem = $this->recomendationClass->getHitungMaeItem();
-            
-            $nilaiRatings = $nilaiRatingss[$idlogin]; 
-
-            return view('trainingUser', [
-                'rataRatingUser' => $rataRatingUser,
-                'selisihRatings' => $selisihRatings,
-                'nilaiPearsons' => $nilaiPearsons,
-                'nilaiRatings' => $nilaiRatings,
-                'datas' => $datas,
-                'idlogin' => $idlogin,
-                'nilaiMae' => $nilaiMae,
-                'nilaiMaeItem' => $nilaiMaeItem,                
-            ]);
-        }
-    }
-
-    public function trainingAdmin()
-    {
-        $w = request('user_awal') ?? 1;
-        $x = request('user_akhir') ?? 11;
-        $y = request('wisata_awal') ?? 1;
-        $z = request('wisata_akhir') ?? 20;
-        
-        //dd(request()->all());
-        if(Auth::check()) {
-            $usersWithRating = User::get()->where('id','>=', $w)->where('id','<=',$x)
-                ->groupBy('id')
-                ->map(function($user, $userId) use($y,$z) {
-                    $wisatas = Wisata::get()->where('id','>=', $y)->where('id','<=',$z);
-
-                    $ratings = [];
-                    foreach ($wisatas as $wisata)
-                    {
-                        $rating = $wisata
-                            ->ratings()->where('user_id', $userId)
-                            ->first()->rating ?? null
-                        ;
-                        //$ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
-                        if(null !== $rating){
-                            $ratings[$wisata->id] = $rating;
-                        }
-                    }
-                    return $ratings;
-                })
-                ->toArray();
-
-            $usersWithRating1 = User::get()->where('id','>=', $w)->where('id','<=',$x)
-                ->groupBy('id')
-                ->map(function($user, $userId) use($y,$z) {
-                    $wisatas = Wisata::get()->where('id','>=', $y)->where('id','<=',$z);
-
-                    $ratings = [];
-                    foreach ($wisatas as $wisata)
-                    {
-                        $rating = $wisata
-                            ->ratings()->where('user_id', $userId)
-                            ->first()->rating ?? null
-                        ;
-                        $ratings[$wisata->id] = $rating !== null ? (string) $rating : "-";
-                    }
-                    return $ratings;
-                })
-                ->toArray();
-            
-            $userBased  = $this->getUserRatingTraining($usersWithRating);
-
-            $idlogin = auth()->id();
-            $datas = $usersWithRating1;          
-            $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
-            $selisihRatings = $this->recomendationClass->getSelisihRating();
-            $nilaiPearsons = $this->recomendationClass->getHitungPearson();          
-            $nilaiRatings = $this->recomendationClass->getPredictRating();
-            $nilaiMae = $this->recomendationClass->getHitungMae();
-            $nilaiMaeItem = $this->recomendationClass->getHitungMaeItem();            
-
-            return view('dashboards.training', [
-                'rataRatingUser' => $rataRatingUser,
-                'selisihRatings' => $selisihRatings,
-                'nilaiPearsons' => $nilaiPearsons,
-                'nilaiRatings' => $nilaiRatings,
-                'datas' => $datas,
-                'nilaiMae' => $nilaiMae,
-                'nilaiMaeItem' => $nilaiMaeItem,
-                'idlogin' => $idlogin,
-            ]);
-        }
-    }
 
     public function index()
     {
@@ -225,6 +84,147 @@ class RecomendationController extends Controller
         return view('wisataHasil', compact('userBased'));
     }
 
+    public function trainingAdmin()
+    {
+        $w = request('user_awal') ?? 1;
+        $x = request('user_akhir') ?? 10;
+        $y = request('wisata_awal') ?? 1;
+        $z = request('wisata_akhir') ?? 20;
+        
+        if(Auth::check()) {
+            $usersWithRating = User::get()->where('id','>=', $w)->where('id','<=',$x)
+                ->groupBy('id')
+                ->map(function($user, $userId) use($y,$z) {
+                    $wisatas = Wisata::get()->where('id','>=', $y)->where('id','<=',$z);
+
+                    $ratings = [];
+                    foreach ($wisatas as $wisata)
+                    {
+                        $rating = $wisata
+                            ->ratings()->where('user_id', $userId)
+                            ->first()->rating ?? null
+                        ;
+
+                        if(null !== $rating){
+                            $ratings[$wisata->id] = $rating;
+                        }
+                    }
+                    return $ratings;
+                })
+                ->toArray();
+
+            $usersWithRating1 = User::get()->where('id','>=', $w)->where('id','<=',$x)
+                ->groupBy('id')
+                ->map(function($user, $userId) use($y,$z) {
+                    $wisatas = Wisata::get()->where('id','>=', $y)->where('id','<=',$z);
+
+                    $ratings = [];
+                    foreach ($wisatas as $wisata)
+                    {
+                        $rating = $wisata
+                            ->ratings()->where('user_id', $userId)
+                            ->first()->rating ?? null
+                        ;
+                        $ratings[$wisata->id] = $rating !== null ? (string) $rating : "-";
+                    }
+                    return $ratings;
+                })
+                ->toArray();
+
+            $dataSetRating = DataSetWisata::get()->where('id','>=', $y)->where('id','<=',$z);
+            
+            $userBased  = $this->getUserRatingTraining($usersWithRating);
+
+            $datas = $usersWithRating1;          
+            $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
+            $selisihRatings = $this->recomendationClass->getSelisihRating();
+            $nilaiPearsons = $this->recomendationClass->getHitungPearson();
+            $nilaiRatingsTerurut = $this->recomendationClass->getHasilRatingTerurut(); 
+            $nilaiMae = $this->recomendationClass->getHitungMae();
+                       
+
+            return view('dashboards.trainingUser', [
+                'rataRatingUser' => $rataRatingUser,
+                'selisihRatings' => $selisihRatings,
+                'nilaiPearsons' => $nilaiPearsons,
+                'dataSetRating' => $dataSetRating,
+                'nilaiRatingsTerurut' => $nilaiRatingsTerurut,
+                'datas' => $datas,
+                'nilaiMae' => $nilaiMae,
+            ]);
+        }
+    }
+
+    public function trainingAdminItem()
+    {
+        $a = request('user_awal1') ?? 1;
+        $b = request('user_akhir1') ?? 10;
+        $c = request('wisata_awal1') ?? 1;
+        $d = request('wisata_akhir1') ?? 20;
+
+        if(Auth::check()) {
+            $usersWithRating = User::get()->where('id','>=', $a)->where('id','<=',$b)
+                ->groupBy('id')
+                ->map(function($user, $userId) use($c,$d) {
+                    $wisatas = Wisata::get()->where('id','>=', $c)->where('id','<=',$d);
+
+                    $ratings = [];
+                    foreach ($wisatas as $wisata)
+                    {
+                        $rating = $wisata
+                            ->ratings()->where('user_id', $userId)
+                            ->first()->rating ?? null
+                        ;
+                        if(null !== $rating){
+                            $ratings[$wisata->id] = $rating;
+                        }
+                    }
+                    return $ratings;
+                })
+                ->toArray();
+
+            $usersWithRating1 = User::get()->where('id','>=', $a)->where('id','<=',$b)
+                ->groupBy('id')
+                ->map(function($user, $userId) use($c,$d) {
+                    $wisatas = Wisata::get()->where('id','>=', $c)->where('id','<=',$d);
+
+                    $ratings = [];
+                    foreach ($wisatas as $wisata)
+                    {
+                        $rating = $wisata
+                            ->ratings()->where('user_id', $userId)
+                            ->first()->rating ?? null
+                        ;
+                        $ratings[$wisata->id] = $rating !== null ? (string) $rating : "-";
+                    }
+                    return $ratings;
+                })
+                ->toArray();
+            
+            $itemBased  = $this->getItemRatingTraining($usersWithRating);
+            
+            $dataSetRating = DataSetWisata::get()->where('id','>=', $c)->where('id','<=',$d);
+            
+            $datas = $usersWithRating1;          
+            $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
+            $selisihRatings = $this->recomendationClass->getSelisihRating();
+            $nilaiCosines = $this->recomendationClass->getCosineItemBased();
+            $nilaiRatingsTerurutItem = $this->recomendationClass->getHasilRatingTerurutItem();
+            $nilaiMaeItem = $this->recomendationClass->getHitungMaeItem();
+                       
+
+            return view('dashboards.trainingItem', [
+                'datas' => $datas,
+                'rataRatingUser' => $rataRatingUser,
+                'selisihRatings' => $selisihRatings,
+                'nilaiCosines' => $nilaiCosines,
+                'dataSetRating' => $dataSetRating,
+                'nilaiRatingsTerurutItem' => $nilaiRatingsTerurutItem,
+                'nilaiMaeItem' => $nilaiMaeItem,
+            ]);
+        }
+    }
+
     /**
      * Undocumented function
      *
@@ -237,23 +237,11 @@ class RecomendationController extends Controller
         $activeUser = request()->user();
 
         $recomendationResult = $this->recomendationClass->predictRating();
-        // dd($recomendationResult);
 
         return $this->hydrateData($recomendationResult);
 
     }
 
-    private function getUserRatingTraining(array $usersWithRating)
-    {
-        $this->recomendationClass = new Recomended($usersWithRating);
-        $activeUser = request()->user();
-
-        $recomendationResult = $this->recomendationClass->predictRating();
-        // dd($recomendationResult);
-
-        return $recomendationResult;
-
-    }
     /**
      * Ambil Rekomendasi Rating.
      *
@@ -266,7 +254,6 @@ class RecomendationController extends Controller
         $activeUser = request()->user();
 
         $recomendationResult = $this->recomendationClass->predictItemBased();
-        // dd($recomendationResult);
 
         return $this->hydrateData($recomendationResult);
     }
@@ -292,5 +279,98 @@ class RecomendationController extends Controller
         })->flatten()->take(10);
         
         return $reject;
+    }
+
+    private function getUserRatingTraining(array $usersWithRating)
+    {
+        $this->recomendationClass = new Recomended($usersWithRating);
+        $activeUser = request()->user();
+
+        $recomendationResult = $this->recomendationClass->predictRating();
+
+        return $recomendationResult;
+    }
+
+    private function getItemRatingTraining(array $usersWithRating)
+    {
+        $this->recomendationClass = new Recomended($usersWithRating);
+        $activeUser = request()->user();
+
+        $recomendationResult = $this->recomendationClass->predictItemBased();
+
+        return $recomendationResult;
+    }
+
+    public function training()
+    {
+        return view('dashboards.training');
+    }
+
+    public function trainingUser()
+    {
+        if(Auth::check()) {
+            $usersWithRating = User::get()
+                ->groupBy('id')
+                ->map(function($user, $userId) {
+                    $wisatas = Wisata::get();
+
+                    $ratings = [];
+                    foreach ($wisatas as $wisata)
+                    {
+                        $rating = $wisata
+                            ->ratings()->where('user_id', $userId)
+                            ->first()->rating ?? null
+                        ;
+                        //$ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
+                        if(null !== $rating){
+                            $ratings[$wisata->id] = $rating;
+                        }
+                    }
+                    return $ratings;
+                })
+                ->toArray();
+
+                $usersWithRating1 = User::get()
+                    ->groupBy('id')
+                    ->map(function($user, $userId) {
+                        $wisatas = Wisata::get();
+
+                    $ratings = [];
+                    foreach ($wisatas as $wisata)
+                    {
+                        $rating = $wisata
+                            ->ratings()->where('user_id', $userId)
+                            ->first()->rating ?? null
+                        ;
+                        $ratings[$wisata->id] = $rating !== null ? (string) $rating : "-";
+                    }
+                    return $ratings;
+                })
+                ->toArray();
+            
+            $userBased  = $this->getUserRating($usersWithRating);
+
+            $idlogin = auth()->id();
+            $datas = $usersWithRating1;          
+            $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
+            $selisihRatings = $this->recomendationClass->getSelisihRating();
+            $nilaiPearsons = $this->recomendationClass->getHitungPearson();          
+            $nilaiRatingss = $this->recomendationClass->getPredictRating();
+            $nilaiMae = $this->recomendationClass->getHitungMae();
+            $nilaiMaeItem = $this->recomendationClass->getHitungMaeItem();
+            
+            $nilaiRatings = $nilaiRatingss[$idlogin]; 
+
+            return view('trainingUser', [
+                'rataRatingUser' => $rataRatingUser,
+                'selisihRatings' => $selisihRatings,
+                'nilaiPearsons' => $nilaiPearsons,
+                'nilaiRatings' => $nilaiRatings,
+                'datas' => $datas,
+                'idlogin' => $idlogin,
+                'nilaiMae' => $nilaiMae,
+                'nilaiMaeItem' => $nilaiMaeItem,                
+            ]);
+        }
     }
 }

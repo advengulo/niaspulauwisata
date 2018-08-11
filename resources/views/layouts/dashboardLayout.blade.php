@@ -94,7 +94,7 @@
                         <div class="icon-bg bg-violet"></div>
                     </i><span class="menu-title">Make Post</span></a>
                     </li>
-                    <li class="{{Request::is("dashboard/training")?'active':''}}"><a href="/dashboard/training"><i class="fa fa-desktop fa-fw">
+                    <li class="{{Request::is("dashboard/training")?'active':'' || Request::is("dashboard/traininguser")?'active':'' || Request::is("dashboard/trainingitem")?'active':''}}"><a href="/dashboard/training"><i class="fa fa-desktop fa-fw">
                         <div class="icon-bg bg-blue"></div>
                         </i><span class="menu-title">Training</span></a>
                     </li>
@@ -110,7 +110,9 @@
                         <div class="icon-bg bg-yellow"></div>
                     </i><span class="menu-title">Admin Setting</span></a>
                     </li>
-                    <li><a href="logout.html"><i class="fa fa-key fa-fw">
+                    <li><a href="{{ route('logout') }}" 
+                        onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();"><i class="fa fa-key fa-fw">
                         <div class="icon-bg bg-grey"></div>
                     </i><span class="menu-title">Logout</span></a>
                     </li>
