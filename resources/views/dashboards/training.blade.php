@@ -158,7 +158,11 @@
                             </tbody>
                         </table>
                     </div>
-                </div> 
+                </div>
+                
+                {{-- <div class="row">
+                    <div class="col-md-4"> Nilai Mae : {{$nilaiMae}} </div></div> --}}
+                
             </div>
         </div>
 

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="google-site-verification" content="8cCD3J4sKcKE9231sjZaR3If0_YCnKAI-49bBKi2Ahs" />
 
   <title>{{ config('app.name', 'NiasPulauWisata') }}</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -116,7 +117,7 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <!-- JavaScript Libraries -->
-  <script src="http://maps.googleapis.com/maps/api/js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?"></script>
   <script src="{{ URL::asset('lib/jquery/jquery.min.js') }}"></script>
   <script src="{{ URL::asset('lib/jquery/jquery-migrate.min.js') }}"></script>
   <script src="{{ URL::asset('lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

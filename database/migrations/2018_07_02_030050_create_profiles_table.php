@@ -20,7 +20,7 @@ class CreateProfilesTable extends Migration
             $table->string('pro_tempatLahir');
             $table->date('pro_tglLahir');
             $table->string('pro_jenisKelamin');
-            $table->integer('pro_telp');
+            $table->bigInteger('pro_telp');
             $table->text('pro_alamat');
             $table->timestamps();
 

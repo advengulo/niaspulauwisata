@@ -19,13 +19,17 @@ class CreateWisatasTable extends Migration
           $table->integer('artikel_id')->unsigned()->nullable()->index();
           $table->string('wisata_gambar');
           $table->string('wisata_lokasi');
-          $table->integer('wisata_jenis_id')->unsigned()->nullable()->index();
+          $table->unsignedInteger('wisata_jenis_id')->unsigned()->nullable()->index();
           $table->string('latitude');
           $table->string('longtitude');
           $table->timestamps();
 
-          $table->foreign('artikel_id')->references('id')->on('artikels');
-          $table->foreign('wisata_jenis_id')->references('id')->on('jeniswisatas');
+         
+        });
+
+        Schema::table('wisatas', function($table) {
+            $table->foreign('artikel_id')->references('id')->on('artikels');
+            $table->foreign('wisata_jenis_id')->references('id')->on('jeniswisatas');
         });
     }
 

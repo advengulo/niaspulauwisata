@@ -43,7 +43,7 @@ class WisataUlasanController extends Controller
 
             'isi_ulasan' => $request->isi_ulasan,
 
-            // 'temp_rat' => $request->rate
+            'temp_rat' => $request->rate
           ]);
         }
 

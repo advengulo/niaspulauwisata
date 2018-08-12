@@ -51,13 +51,13 @@
                               <input type="text" class="form-control"  placeholder="" name="ttl" value="{{ $user->profile['pro_tempatLahir']}}" style="width=12px;">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control"  placeholder="dd/mm/yyyy" name="date" value="{{ $user->profile['pro_tglLahir']}}">
+                                <input type="date" class="form-control"  placeholder="dd/mm/yyyy" name="date" value="{{ $user->profile['pro_tglLahir']}}">
                             </div>                    
                     </td>
                   </tr>
                   <tr>
                     <td>Jenis Kelamin</td>
-                    <td><input type="text" class="form-control"  placeholder="" name="gender" value="{{ $user->profile['pro_jenisKelamin']}}">
+                    <td><input type="text" class="form-control"  placeholder="" name="gender" value="{{ $user->profile['pro_jenisKelamin']}}" disabled>
                         <input type="radio" name="gender" value="Laki-Laki"> Laki-Laki<br>
                         <input type="radio" name="gender" value="Perempuan"> Perempuan<br>
                     </td>
@@ -73,7 +73,7 @@
                   </tr>
                   <tr>
                     <td>Nomor Telepon / Hp</td>
-                    <td><input type="text" class="form-control"  placeholder="" name="phone" value="{{ $user->profile['pro_telp']}}"></td>
+                    <td><input type="tel" type="tel" required pattern="^\d{12}$" title="Nomor Telepon / HP harus angka dan 12 digit "  class="form-control"  placeholder="" name="phone" value="{{ $user->profile['pro_telp']}}"></td>
                   </tr>
                 </tbody>
               </table>
@@ -81,7 +81,7 @@
         </div>
         <div class="row">
             <div class="col-md-2 col-md-offset-6">
-              <input type="submit" class="btn btn-primary" style="width:100%">
+              <input type="submit" class="btn btn-primary" value="Simpan" style="width:100%">
             </div>
             {{ csrf_field() }}
           </div>

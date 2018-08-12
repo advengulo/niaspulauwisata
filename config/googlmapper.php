@@ -20,7 +20,7 @@ return [
     | A Google API key to link Googlmapper to Google's API.
     |
     */
-    'key' => env('GOOGLE_API_KEY', 'AIzaSyBbTNDewTIOlK1zeU8FDwyBub8ngz5MAps'),
+    'key' => env('GOOGLE_API_KEY', 'AIzaSyDuqXvcK4FSLU3XGOLYLgi9vsEQ86-PzGc'),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     | location.
     |
     */
-    'locate' => false,
+    'locate' => true,
 
     /*
     |--------------------------------------------------------------------------

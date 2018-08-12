@@ -4,274 +4,203 @@ namespace App\Http\Controllers;
 
 use App\Service\Recomended;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Auth;
 use App\User;
 use App\Wisata;
-use App\Ulasan;
+use App\Artikel;
 use Cache;
-
+use Illuminate\Support\Facades\DB;
 class RecomendationController extends Controller
 {
-    private $recomendationClass;
-
-    public function trainingUser()
-    {
-        if(Auth::check()) {
-            $usersWithRating = User::get()
-                ->groupBy('id')
-                ->map(function($user, $userId) {
-                    $wisatas = Wisata::get();
-
-                    $ratings = [];
-                    foreach ($wisatas as $wisata)
-                    {
-                        $rating = $wisata
-                            ->ratings()->where('user_id', $userId)
-                            ->first()->rating ?? null
-                        ;
-                        //$ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
-                        if(null !== $rating){
-                            $ratings[$wisata->id] = $rating;
-                        }
-                    }
-                    return $ratings;
-                })
-                ->toArray();
-
-            $usersWithRating1 = User::get()
-                ->groupBy('id')
-                ->map(function($user, $userId) {
-                    $wisatas = Wisata::get();
-
-                    $ratings = [];
-                    foreach ($wisatas as $wisata)
-                    {
-                        $rating = $wisata
-                            ->ratings()->where('user_id', $userId)
-                            ->first()->rating ?? null
-                        ;
-                        $ratings[$wisata->id] = $rating !== null ? (string) $rating : "-";
-                    }
-                    return $ratings;
-                })
-                ->toArray();
-            
-            $userBased  = $this->getUserRating($usersWithRating);
-
-            $idlogin = auth()->id();
-            $datas = $usersWithRating1;          
-            $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
-            $selisihRatings = $this->recomendationClass->getSelisihRating();
-            $nilaiPearsons = $this->recomendationClass->getHitungPearson();          
-            $nilaiRatingss = $this->recomendationClass->getPredictRating();
-            $nilaiMae = $this->recomendationClass->getHitungMae();
-            $nilaiMaeItem = $this->recomendationClass->getHitungMaeItem();
-            
-            $nilaiRatings = $nilaiRatingss[$idlogin]; 
-
-            return view('trainingUser', [
-                'rataRatingUser' => $rataRatingUser,
-                'selisihRatings' => $selisihRatings,
-                'nilaiPearsons' => $nilaiPearsons,
-                'nilaiRatings' => $nilaiRatings,
-                'datas' => $datas,
-                'idlogin' => $idlogin,
-                'nilaiMae' => $nilaiMae,
-                'nilaiMaeItem' => $nilaiMaeItem,                
-            ]);
-        }
-    }
-
-    public function trainingAdmin()
-    {
-        if(Auth::check()) {
-            $usersWithRating = User::get()
-                ->groupBy('id')
-                ->map(function($user, $userId) {
-                    $wisatas = Wisata::get();
-
-                    $ratings = [];
-                    foreach ($wisatas as $wisata)
-                    {
-                        $rating = $wisata
-                            ->ratings()->where('user_id', $userId)
-                            ->first()->rating ?? null
-                        ;
-                        //$ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
-                        if(null !== $rating){
-                            $ratings[$wisata->id] = $rating;
-                        }
-                    }
-                    return $ratings;
-                })
-                ->toArray();
-
-            $usersWithRating1 = User::get()
-                ->groupBy('id')
-                ->map(function($user, $userId) {
-                    $wisatas = Wisata::get();
-
-                    $ratings = [];
-                    foreach ($wisatas as $wisata)
-                    {
-                        $rating = $wisata
-                            ->ratings()->where('user_id', $userId)
-                            ->first()->rating ?? null
-                        ;
-                        $ratings[$wisata->id] = $rating !== null ? (string) $rating : "-";
-                    }
-                    return $ratings;
-                })
-                ->toArray();
-            
-            $userBased  = $this->getUserRatingAdmin($usersWithRating);
-
-            $idlogin = auth()->id();
-            $datas = $usersWithRating1;          
-            $rataRatingUser = $this->recomendationClass->getRataDariSetiapWisata();
-            $selisihRatings = $this->recomendationClass->getSelisihRating();
-            $nilaiPearsons = $this->recomendationClass->getHitungPearson();          
-            $nilaiRatings = $this->recomendationClass->getPredictRatingAdmin();
-            //dd($nilaiRatings);
-
-            return view('dashboards.training', [
-                'rataRatingUser' => $rataRatingUser,
-                'selisihRatings' => $selisihRatings,
-                'nilaiPearsons' => $nilaiPearsons,
-                'nilaiRatings' => $nilaiRatings,
-                'datas' => $datas,
-                'idlogin' => $idlogin,
-            ]);
-        }
-    }
-
     public function index()
     {
-        $idUserLogin = auth()->id();
-        if(Auth::check()) {
+        if(Auth::check()){
             $usersWithRating = User::get()
-                ->groupBy('id')
-                ->map(function($user, $userId) {
-                    $wisatas = Wisata::get();
+            ->groupBy('id')
+            ->map(function($user, $userId) {
+                $wisatas = Wisata::get();
 
-                    $ratings = [];
-                    foreach ($wisatas as $wisata)
-                    {
-                        $rating = $wisata
-                            ->ratings()->where('user_id', $userId)
-                            ->first()->rating ?? null
-                        ;
-                        //$ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
-                        if(null !== $rating){
-                            $ratings[$wisata->id] = $rating;
-                        }
-                    }
+                $ratings = [];
+                foreach ($wisatas as $wisata)
+                {
+                    $rating = $wisata
+                        ->ratings()->where('user_id', $userId)
+                        ->first()->rating ?? null
+                    ;
+                    $ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
+                }
 
-                    return $ratings;
-                })
-                ->toArray();
+                return $ratings;
+            })
+            ->toArray()
+        ;
 
-                // $banyakDataUser = DB::table('ulasans')->where('user_id', $idUserLogin)->count();
-                
-                // if($banyakDataUser < 2)
-                // {
-                //     $userBaseds = DB::table('wisatas')
-                //             ->select('wisatas.id')
-                //             ->leftJoin('ratings', 'wisatas.id', '=', 'ratings.rateable_id')
-                //             ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-                //             ->groupBy('wisatas.id')
-                //             ->orderBy('average_rating', 'desc')
-                //             ->paginate(10);
-                
-                // $userBased = collect($userBaseds);
-                // $userBased = $userBaseds->map(function($item) {
-                //     return Wisata::with('ratings')->find($item->id);
-                // }); 
-                // $userBased = collect($userBaseds);
-                // $userBased = $userBaseds->map(function($item) {
-                //     return Wisata::with('ratings')->find($item->id);       
-                
-                // return view('wisataHasil', compact('userBased'));
-                // }
+        //$itemBased = $this->getItemRating($usersWithRating);
+        //dd($itemBased);
+        // return $itemBased;
+        $userBased  = $this->getUserRating($usersWithRating);
 
-            $userBased  = $this->getUserRating($usersWithRating);            
-            return view('wisataHasil', compact('userBased')); 
-        }
-        $userBaseds = DB::table('wisatas')
-                    ->select('wisatas.id')
-                    ->leftJoin('ratings', 'wisatas.id', '=', 'ratings.rateable_id')
-                    ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-                    ->groupBy('wisatas.id')
-                    ->orderBy('average_rating', 'desc')
-                    ->paginate(10);
-        
-        $userBased = collect($userBaseds);
-        $userBased = $userBaseds->map(function($item) {
-            return Wisata::with('ratings')->find($item->id);
-        });        
-        
+
         return view('wisataHasil', compact('userBased'));
-    }
+        } else{
+            $userBased = Wisata::latest()->paginate(4);
+            return view('wisataHasil', compact('userBased'));
+        }
 
-    /**
-     * Undocumented function
-     *
-     * @param array $usersWithRating
-     * @return void
-     */
+
+    }
+    
+
     private function getUserRating(array $usersWithRating)
     {
-        $this->recomendationClass = new Recomended($usersWithRating);
+        $recomendation = new Recomended($usersWithRating);
         $activeUser = request()->user();
 
-        $recomendationResult = $this->recomendationClass->predictRating();
+        $recomendationResult = $recomendation->predictRating();
         // dd($recomendationResult);
 
         return $this->hydrateData($recomendationResult);
 
     }
-
-    private function getUserRatingAdmin(array $usersWithRating)
-    {
-        $this->recomendationClass = new Recomended($usersWithRating);
-        
-
-        $recomendationResult = $this->recomendationClass->predictRatingAdmin();
-        // dd($this->recomendationClass->predictRatingAdmin());
-
-        return $this->hydrateDataAdmin($recomendationResult);
-
-    }
+    
 
 
-    /**
-     * Ambil Rekomendasi Rating.
-     *
-     * @param array $usersWithRating
-     * @return void
-     */
     private function getItemRating(array $usersWithRating)
     {
-        $this->recomendationClass = new Recomended($usersWithRating);
+
+        $recomendation = new Recomended($usersWithRating);
         $activeUser = request()->user();
 
-        $recomendationResult = $this->recomendationClass->predictItemBased();
-        // dd($recomendationResult);
+        $recomendationResult = $recomendation->predictItemBased();
+        //dd($recomendationResult);
 
         return $this->hydrateData($recomendationResult);
     }
+    public function indexAPI(Request $request)
+    {
+        $check = $request->userid;
+        if(isset($check)){
+            $usersWithRating = User::get()
+            ->groupBy('id')
+            ->map(function($user, $userId) {
+                $wisatas = Wisata::get();
 
-    /**
-     * Convert ke Model
-     *
-     * @param array $recomendationResult
-     * @return void
-     */
+                $ratings = [];
+                foreach ($wisatas as $wisata)
+                {
+                    $rating = $wisata
+                        ->ratings()->where('user_id', $userId)
+                        ->first()->rating ?? null
+                    ;
+                    $ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
+                }
+
+                return $ratings;
+            })
+            ->toArray()
+        ;
+
+            $userBased  = $this->getUserRatingAPI($usersWithRating,$check);
+            foreach($userBased as $user){
+                $user->artikel = Artikel::where('id',$user->artikel_id)->first()->artikel;
+            }
+            $response = new \stdClass();
+            $response->error = 0;
+            $response->data = $userBased;
+            return json_encode($response);
+        } else{
+            // $userBased = DB::table('wisatas')
+            //     ->join('artikels', 'wisatas.artikel_id', '=', 'artikels.id')
+            //     ->select('wisatas.*','artikels.artikel')
+            //     ->orderBy('created_at','desc')
+            //     ->get();
+            $userBased = Wisata::latest()->paginate(4);
+            foreach($userBased as $user){
+                $user->artikel = Artikel::where('id',$user->artikel_id)->first()->artikel;
+            }
+            // $response = new \stdClass();
+            // $response->error = 0;
+            // $response->data = $userBased;
+            return json_encode($userBased);
+        }
+
+
+    }
+    public function indexAPI2(Request $request)
+    {
+        $check = $request->userid;
+        if(isset($check)){
+            $usersWithRating = User::get()
+            ->groupBy('id')
+            ->map(function($user, $userId) {
+                $wisatas = Wisata::get();
+
+                $ratings = [];
+                foreach ($wisatas as $wisata)
+                {
+                    $rating = $wisata
+                        ->ratings()->where('user_id', $userId)
+                        ->first()->rating ?? null
+                    ;
+                    $ratings[$wisata->id] = $rating !== null ? (int) $rating : null;
+                }
+
+                return $ratings;
+            })
+            ->toArray()
+        ;
+
+            $itemBased  = $this->getItemRatingAPI($usersWithRating,$check);
+            foreach($itemBased as $user){
+                $user->artikel = Artikel::where('id',$user->artikel_id)->first()->artikel;
+            }
+            $response = new \stdClass();
+            $response->error = 0;
+            $response->data = $itemBased;
+            return json_encode($response);
+        } else{
+            $itemBased = Wisata::latest()->paginate(4);
+            foreach($itemBased as $user){
+                $user->artikel = Artikel::where('id',$user->artikel_id)->first()->artikel;
+            }
+            return json_encode($itemBased);
+        }
+    }
+    private function getUserRatingAPI(array $usersWithRating,$check)
+    {
+        $recomendation = new Recomended($usersWithRating);
+        $recomendationResult = $recomendation->predictRating();
+        // dd($recomendationResult);
+        return $this->hydrateDataAPI($recomendationResult,$check);
+
+    }
+    private function getItemRatingAPI(array $usersWithRating,$check)
+    {
+
+        $recomendation = new Recomended($usersWithRating);
+        $recomendationResult = $recomendation->predictItemBased();
+        //dd($recomendationResult);
+
+        return $this->hydrateDataAPI($recomendationResult,$check);
+    }
+    private function hydrateDataAPI(array $recomendationResult,$check)
+    {
+        $activeUser = User::where('id',$check)->first();
+        $data = ($recomendationResult[$check]);
+        $ids = collect(array_keys($data))->map(function($value) {
+            return Wisata::find($value);
+        });
+
+        $reject = $ids->reject(function($wisata) use($activeUser) {
+            return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
+        })->flatten();
+        return $reject;
+    }
     private function hydrateData(array $recomendationResult)
     {
         $activeUser = request()->user();
-
+        //dd($recomendationResult);
+        //$data = collect($recomendationResult[$activeUser->id])->take(20)->toArray();
         $data = ($recomendationResult[$activeUser->id]);
         $ids = collect(array_keys($data))->map(function($value) {
             return Wisata::find($value);
@@ -279,24 +208,11 @@ class RecomendationController extends Controller
 
         $reject = $ids->reject(function($wisata) use($activeUser) {
             return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
-        })->flatten()->take(10);
+        })->flatten();
         
-        return $reject;
-    }
 
-    private function hydrateDataAdmin(array $recomendationResult)
-    {
-        $activeUser = request()->user();
 
-        $data = ($recomendationResult[$activeUser->id]);
-        $ids = collect(array_keys($data))->map(function($value) {
-            return Wisata::find($value);
-        });
 
-        $reject = $ids->reject(function($wisata) use($activeUser) {
-            return $wisata->ratings()->where('user_id', $activeUser->id)->exists();
-        });
-        
         return $reject;
     }
 }

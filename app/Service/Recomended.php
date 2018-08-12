@@ -256,6 +256,8 @@ class Recomended
         $firman = [];
         $fromDataSet = [];
         $totalUser = count($this->missingRating);
+        // dd($totalUser);
+
         
 
         // foreach ($this->data)
@@ -277,8 +279,8 @@ class Recomended
             });
             return $total;
         })->sum();
-
         $newFirman = abs($newFirman) / $totalUser; 
+        
         return $newFirman;
     }
 
