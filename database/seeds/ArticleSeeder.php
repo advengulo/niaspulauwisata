@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Artikel;
-use App\Budaya;
 
 class ArticleSeeder extends Seeder
 {
@@ -19,14 +18,7 @@ class ArticleSeeder extends Seeder
         {
             $artikel = new Artikel();
             $artikel->artikel = $faker->text;
-            $artikel->save();
-
-            Budaya::create([
-                'budaya_name' => $faker->name,
-                'artikel_id' => $artikel->id,
-                'budaya_gambar' => "gambar",
-                'budaya_lokasi' => "location",
-            ]);
+            $artikel->save();            
         }
     }
 }

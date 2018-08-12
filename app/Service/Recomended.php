@@ -6,66 +6,40 @@ use App\DataSetWisata;
 
 class Recomended
 {
-    public $rataRata;
-
-    /**
-     * Array Data yang akan di training
-     * 
-     *
-     * @var [type]
-     */
     private $data;
 
-    /**
-     * Property untuk hasil rata setiap wisata
-     *
-     * @var [type]
-     */
     private $rataDariSetiapWisata;
     private $selisihRating;
+
     private $hitungPearson;
     private $predictRating;
-    private $predictRatingAdmin;
     
     private $missingRating;
+    private $missingRatingItem;    
 
     private $hasilHitungMae;
-    private $hasilHitungMaeItem;    
+    private $hasilHitungMaeItem;
+
+    private $hasilRatingTerurut;
+    private $hasilRatingTerurutItem;    
+
+    private $cosineItemBased;
+    private $predictItemBased;
 
     public function __construct(array $data)
     {
         $this->data = $data;
         $this->missingRating = [];
-        // $this->hasilHitungMae = 0;
     }
-
-    // public function getData(array $array = null)
-    // {
-    //     if (null === $this->data){
-    //         $datas = $array ?? $this->getData();
-    //         $this->data = $this->data($datas);
-    //     }
-    //     return $this->data;
-    // }
 
     public function rataDariSetiapWisata()
     {
         $data = collect($this->data);
-
         $items = $data->map(function ($item) {
             return collect($item)->avg();
         })->toArray();
         
         return $items;        
-    }
-
-    public function getRataDariSetiapWisata()
-    {
-        if (null === $this->rataDariSetiapWisata) {
-            $this->rataDariSetiapWisata = $this->rataDariSetiapWisata();
-        }
-
-        return $this->rataDariSetiapWisata;
     }
 
     public function selisihRating(array $items = [])
@@ -79,15 +53,6 @@ class Recomended
 
         return $users;
     }
-
-    public function getSelisihRating(array $array = null)
-    {
-        if (null === $this->selisihRating){
-            $data = $array ?? $this->getRataDariSetiapWisata();
-            $this->selisihRating = $this->selisihRating($data);
-        }
-        return $this->selisihRating;
-    }
     
     public function hitungPearson()
     {
@@ -98,9 +63,7 @@ class Recomended
                 'data' => $data,
             ];
         }
-
         $arrayResult = [];
-
         $rataWisata = $this->getRataDariSetiapWisata();
         for ($i=0; $i<=count($prepareData) - 1; $i++) {
             $userId = $prepareData[$i]['userId'];
@@ -119,12 +82,9 @@ class Recomended
                         $akarDariSelisihRatingA = $this->getSelisihRating()[$userId]; //kiri
                         $akarDariSelisihRatingB = $this->getSelisihRating()[$nextUserId]; //kanan
 
-                        
-                            $itemA[] = $akarDariSelisihRatingA[$index] ** 2;
-                            $itemB[] = $akarDariSelisihRatingB[$index] ** 2;
-                            $tempResult[$index] = $result;
-                       
-                        
+                        $itemA[] = $akarDariSelisihRatingA[$index] ** 2;
+                        $itemB[] = $akarDariSelisihRatingB[$index] ** 2;
+                        $tempResult[$index] = $result;  
                     }
                 }
 
@@ -144,19 +104,11 @@ class Recomended
         }
 
         return $arrayResult;
-    }
-
-    public function getHitungPearson()
-    {
-        if(null === $this->hitungPearson){
-            $this->hitungPearson = $this->hitungPearson();
-        }
-        return $this->hitungPearson;
-    }   
+    }  
 
     public function predictRating()
     {
-        // Arrah kosong untuk modifikasi data
+        // Array kosong untuk modifikasi data
         $prepareData = [];
 
         $pearson = $this->getHitungPearson();
@@ -166,16 +118,11 @@ class Recomended
                 'data' => $data,
             ];
         }
-
         $arrayResult = [];
-
         // Ambil Rata dari Setiap Wisata
         $rataWisata = $this->getRataDariSetiapWisata();
         // Ambil Selisih Rating
-        $selisihRating = $this->getSelisihRating();
-
-        // dd($prepareData);
-        
+        $selisihRating = $this->getSelisihRating();        
         for ($i=0; $i<=count($prepareData) - 1; $i++) {
             $userId = $prepareData[$i]['userId'];
 
@@ -231,6 +178,11 @@ class Recomended
                 }
             }
         }
+        $ggSort = $this->data;
+        foreach ($ggSort as $user => &$wiasatas) {
+            ksort($wiasatas);
+        }
+        $this->hasilRatingTerurut = $ggSort;
 
         foreach ($this->data as $user => $val) {
             uasort($this->data[$user], function($a, $b) {
@@ -238,6 +190,7 @@ class Recomended
             });
         }    
         
+<<<<<<< HEAD
         return $this->data;
         
     }
@@ -338,15 +291,17 @@ class Recomended
 
     private function calculatePearson(int $currentUserId, array $prepareData)
     {
+=======
+        return $this->data;        
+>>>>>>> 87f7369abb71b8b4082d10db9a3d219907bbc1d4
     }
 
     public function cosineItemBased()
     {
         $rata = $this->getRataDariSetiapWisata();
-        $selisihRating = $this->selisihRating($rata);
+        $selisihRating = $this->getSelisihRating();
 
         $prepareData = [];
-        $totalProduct = 5;
         foreach ($selisihRating as $index => $data) {
             foreach ($data as $iData => $v) {
                 $prepareData[$iData][$index] = $v;
@@ -384,18 +339,11 @@ class Recomended
         return $hasilArray;
     }
 
-    private function getTetangga(array $data, $scope)
-    {
-        return collect($data)->reject($scope);
-    }
-
     public function predictItemBased()
     {
         $dataAwal = $this->data;
-        $cosine = $this->cosineItemBased();
-        // dump($cosine);
+        $cosine = $this->getCosineItemBased();
 
-        // dd($cosine);
         foreach ($dataAwal as $user => $r) {
             foreach ($cosine as $itemIndex => $item) {
                 $check = $dataAwal[$user][$itemIndex] ?? null;
@@ -420,7 +368,6 @@ class Recomended
 
                     $dataYangDiAmbil = [];
                     foreach ($data as $indexDataUserId => $value) {
-                        // dd($indexDataUserId);
                         if ($s = $this->data[$user][$indexDataUserId] ?? false) {
                             $dataYangDiAmbil[$indexDataUserId] = $s;
                         }
@@ -439,10 +386,17 @@ class Recomended
                         $finalResult = 0;
                     }
                     $this->data[$user][$itemIndex] = $finalResult;
+                    $this->missingRatingItem[$user][$itemIndex] = null;
+                    
                 }
             }
         }
-        // dd($this->data);
+        $ggSort = $this->data;
+        foreach ($ggSort as $user => &$wiasatas) {
+            ksort($wiasatas);
+        }
+        $this->hasilRatingTerurutItem = $ggSort;
+
         foreach ($this->data as $user => $val) {
             uasort($this->data[$user], function($a, $b) {
                 return $a < $b;
@@ -452,90 +406,138 @@ class Recomended
         return $this->data;
     }
 
-    public function predictRatingAdmin()
-    {
-        $prepareData = [];
-        $pearson = $this->getHitungPearson();
-        foreach ($this->data as $index => $data) {
-            $prepareData[] = [
-                'userId' => $index,
-                'data' => $data,
-            ];
-        }
+    public function hitungMae()
+    {        
+        $firman = [];
+        $fromDataSet = [];
+        $totalUser = count($this->missingRating);
+        
 
-        $arrayResult = [];
-
-        $rataWisata = $this->getRataDariSetiapWisata();
-        $selisihRating = $this->getSelisihRating();
-
-        for ($i=0; $i<=count($prepareData) - 1; $i++) {
-            $userId = $prepareData[$i]['userId'];
-
-            for ($j=0; $j<= count($prepareData) - 1; $j++) {
-                if ($j === $i) {
-                    continue;
-                }
-                $nextUserId = $prepareData[$j]['userId'];
-                foreach ($prepareData[$i]['data'] as $index => $rating) {
-                    $nextRating = $prepareData[$j]['data'][$index] ?? null;
-                    if (null === $nextRating) {
-                        $countPositive = collect($pearson[$nextUserId])->reject(function ($item, $index) use ($nextUserId) {
-                            return $item <= 0 || $index === $nextUserId;
-                        })->count();
-
-                        $countNegative = collect($pearson[$nextUserId])->reject(function ($item, $index) use ($nextUserId) {
-                            return $item >= 0 || $index === $nextUserId;
-                        })->count();
-
-                        if ($countPositive >= 2) {
-                            $data  = $this->getTetangga($pearson[$nextUserId], function ($item, $index) use ($nextUserId) {
-                                return $item <= 0 || $index === $nextUserId;
-                            })->take(2)->toArray();
-                        } else {
-                            $data  = $this->getTetangga($pearson[$nextUserId], function ($item, $index) use ($nextUserId) {
-                                return $item >= 0 || $index === $nextUserId;
-                            })->take(2)->toArray();
-                        }
-
-                        $dataYangDiAmbil = [];
-                        foreach ($data as $indexDataUserId => $value) {
-                            if ($s = $selisihRating[$indexDataUserId][$index] ?? false) {
-                                $dataYangDiAmbil[$indexDataUserId] = $s;
-                            }
-                        }
-
-                        $hasilKali = 0;
-                        foreach ($data as $u => $v) {
-                            if ($datasu = $dataYangDiAmbil[$u] ?? false) {
-                                $hasilKali += ($data[$u] * $dataYangDiAmbil[$u]);
-                            }
-                        }
-
-                        try {
-                            $finalResult = ($hasilKali / array_sum($data) + $rataWisata[$nextUserId]);
-                        } catch (\Exception $e) {
-                            $finalResult = 0;
-                        }
-                        $this->data[$nextUserId][$index] = $finalResult;
-                    }
-                }
+        foreach ($this->missingRating as $userId => $values) {
+            foreach ($values as $wisataId => $any) {
+                $firman[$wisataId][] = $this->data[$userId][$wisataId];
+                $fromDataSet[$wisataId] = DataSetWisata::find($wisataId)->rating;
             }
         }
-        // foreach ($this->data as $user => $val) {
-        //     uasort($this->data[$user], function($a, $b) {
-        //         return $a < $b;
-        //     });
-        // }
 
-        return $this->data;
-    }
-
-    public function getPredictRatingAdmin()
-    {
-        if(null === $this->predictRatingAdmin){
-            $this->predictRatingAdmin = $this->predictRatingAdmin();
+        $newFirman = collect($firman)->map(function($item, $wisataId) {
+            $total = 0;
+            collect($item)->each(function($n) use($wisataId, &$total) {
+                $total += $n - DataSetWisata::find($wisataId)->rating;
+            });
+            return $total;
+    })->sum();
+        
+        if($totalUser != 0){
+            $newFirman = abs($newFirman) / $totalUser; 
+            return $newFirman;
         }
-        return $this->predictRatingAdmin;
+        else{
+            return 0;
+        }     
     }
-    
+
+    public function hitungMaeItem()
+    {        
+        $firman = [];
+        $fromDataSet = [];
+
+        foreach ($this->missingRatingItem as $userId => $values) {
+            foreach ($values as $wisataId => $any) {
+                $firman[$wisataId][] = $this->data[$userId][$wisataId];
+                $fromDataSet[$wisataId] = DataSetWisata::find($wisataId)->rating;
+            }
+        }
+
+        $newFirman = collect($firman)->map(function($item, $wisataId) {
+            $total = 0;
+            collect($item)->each(function($n) use($wisataId, &$total) {
+                $total += $n - DataSetWisata::find($wisataId)->rating;
+            });
+            return $total;
+        })->sum();
+
+        $totalItem = count($firman);
+        
+        if($totalItem != 0){
+            $newFirman = abs($newFirman) / $totalItem;
+            return $newFirman;
+        }
+        else{
+            return 0;
+        }    
+    }
+
+    private function getTetangga(array $data, $scope)
+    {
+        return collect($data)->reject($scope);
+    }
+
+    public function getRataDariSetiapWisata()
+    {
+        if (null === $this->rataDariSetiapWisata) {
+            $this->rataDariSetiapWisata = $this->rataDariSetiapWisata();
+        }
+
+        return $this->rataDariSetiapWisata;
+    }
+
+    public function getSelisihRating(array $array = null)
+    {
+        if (null === $this->selisihRating){
+            $data = $array ?? $this->getRataDariSetiapWisata();
+            $this->selisihRating = $this->selisihRating($data);
+        }
+        return $this->selisihRating;
+    }
+
+    public function getHitungPearson()
+    {
+        if(null === $this->hitungPearson){
+            $this->hitungPearson = $this->hitungPearson();
+        }
+        return $this->hitungPearson;
+    }
+
+    public function getHasilRatingTerurut()
+    {
+        if(null === $this->hasilRatingTerurut){
+            $this->hasilRatingTerurut = $this->predictRating();
+        }
+        return $this->hasilRatingTerurut;        
+    }
+
+    public function getCosineItemBased()
+    {
+        if(null === $this->cosineItemBased){
+            $this->cosineItemBased = $this->cosineItemBased();
+        }
+        return $this->cosineItemBased;
+    }
+
+    public function getHasilRatingTerurutItem()
+    {
+        if(null === $this->hasilRatingTerurutItem){
+            $this->hasilRatingTerurutItem = $this->predictRating();
+        }
+        return $this->hasilRatingTerurutItem;        
+    }
+
+    public function getHitungMae()
+    {
+        if (null === $this->hasilHitungMae) {
+            $this->hasilHitungMae = $this->hitungMae();
+        }
+
+        return $this->hasilHitungMae;
+    }
+
+    public function getHitungMaeItem()
+    {
+        if (null === $this->hasilHitungMaeItem) {
+            $this->hasilHitungMaeItem = $this->hitungMaeItem();
+        }
+
+        return $this->hasilHitungMaeItem;
+    }
 }

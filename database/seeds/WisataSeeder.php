@@ -16,13 +16,13 @@ class WisataSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
 
-        $wisataSize = 20;
+        $wisataSize = 50;
         $minimalRating = 11;
         for($i=0; $i<$wisataSize; $i++)
         {
             $wisata = new Wisata();
             $wisata->wisata_name = $faker->name;
-            $wisata->artikel_id = 30;
+            $wisata->artikel_id = rand(1, 50);
             $wisata->latitude = $faker->latitude;
             $wisata->longtitude = $faker->longitude;
             $wisata->wisata_jenis_id = 1;
@@ -34,7 +34,7 @@ class WisataSeeder extends Seeder
             {
                 // // $wisata->
                 $rating = new \willvincent\Rateable\Rating;
-                $rating->rating = rand(3, 5);
+                $rating->rating = rand(1, 5);
                 $rating->user_id = $u;
 
                 $wisata->ratings()->save($rating);
@@ -48,7 +48,7 @@ class WisataSeeder extends Seeder
         }
 
         
-        for($i=0; $i<2; $i++)
+        for($i=0; $i<30; $i++)
         {
             $randomUser = rand(1, 11);
             $randomProduct = rand(1, $wisataSize);

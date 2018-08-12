@@ -13,7 +13,7 @@ class DataSetWisataSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=0; $i<=19; $i++)
+        for ($i=0; $i<=49; $i++)
         {
             $rating = new DataSetWisata();
             $rating->rating = rand(1, 5);
